@@ -1,0 +1,351 @@
+@import 'import';
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css");
+
+@font-face {
+  font-family: 'NEXON Lv1 Gothic OTF';
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NEXON Lv1 Gothic OTF Bold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html {
+  margin: 0;
+  font-size: 10px;
+}
+
+* {
+  font-family: 'Pretendard';
+  box-sizing: border-box;
+}
+
+$footerH : 60px;
+
+body {
+  margin: 0;
+  height: calc(100vh - 60px);
+}
+
+#wrapper {
+  height: auto;
+  min-height: 100%;
+  //padding-bottom: $footerH;
+}
+
+footer {
+  height: $footerH;
+  position: relative;
+  //transform : translateY(-100%);
+
+  display: flex;
+  width: 100%;
+  padding: 15px;
+  font-size: 1.2rem;
+  background-color: $footerBg;
+  align-items: center;
+  justify-content: space-around;
+  color: rgba(255, 255, 255, 0.8);
+
+  p {
+    margin: 5px 0;
+  }
+  div:first-child {
+    height:24px;
+  }
+  div:last-child {
+    text-align: right;
+  }
+
+  a {
+    margin-right: 4px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.7);
+
+    transition: all 0.3s ease-in-out;
+  }
+
+  svg {
+    fill: rgba(255, 255, 255, 0.8);
+
+    transition: all 0.3s ease-in-out;
+  }
+
+  a:hover svg,
+  a:active svg,
+  a:focus svg {
+    fill: #C0DEC7;
+  }
+
+  h4 {
+    margin: 0;
+    font-weight: bolder;
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  footer {
+    flex-direction: column;
+    align-items: center;
+    padding: 4px  0 0 0;
+    justify-content: center;
+  }
+
+  footer div * {
+    text-align: left;
+  }
+}
+
+b {
+  font-weight: bolder;
+}
+
+/*버튼*/
+.btn-box {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  align-items: stretch;
+  justify-content: space-between;
+  bottom: 0;
+
+  .btn {
+    margin: 0;
+  }
+}
+
+.btn-box-grid {
+  margin-top: 2rem;
+  display: grid;
+  grid: 1fr / 2fr 2fr;
+  .btn-sm {
+    grid-column: 1 / 3;
+    background-color: $btnReset;
+  }
+}
+
+.btn {
+  font-family: 'NEXON Lv1 Gothic OTF';
+  display: inline-block;
+  margin: 5px;
+  border-radius: 4px;
+  font-size: 1.3rem;
+  color: #fff;
+  padding: 8px 25px 8px 25px;
+  border: none;
+  letter-spacing: .02rem;
+  background-color: $btnColor;
+  outline: 0;
+  cursor: pointer;
+  &:only-of-type(button) {
+    float: right;
+  }
+}
+
+.btn-disabled {
+  cursor: not-allowed;
+  filter: grayscale(100);
+}
+
+.btn {
+  transition: .3s ease-in;
+  transition-property: background-color;
+}
+
+.btn i {
+  transition: .5s ease-in-out;
+  transition-property: transform;
+}
+
+.btn-sm {
+  font-size: 1.2rem;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+.btn:focus {
+  box-shadow: 0 0 0 3px rgba($btnColor, 0.6), $btnShadow;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: $btnHovColor;
+}
+
+textarea,
+input[type=text] {
+  outline: none;
+  resize: none;
+  border: 1px solid $btnReset;
+  border-radius: 2px;
+
+  &:active,
+  &:focus {
+    box-shadow: inset 0 0 0 3px rgba($accentLight, 0.6);
+  }
+}
+
+@import url('https://cdn.jsdelivr.net/gh/jonsuh/hamburgers/dist/hamburgers.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css');
+
+nav#float-menu {
+  @include centerboth;
+  $siz: 5rem;
+  position: fixed;
+  top: 4rem;
+  left: 2rem;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: $siz;
+  gap: 10px;
+  z-index:2;
+
+  &>label,
+  &>a {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    
+  }
+
+  .f-menu {
+    transform-origin: bottom;
+    transform: scale(0.8);
+    background: $footerBg;
+    padding: 12px 10px;
+    width: 50px;
+    border-radius: 50%;
+    z-index: 20;
+
+    &--1 {
+      --color: rgb(243, 129, 129);
+      --light-color:#FCE0E0;
+    }
+
+    &--2 { 
+      --color: rgb(252, 227, 138);
+      --light-color:#FEF8E2;
+    }
+    &--3 {
+      --color: rgb(149, 225, 211);
+      --light-color:#E4F7F4;
+    }
+  }
+  
+  a {
+    opacity:0;
+    position: relative;
+    background: $lightBg;
+    color: $textgray;
+    width: $siz;
+    height: $siz;
+    border-radius: 50%;
+    @include centerboth;
+    font-size: 2.6rem;
+    z-index: 1;
+    animation-duration: 1s;
+    transition: all 0.5s ease-out;
+    text-decoration:none;
+
+    
+    &:hover, &:focus, &:active {
+      background:var(--color);
+      box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px, 0 2px 6px -2px inset var(--light-color);
+    }
+    &:nth-of-type(4) {
+      width:3.4rem;
+      height:3.4rem;
+      font-size:1.8rem;
+      &:hover, &:focus, &:active {
+        background:$footerBg;
+        color:$lightBg;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+      }
+    }
+  }
+  .bounceIn~a {
+    animation-duration: 0.75s;
+    animation-name: bounceIn;
+    
+    animation-fill-mode: both;
+    @for $i from 0 through 5 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$i*0.2}s;
+      }
+    }
+  }
+  .bounceOut~a {
+    opacity:1;
+    animation-duration: 0.75s;
+    animation-name: bounceOut;
+    animation-fill-mode: both;
+    @for $i from 0 through 5 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{1 - $i*0.2}s;
+      }
+    }
+  }
+
+  .hamburger-inner,
+  .hamburger-inner:after,
+  .hamburger-inner:before {
+    width: 30px;
+    height: 4px;
+    background:$lightBg;
+  }
+}
+
+//-- animation 
+@keyframes bounceIn {
+  from, 20%, 40%, 60%, 80%, to {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  0% {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+  20% {
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+  40% {
+    transform: scale3d(0.9, 0.9, 0.9);
+  }
+  60% {
+    opacity: 1;
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+  80% {
+    transform: scale3d(0.97, 0.97, 0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+@keyframes bounceOut {
+  20% {
+    transform: scale3d(0.9, 0.9, 0.9);
+  }
+  50%, 55% {
+    opacity: 1;
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+  to {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+}
+
+
+
