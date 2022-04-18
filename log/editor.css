@@ -5,7 +5,10 @@
   font-style: normal;
 }
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
-
+@font-face {
+  font-family: 'Diceicon';
+  src: url("https://cdn.jsdelivr.net/gh/headdrop/RollingMint/source/Diceicon.woff") format("woff");
+}
 
 html {
   font-family: 'Pretendard';

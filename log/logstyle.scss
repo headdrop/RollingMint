@@ -197,15 +197,15 @@ span.inlinerollresult {
 }
 
 /* 기본 표 */
-.sheet-rolltemplate-default table {
-  width: 400px;
-  @media (max-width:464px) {
-    width:100%;
-  }
-  @media (max-width:580px) {
-    width:100%;
-  }
+div.sheet-rolltemplate-default table {
+  width:100%;
+  
 }
+@media (min-width:500px) {
+  div.sheet-rolltemplate-default table {
+    width: 400px;
+  }
+} 
 
 .sheet-rolltemplate-default table {
   background-color: rgba(255,255,255,0.6);

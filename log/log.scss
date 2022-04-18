@@ -1,14 +1,14 @@
 @import '../import';
+@font-face {
+  font-family: 'Diceicon';
+  src: url("https://cdn.jsdelivr.net/gh/headdrop/RollingMint/source/Diceicon.woff") format("woff");
+}
 @mixin centerboth  {
   display:flex;
   justify-content: center; 
   align-items: center;
 }
 
-@font-face {
-  font-family: 'Diceicon';
-  src: url("https://cdn.jsdelivr.net/gh/headdrop/RollingMint/source/Diceicon.woff") format("woff");
-}
 @mixin container {
   width: 80vw;
   max-width: 1200px;

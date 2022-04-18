@@ -202,19 +202,13 @@ span.inlinerollresult {
 }
 
 /* 기본 표 */
-.sheet-rolltemplate-default table {
-  width: 400px;
+div.sheet-rolltemplate-default table {
+  width: 100%;
 }
 
-@media (max-width: 464px) {
-  .sheet-rolltemplate-default table {
-    width: 100%;
-  }
-}
-
-@media (max-width: 580px) {
-  .sheet-rolltemplate-default table {
-    width: 100%;
+@media (min-width: 500px) {
+  div.sheet-rolltemplate-default table {
+    width: 400px;
   }
 }
 
