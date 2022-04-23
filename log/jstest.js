@@ -117,6 +117,7 @@ function resetCustom () {
   pond.removeFiles(); 
   document.getElementById("editing").value = '';
   document.querySelector("#highlighting code").textContent='';
+  document.getElementById("custom-input-css").remove();
 }
 
 function radioOpt() {
