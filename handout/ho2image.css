@@ -405,6 +405,21 @@ input:checked + .tabCon {
   line-height: 22.5px;
 }
 
+#insaneHO + .tabCon .ho-back .ho-box-2 {
+  color: #DDDDDD;
+  font-family: "KopubWorldBatang", "KopubBatang", "batang" !important;
+  font-size: 12px;
+  padding: 4px 0 1px 0;
+  text-align: center;
+}
+
+#insaneHO + .tabCon .ho-back .ho-box-2 img {
+  width: 32px !important;
+  -webkit-transform: rotate(-10deg);
+          transform: rotate(-10deg);
+  margin-right: -10px;
+}
+
 #insaneHO + .tabCon .ho-box-content {
   text-align: justify;
 }

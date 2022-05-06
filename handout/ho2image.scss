@@ -333,17 +333,27 @@ input:checked+.tabCon {
       background-repeat:repeat;
       line-height:22.5px;
     }
+    
+    .ho-box-2 {
+      color: #DDDDDD;
+      font-family: 'KopubWorldBatang','KopubBatang','batang'!important;
+      font-size: 12px;
+      padding: 4px 0 1px 0;
+      text-align:center;
+      img {
+        width: 32px!important;
+        transform: rotate(-10deg);
+        margin-right: -10px;
+      }
+    }
   }
   .ho-box-content {
     text-align:justify;
   }
 }
-
 span.bold {
   font-weight:600;
-  
 }
-
 .bottom {
   display:flex;
   justify-content: center;
