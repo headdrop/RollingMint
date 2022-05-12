@@ -28,9 +28,11 @@ function selectRule () {
   let ruleName = ruleList.options[document.getElementById("rule").selectedIndex].text;
   let index = ruleList.selectedIndex;
   //rulelist
-  let rule1 = ["Roll20 기본","Theme 2"]; //인세인 (r1_t1, r1_t2)
-  let rule2 = ["Roll20 기본"]; // CoC (r2_t1)
-  let rule = [rule1, rule2];
+  let rule1, rule2, rule3;
+
+  rule1 = ["Roll20 기본","Theme 2"]; //인세인 (r1_t1, r1_t2)
+  rule2 = rule3 = ["Roll20 기본"]; // CoC (r2_t1), 마기로기(r3_t1)
+  let rule = [rule1, rule2, rule3];
   document.getElementById("theme").innerHTML='';
   if (index!==0) { // 인덱스 0이아니면
     let selectedRule =  //룰 표 템플릿 추가
@@ -39,9 +41,86 @@ function selectRule () {
     // CoC
     (index===2) ? `<div class="sheet-rolltemplate-coc-1"><table><caption>SAN Roll</caption><tbody><tr><td class="sheet-template_label" data-i18n="value">기준치:</td><td class="sheet-template_value"><span class="inlinerollresult showtip tipsy-n-right" title="Rolling 50 = 50">50</span>/<span class="inlinerollresult showtip tipsy-n-right" title="Rolling floor(50/2) = floor(50/2)">25</span>/<span class="inlinerollresult showtip tipsy-n-right" title="Rolling floor(50/5) = floor(50/5)">10</span></td></tr><tr><td class="sheet-template_label" data-i18n="rolled">굴림:</td><td class="sheet-template_value"><span class="inlinerollresult showtip tipsy-n-right" title="Rolling 1d100 = (<span class=&quot;basicdiceroll&quot;>44</span>)">44</span></td></tr><tr style="background: #bebebe"><td class="sheet-template_label" data-i18n="result">판정결과:</td><td style="background: darkgreen" class="sheet-template_value" data-i18n="success">보통 성공</td></tr></tbody></table></div>
     </div><div class="message general">
-    <div class="sheet-rolltemplate-coc"><table><caption>근접전(격투)</caption><tbody><tr><td class="sheet-template_label" data-i18n="value">기준치:</td><td class="sheet-template_value"><span class="inlinerollresult showtip tipsy-n-right" original-title="Rolling 25 = 25">25</span>/<span class="inlinerollresult showtip tipsy-n-right" original-title="Rolling floor(25/2) = floor(25/2)">12</span>/<span class="inlinerollresult showtip tipsy-n-right" original-title="Rolling floor(25/5) = floor(25/5)">5</span></td></tr><tr><td class="sheet-template_label" data-i18n="rolled">굴림:</td><td class="sheet-template_value"><span class="inlinerollresult showtip tipsy-n-right" original-title="<img src=&quot;/images/quantumrollwhite.png&quot; class=&quot;inlineqroll&quot;> Rolling 1d100 = (<span class=&quot;basicdiceroll&quot;>58</span>)">58</span>, <span class="inlinerollresult showtip tipsy-n-right" original-title="<img src=&quot;/images/quantumrollwhite.png&quot; class=&quot;inlineqroll&quot;> Rolling 1d100 = (<span class=&quot;basicdiceroll&quot;>21</span>)">21</span>, <span class="inlinerollresult showtip tipsy-n-right" original-title="<img src=&quot;/images/quantumrollwhite.png&quot; class=&quot;inlineqroll&quot;> Rolling 1d100 = (<span class=&quot;basicdiceroll&quot;>76</span>)">76</span></td></tr><tr style="background: #dff0d8"><td class="sheet-template_label">+2:</td><td class="sheet-template_value" data-i18n="success">보통 성공</td></tr><tr style="background: #d9edf7"><td class="sheet-template_label">+1:</td><td class="sheet-template_value" data-i18n="success">보통 성공</td></tr><tr style="background: #d3d3d3"><td class="sheet-template_label">&nbsp;&nbsp;0:</td><td class="sheet-template_value" data-i18n="fail">실패</td></tr><tr style="background: #fcf8e3"><td class="sheet-template_label">-1:</td><td class="sheet-template_value" data-i18n="fail">실패</td></tr><tr style="background: #f2dede"><td class="sheet-template_label">-2:</td><td class="sheet-template_value" data-i18n="fail">실패</td></tr></tbody></table></div>`
-    : '';
-    var template = `<div class="message general"><div class="spacer"></div><div class="avatar" aria-hidden="true"></div><span class="tstamp" aria-hidden="true">March 13, 2021 8:34PM</span><span class="by">룰 템플릿 미리보기</span>${selectedRule}</div>`;
+    <div class="sheet-rolltemplate-coc"><table><caption>근접전(격투)</caption><tbody><tr><td class="sheet-template_label" data-i18n="value">기준치:</td><td class="sheet-template_value"><span class="inlinerollresult showtip tipsy-n-right" original-title="Rolling 25 = 25">25</span>/<span class="inlinerollresult showtip tipsy-n-right" original-title="Rolling floor(25/2) = floor(25/2)">12</span>/<span class="inlinerollresult showtip tipsy-n-right" original-title="Rolling floor(25/5) = floor(25/5)">5</span></td></tr><tr><td class="sheet-template_label" data-i18n="rolled">굴림:</td><td class="sheet-template_value"><span class="inlinerollresult showtip tipsy-n-right" original-title="<img src=&quot;/images/quantumrollwhite.png&quot; class=&quot;inlineqroll&quot;> Rolling 1d100 = (<span class=&quot;basicdiceroll&quot;>58</span>)">58</span>, <span class="inlinerollresult showtip tipsy-n-right" original-title="<img src=&quot;/images/quantumrollwhite.png&quot; class=&quot;inlineqroll&quot;> Rolling 1d100 = (<span class=&quot;basicdiceroll&quot;>21</span>)">21</span>, <span class="inlinerollresult showtip tipsy-n-right" original-title="<img src=&quot;/images/quantumrollwhite.png&quot; class=&quot;inlineqroll&quot;> Rolling 1d100 = (<span class=&quot;basicdiceroll&quot;>76</span>)">76</span></td></tr><tr style="background: #dff0d8"><td class="sheet-template_label">+2:</td><td class="sheet-template_value" data-i18n="success">보통 성공</td></tr><tr style="background: #d9edf7"><td class="sheet-template_label">+1:</td><td class="sheet-template_value" data-i18n="success">보통 성공</td></tr><tr style="background: #d3d3d3"><td class="sheet-template_label">&nbsp;&nbsp;0:</td><td class="sheet-template_value" data-i18n="fail">실패</td></tr><tr style="background: #fcf8e3"><td class="sheet-template_label">-1:</td><td class="sheet-template_value" data-i18n="fail">실패</td></tr><tr style="background: #f2dede"><td class="sheet-template_label">-2:</td><td class="sheet-template_value" data-i18n="fail">실패</td></tr></tbody></table></div>`:
+
+    (index===3) ? `<div class="sheet-rolltemplate-Magic">
+		<div class="sheet-template-top">
+			<div class="sheet-left"></div>
+			<div class="sheet-center"></div>
+			<div class="sheet-right"></div>
+		</div>
+		<div class="sheet-template-middle">
+			<div class="sheet-left"></div>
+			<div class="sheet-center">
+				<div class="sheet-title">
+					캐릭터 이름
+				</div>
+				<div class="sheet-divider"></div>
+				<div class="sheet-skillname">긴급 소환</div>
+				<div class="sheet-divider"></div>
+				<div class="sheet-random sheet-button">
+				<div>
+					<span class="sheet-area" data-i18n="fluid-0">가변(전체)</span>
+											<span data-i18n="illusion">환각</span>
+					</div>
+										</div>
+				<div class="sheet-target">
+					가변(전체)
+					<span class="sheet-dot"> · </span>
+						<span class="sheet-lbl sheet-bold" data-i18n="target">목표치</span>
+						<span class="sheet-mdl"><span class="inlinerollresult showtip tipsy-n-right" original-title="Rolling 0 = 0">9</span></span>
+				</div>
+				<div class="sheet-spec">
+					<span>소환</span>
+					<span class="sheet-dot"> · </span>
+					<span>없음</span>
+				</div>
+				<div class="sheet-desc">
+					무작위로 특기 하나를 선택한다. 그것이 지정특기가 된다. 지정특기 판정에 성공하면 「(특기명)의 정령」을 한 개체 소환할 수 있다.
+				</div>
+				<div class="sheet-recite">
+					향기로운 바람이여, 회답하는 이를 옮겨오라!
+				</div>
+			</div>
+			<div class="sheet-right"></div>
+		</div>
+		<div class="sheet-template-bottom">
+			<div class="sheet-left"></div>
+			<div class="sheet-center"></div>
+			<div class="sheet-right"></div>
+		</div>
+	</div>
+  <div class="sheet-rolltemplate-modulation-table">
+	<div class="sheet-template-top">
+		<div class="sheet-left"></div>
+		<div class="sheet-center"></div>
+		<div class="sheet-right"></div>
+	</div>
+	<div class="sheet-template-middle">
+		<div class="sheet-left"></div>
+		<div class="sheet-center">
+			<div class="sheet-title">
+				<span data-i18n="modulation_table">표</span></div>
+			<div class="sheet-divider"></div>
+			<div class="sheet-subtitle">
+				  <span class="sheet-myrow"><b>제목</b></span>
+			</div>
+			<div class="sheet-divider"></div>
+			<div class="sheet-desc">(<span class="inlinerollresult showtip tipsy-n-right fullfail" title="Rolling 1D6 = (<span class=&quot;basicdiceroll critfail &quot;>1</span>)">1</span>)
+				  <span class="sheet-myrow">내용이 출력되는 공간입니다.</span>
+			</div>
+		</div>
+		<div class="sheet-right"></div>
+	</div>
+	<div class="sheet-template-bottom">
+		<div class="sheet-left"></div>
+		<div class="sheet-center"></div>
+		<div class="sheet-right"></div>
+	</div>
+</div>
+  ` :
+    '';
+    var template = `<div class="message general"><div class="spacer"></div><div class="avatar" aria-hidden="true"></div><span class="tstamp" aria-hidden="true">March 13, 2021 8:34PM</span><span class="by">롤 템플릿 미리보기</span>${selectedRule}</div>`;
 
     rule[index-1].forEach((element,i) => {
           let checkboxRule =`<il><input type="radio" name="${ruleName}" id="r${index}_t${i+1}"><label for="r${index}_t${i+1}">${element}</label></il> `;
