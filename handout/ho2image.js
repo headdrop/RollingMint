@@ -49,13 +49,13 @@ window.onload = function () {
       val.addEventListener('change',(e)=>{
         switch(val.className) {
           case 'front-1' :
-            val.parentNode.children[5].querySelector(".ho-box>span:nth-child(2)").textContent = val.value;
+            val.parentNode.children[5].querySelector(".ho-box>table td:nth-child(2)").textContent = val.value;
             break;
           case 'front-2' :
             val.parentNode.children[5].querySelector(".ho-box-content").innerText = val.value;
             break;
           case 'back-1' :
-            val.parentNode.children[6].querySelector(".ho-box>span:nth-child(2)").textContent = val.value;
+            val.parentNode.children[6].querySelector(".ho-box>table td:nth-child(2").textContent = val.value;
             break;
           case 'back-2' :
             val.parentNode.children[6].querySelector(".ho-box-content").innerText = val.value;
