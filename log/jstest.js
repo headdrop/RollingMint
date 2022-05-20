@@ -621,7 +621,7 @@ function imgChange () {
     if (changeUrl.search(/^http/gi)=== -1) { // http 로 시작하지 않으면 동작X
     } else {
       document.querySelectorAll(`[data-avatarurl='${beforeUrl}']`).forEach((item,key)=>{
-        item.querySelector(".avatar").classList.remove("noImage"); // noImage class 삭제
+        item.querySelector(".avatar>img").classList.remove("noImage"); // noImage class 삭제
         item.querySelector(".avatar>img").src = changeUrl;
       });
     }
