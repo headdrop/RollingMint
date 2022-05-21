@@ -33,7 +33,7 @@
         var htmlContent = document.getElementById("editable").innerHTML;
         var fontTog = document.getElementById("font-size-tog").checked;
         var fontSize;
-        htmlContent = htmlContent.replace(/( id=".+?")|( class="(?!sheet-rolltemplate).+?")|(box-sizing: border-box; )|(data-.+?(".+?)")|(font-size: 13px;)|(class="")/gi,''); // 제거
+        htmlContent = htmlContent.replace(/( id=".+?")|( class="(?!sheet-rolltemplate).+?")|(box-sizing: border-box; )|(data-.+?(".*?)")|(font-size: 13px;)|(class="")/gi,''); // 제거
         htmlContent = htmlContent.replace(/<a style/gi,'<span style').replace(/<\/a>/gi,'</span>');
         if (fontTog) { // font size 사용하지않음 체크
           htmlContent = htmlContent.replace(/font-size: 13px;/gi,'');

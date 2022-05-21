@@ -541,10 +541,7 @@ function imgInput() {
       output = `<option value=${el}>${document.querySelector(`[data-avatarurl='${el}'] .by`).textContent.slice(0,-1)}</option>`
       $("#dropdownUrl").append(output);
     });
-  } catch {}
-  
-  $("#dropdownUrl").niceSelect();
-  
+  } catch {} finally {$("#dropdownUrl").niceSelect();}
 
   document.querySelector("#profileImg .apply").addEventListener("click",imgChange); //이벤트 연결
   errCatch();
