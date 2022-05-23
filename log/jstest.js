@@ -26,10 +26,9 @@ $(function () {
   document.querySelector(".example").addEventListener("click",hideMessageCP);
   tableColor('rgba(112, 32, 130, 1)');
   
-  // modal css 창
-  $(".modal-content .modal-close, #modal-submit, #modal-reset,.modal-layer,#preview-modal").on("click",()=>modaltog());
+  // modal 창
+  $(".modal-content .modal-close, #modal-submit, #modal-reset,.modal-layer, #preview-modal").on("click",()=>modaltog());
   document.getElementById("css-modal-openbtn").addEventListener("click",()=>modaltog("#css-modal"));
-  
 
 
   //에디터로 복사
@@ -55,6 +54,7 @@ $(function () {
 
 // 1. html 입력  > 다음 버튼
 function inputHTML () {
+  modaltog("#loader-modal");
   var events = $._data($("#log-input"), inputHTML);
   console.log("실행");
   reset();
@@ -78,14 +78,21 @@ function inputHTML () {
   document.getElementById("log-content").innerHTML = log;
   addID();
   nameExColor();
+  let lines=0;
+  try {
+    lines = document.querySelector("#log-content .content").childElementCount;
+  } catch {
+    alert("내용을 입력해 주세요.");
+  }
   setTimeout(function() {
     // url 달기
     let list1 = document.querySelectorAll("#log-content .avatar>img");
     for (var x of list1) {
-      x.parentNode.parentNode.setAttribute("data-avatarurl",x.currentSrc);
+      x.parentNode.parentNode.setAttribute("data-avatarurl",x.src);
     }
     imgInput(); //로 연결
-  }, 2000);
+    modaltog();
+  }, 500+lines*3);
 }
 
 
@@ -102,9 +109,7 @@ function selectRange(obj) {
 
 // 리셋함수
 function reset () {
-  console.log("reset");
   if( document.getElementById("profileImg")!=null){$("#profileImg").remove()}
-  
   $(".name-select>h2").nextAll().remove();
   const charColorSet = `<select id="Name" style="visibility:hidden">
   <option disabled selected>캐릭터를 선택하세요</option>

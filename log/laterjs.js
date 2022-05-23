@@ -153,7 +153,6 @@ const pond = FilePond.create( inputElement );
 function customCss () {
   $("style[id]").remove(); // 기존 초기화
   var regex = /(?<=\/\*\().+?(?=\)\*\/)/s;
-
   let editingCss = document.getElementById("editing").value;
   if (editingCss!='') { // 입력한 css 가 있을 경우 css 파일 연결 처리
     var style = document.createElement('style');
@@ -170,6 +169,29 @@ function customCss () {
       reader.onload = function() {
         var text = reader.result;
         if(text.indexOf('t1n4i2m4g5n8i9l7lor')!= -1) { // 확인 id (option) 있는 css 파일이면 이 페이지에서 다운로드받은 커스텀 파일로 간주
+          if(text.indexOf('/* 이미지 변환')!= -1) {
+            var regex2 = /\/\* 이미지 변환([\s\S]*?)\*\//gi
+            var imgVal = regex2.exec(text)[1];
+            var imgObj = JSON.parse(imgVal);
+            
+            for (let key in imgObj) {
+              const val = imgObj[key];
+              var beforeImg = document.querySelector("#imgList img.beforeimg[src='"+key+"']");
+              if (beforeImg==null) {
+                try {
+                  var asName = document.querySelector(`#dropdownUrl option[value='${key}']`).innerText;
+                  var changeImgInput =
+                    `<div class="changeImg-box"><div><span>${asName}의 프로필 이미지</span><i class="material-icons-round close">close</i></div><input class="input-area" type="url" placeholder="외부 이미지 링크를 입력해주세요." onfocus="this.placeholder=''" onblur="this.placeholder='외부 이미지 링크를 입력해주세요.'" value="${val}"><img class="beforeimg" src="${key}"/><div class="preview-icon"><label class="material-icons-round">photo_size_select_actual<input type="checkbox"></label><img src=""></div></div>`;
+                  document.getElementById("imgList").insertAdjacentHTML('beforeend',changeImgInput);
+                  $("#dropdownUrl").next().find(`[data-value='${key}']`).addClass("disabled");
+                } catch(e){console.log(e)}
+              } else {
+                beforeImg.previousSibling.value=val;
+              } 
+            }
+
+          }
+          //----------
           var optval = regex.exec(text)[0];
           var optObj =JSON.parse(optval); // 옵션 내용 객체
           let optarr = document.querySelectorAll(".glo-option input");
@@ -250,7 +272,8 @@ function downloadCss () {
   "emote" : {"color":"${styleNew[4].style.color}", "bg":"${styleNew[4].style.backgroundColor}","spacer":"${styleNew[5].style.backgroundColor}"},
   "you" : {"color":"${styleNew[6].style.color}", "bg":"${styleNew[6].style.backgroundColor}","spacer":"${styleNew[7].style.backgroundColor}"},
   "whisper" : {"color":"${styleNew[8].style.color}", "bg":"${styleNew[8].style.backgroundColor}","spacer":"${styleNew[9].style.backgroundColor}"}
-  } )*/`;
+  } )*/
+  `;
   var charStyleArr=[];
   for (var i=10; i<styleNew.length; i++) { // 캐릭터별 설정
     if (styleNew[i].cssText.search('#')!=-1) {
@@ -258,8 +281,17 @@ function downloadCss () {
     }
   }
   const makecss2 = charStyleArr.join("\n"); 
+  //---------
+  let css3_arr = document.querySelectorAll("#imgList .changeImg-box");
+  let css3_result={};
+  css3_arr.forEach((val,key)=>{
+    css3_result[val.querySelector(".beforeimg").src] =val.querySelector(".input-area").value;
+  })
+  var makecss3 = "/* 이미지 변환" + JSON.stringify(css3_result,null,2) + "*/";
+  console.log(makecss3);
+
   const filename = 'roll20 log mint custom.css';
-  const data = makecss1 +"\n\r"+makecss2;
+  const data = makecss1 +"\n\r"+makecss2+"\n\r"+makecss3;
   saveToFile_Chrome(filename,data);
 }
 function saveToFile_Chrome(fileName, content) {
