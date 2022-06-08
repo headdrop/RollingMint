@@ -59,12 +59,12 @@ function inputHTML () {
   console.log("실행");
   reset();
   var log = document.getElementById("log-input").value.replace(/(src="\/)/g, `src="https://app.roll20.net//`);
-  log = log.replace(/\r|\n/gi,''); // 개행 제거
+  log = log.replace(/(\r|\n)\s*/gi,''); // 개행 제거
   log = log.replace(/(<span class="by">)\s+?/gi,'<span class="by">');
   log = log.replace(/<span class=&quot;basicdiceroll&quot;>(.+?)<\/span>/gi,'$1');
-  log = log.replace(/(data-messageid=").+?"/gi,''); // data-messageid 삭제
+  log = log.replace(/((data-messageid=")|(data-playerid=")).+?"/gi,''); // data-messageid/playerid 삭제
   log = log.replace(/<a href=.+?>\s*?(<img.+?>)<\/a>/gi,'$1');
-  log = log.replace(/(?<=\<a )href=".+?"\s* (?=style=)/gi,''); // a 안의 href삭제 - style 붙지 않은 것은 삭제되지 않음
+  log = log.replace(/(?<=\<a )href=".+?"\s*(?!style=)/gi,''); // a 안의 href삭제 - style 붙지 않은 것은 삭제되지 않음
   log = log.replace(/(<img class="sheet-brdright").+?\>/gi,''); // 인세인 엑박 삭제
   if (document.getElementById("ck-colourised").checked===true) {
     log = log.replace(/( style="background-color:).+?;"/gi,''); // roll20-colourised 삭제
