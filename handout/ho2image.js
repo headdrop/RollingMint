@@ -77,7 +77,7 @@ window.onload = function () {
   document.getElementsByName('hoWidth').forEach((val,ind)=>{
     val.addEventListener('change',(e)=>{
       var a = val.value;
-      document.styleSheets[2].cssRules[0].style.width=a;
+      document.styleSheets[3].cssRules[0].style.width=a;
     })
   })
   
