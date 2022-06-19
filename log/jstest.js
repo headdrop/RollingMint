@@ -48,8 +48,6 @@ $(function () {
   });
   //global color picker 만들기
   makeFullGlobalCp();
-
-
 });
 
 // 1. html 입력  > 다음 버튼
@@ -63,14 +61,12 @@ function inputHTML () {
   log = log.replace(/(<span class="by">)\s+?/gi,'<span class="by">');
   log = log.replace(/<span class=&quot;basicdiceroll&quot;>(.+?)<\/span>/gi,'$1');
   log = log.replace(/((data-messageid=")|(data-playerid=")).+?"/gi,''); // data-messageid/playerid 삭제
-  log = log.replace(/<a href=.+?>\s*?(<img.+?>)<\/a>/gi,'$1');
-  log = log.replace(/(?<=\<a )href=".+?"\s*(?!style=)/gi,''); // a 안의 href삭제 - style 붙지 않은 것은 삭제되지 않음
   log = log.replace(/(<img class="sheet-brdright").+?\>/gi,''); // 인세인 엑박 삭제
   if (document.getElementById("ck-colourised").checked===true) {
     log = log.replace(/( style="background-color:).+?;"/gi,''); // roll20-colourised 삭제
   }
   log = log.replace(/roll20-colourised/gi,'');
-  log = log.replace(/(\([^\)]+?\#.+?)(<|")/gi,'$1)$2'); // 롤꾸 안깨지게 정리
+  //log = log.replace(/(\([^\)]+?\#.+?)(<|")/gi,'$1)$2'); // 롤꾸 안깨지게 정리 (괄호가 다 붙었을 것으로 대충 예상하고 지움)
   log = log.replace(/\[(.+?)\]\(#" (style.+?\))/gi,'<a $2">$1</a>'); // 잘린 a 붙이기
   for (key of Object.keys(diceinput)) {
     log = log.replace(diceinput[key],'$1'+key);
@@ -91,11 +87,31 @@ function inputHTML () {
     for (var x of list1) {
       x.parentNode.parentNode.setAttribute("data-avatarurl",x.src);
     }
+    modifying();
     imgInput(); //로 연결
     modaltog();
   }, 500+lines*3);
 }
 
+function modifying() {
+  let imgMod = document.querySelectorAll("#log-content a>img");
+  for (var m of imgMod) {
+    m.parentNode.parentNode.replaceChild(m,m.parentNode);
+  }
+  let aMod = document.querySelectorAll("#log-content a:not([href])");
+  for (var am of aMod) {
+    var newSpan = am.outerHTML.replace("<a","<span");
+    newSpan = newSpan.replace("</a>","</span>");
+    am.outerHTML = newSpan;
+  }
+  let bgMod = document.querySelectorAll("#log-content [style]");
+  for (var bg of bgMod) {
+    if(bg.style.boxShadow&&bg.parentNode.classList.contains("message")) {
+      console.log(bg.style.boxShadow);
+      bg.parentNode.style.overflow = "hidden";
+    }
+  }
+}
 
 function selectRange(obj) {
   if (window.getSelection) {

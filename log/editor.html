@@ -41,8 +41,7 @@
         var htmlContent = document.getElementById("editable").innerHTML;
         var fontTog = document.getElementById("font-size-tog").checked;
         var fontSize = document.getElementById("font-size").value;
-        htmlContent = htmlContent.replace(/( id=".+?")|( class="(?!sheet-rolltemplate).*?")|(box-sizing: border-box;)\s*|(data-.+?(".*?)")|(font-size: 13px;)\s*/gi,''); // 제거
-        htmlContent = htmlContent.replace(/<a\s+style/gi,'<span style').replace(/<\/a>/gi,'</span>');
+        htmlContent = htmlContent.replace(/( id=".+?")|( class="(?!sheet-rolltemplate).*?")|(box-sizing: border-box;)\s*|(data-.+?(".*?)")|(font-size: 13px;)\s*/gi,''); // 제거 **여기 더 건드리지 말 것! jstest 파일에서 수정!
         if (fontTog) { // font size 사용하지않음 체크
         } else { 
           fontSize = document.getElementById('font-size').value;
