@@ -77,7 +77,14 @@ window.onload = function () {
   document.getElementsByName('hoWidth').forEach((val,ind)=>{
     val.addEventListener('change',(e)=>{
       var a = val.value;
-      document.styleSheets[3].cssRules[0].style.width=a;
+      if (ind==0) {
+        document.styleSheets[3].cssRules[0].style.width=a;
+        document.styleSheets[3].cssRules[0].style.minWidth="unset";
+      } else { // 100%
+        document.styleSheets[3].cssRules[0].style.minWidth=a;
+      }
+      
+      
     })
   })
   

@@ -211,10 +211,14 @@ input:checked + .tabCon {
 #insaneHO + .tabCon .controls {
   grid-row: 1/span 2;
 }
+#insaneHO + .tabCon .ho-output * {
+  font-family: unset;
+}
 #insaneHO + .tabCon .ho-output {
   position: absolute;
   top: -4000000px;
   width: 100%;
+  font-family: unset;
 }
 #insaneHO + .tabCon .ho-output > div {
   width: 250px;

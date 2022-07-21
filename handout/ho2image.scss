@@ -220,10 +220,12 @@ input:checked+.tabCon {
     grid-row:1 / span 2;
 
   }
+  .ho-output * {font-family:unset}
   .ho-output {
     position: absolute;
     top:-4000000px;
     width:100%;
+    font-family:unset;
     >div {
       width:250px;
     }
