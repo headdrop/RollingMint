@@ -76,15 +76,11 @@ window.onload = function () {
   
   document.getElementsByName('hoWidth').forEach((val,ind)=>{
     val.addEventListener('change',(e)=>{
-      var a = val.value;
       if (ind==0) {
-        document.styleSheets[3].cssRules[0].style.width=a;
-        document.styleSheets[3].cssRules[0].style.minWidth="unset";
+        document.getElementById("width").innerHTML=`#insaneHO + .tabCon .ho-output > div {width:250px;min-width:'unset'}`;
       } else { // 100%
-        document.styleSheets[3].cssRules[0].style.minWidth=a;
+        document.getElementById("width").innerHTML=`#insaneHO + .tabCon .ho-output > div {min-width:100%}`;
       }
-      
-      
     })
   })
   
