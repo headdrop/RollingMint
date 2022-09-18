@@ -71,6 +71,7 @@ input[type="number"]::-webkit-inner-spin-button {
   box-sizing: border-box;
   padding: 5px;
   cursor:text;
+  resize: vertical;
 }
 #editable:empty::before{
   content: "복사한 내용을 여기에 Ctrl+V를 눌러 붙여넣습니다.\A로그 양이 많으면 로딩까지 시간이 걸립니다.\A이 화면에 로그가 나타날 때까지 기다려주세요.";
