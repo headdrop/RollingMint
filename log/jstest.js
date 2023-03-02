@@ -66,13 +66,14 @@ function inputHTML () {
     log = log.replace(/( style="background-color:).+?;"/gi,''); // roll20-colourised 삭제
   }
   log = log.replace(/roll20-colourised/gi,'');
-  //log = log.replace(/(\([^\)]+?\#.+?)(<|")/gi,'$1)$2'); // 롤꾸 안깨지게 정리 (괄호가 다 붙었을 것으로 대충 예상하고 지움)
+  log = log.replace(/(\(#.+?)</gi,'$1)<'); // 롤꾸 안깨지게 정리 (괄호 없이 남은 거 정리)
   log = log.replace(/\[(.+?)\]\(#" (style.+?\))/gi,'<a $2">$1</a>'); // 잘린 a 붙이기
   for (key of Object.keys(diceinput)) {
     log = log.replace(diceinput[key],'$1'+key);
   }
   //dice
   document.getElementById("log-content").innerHTML = log;
+
   addID();
   nameExColor();
   let lines=0;
@@ -91,6 +92,7 @@ function inputHTML () {
     imgInput(); //로 연결
     modaltog();
   }, 500+lines*3);
+  
 }
 
 function modifying() {
@@ -111,6 +113,10 @@ function modifying() {
       bg.parentNode.style.overflow = "hidden";
     }
   }
+  // flyout 일괄삭제
+  document.querySelectorAll("#log-content .flyout").forEach(function(item){
+    item.remove();
+  })
 }
 
 function selectRange(obj) {
