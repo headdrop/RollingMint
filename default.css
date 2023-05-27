@@ -240,15 +240,20 @@ nav#float-menu a:hover, nav#float-menu a:focus, nav#float-menu a:active {
   background: var(--color);
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px, 0 2px 6px -2px inset var(--light-color);
 }
-nav#float-menu a:nth-of-type(4) {
+nav#float-menu a:nth-of-type(4), nav#float-menu a:nth-of-type(8), nav#float-menu a:nth-of-type(9), nav#float-menu a:nth-of-type(10) {
   width: 3.4rem;
   height: 3.4rem;
   font-size: 1.8rem;
 }
-nav#float-menu a:nth-of-type(4):hover, nav#float-menu a:nth-of-type(4):focus, nav#float-menu a:nth-of-type(4):active {
+nav#float-menu a:nth-of-type(4):hover, nav#float-menu a:nth-of-type(4):focus, nav#float-menu a:nth-of-type(4):active, nav#float-menu a:nth-of-type(8):hover, nav#float-menu a:nth-of-type(8):focus, nav#float-menu a:nth-of-type(8):active, nav#float-menu a:nth-of-type(9):hover, nav#float-menu a:nth-of-type(9):focus, nav#float-menu a:nth-of-type(9):active, nav#float-menu a:nth-of-type(10):hover, nav#float-menu a:nth-of-type(10):focus, nav#float-menu a:nth-of-type(10):active {
   background: #4b4b4b;
   color: #efeff1;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+nav#float-menu a:nth-of-type(5), nav#float-menu a:nth-of-type(6), nav#float-menu a:nth-of-type(7) {
+  width: 4px;
+  height: 4px;
+  background: #4b4b4b;
 }
 nav#float-menu .bounceIn ~ a {
   animation-duration: 0.75s;
@@ -272,6 +277,24 @@ nav#float-menu .bounceIn ~ a:nth-child(4) {
 }
 nav#float-menu .bounceIn ~ a:nth-child(5) {
   animation-delay: 1s;
+}
+nav#float-menu .bounceIn ~ a:nth-child(6) {
+  animation-delay: 1.1s;
+}
+nav#float-menu .bounceIn ~ a:nth-child(7) {
+  animation-delay: 1.2s;
+}
+nav#float-menu .bounceIn ~ a:nth-child(8) {
+  animation-delay: 1.3s;
+}
+nav#float-menu .bounceIn ~ a:nth-child(9) {
+  animation-delay: 1.5s;
+}
+nav#float-menu .bounceIn ~ a:nth-child(10) {
+  animation-delay: 1.7s;
+}
+nav#float-menu .bounceIn ~ a:nth-child(11) {
+  animation-delay: 1.9s;
 }
 nav#float-menu .bounceOut ~ a {
   opacity: 1;

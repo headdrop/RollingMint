@@ -20,12 +20,7 @@ h2 {
 h3 {
   font-size: 1.8rem;
   line-height: 2.5rem;
-  font-weight: bold;
   color: #2c695f;
-}
-
-h1, h2, h3, h4 {
-  font-weight: 400;
 }
 
 h2, h3, .name-select {
@@ -54,8 +49,7 @@ h2, h3, .item, .text {
   }
 }
 
-.example, #log-content {
-  /*폰트 사이즈 결정 참조: https://webclub.tistory.com/122 */
+.example, #log-content { /*폰트 사이즈 결정 참조: https://webclub.tistory.com/122 */
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   font-size: 1.3em;
@@ -202,29 +196,10 @@ i {
   width: 150px;
   overflow: hidden;
   border-radius: 30% 50% 20% 40%;
-  -webkit-animation: transform 18s ease-in-out infinite both alternate;
-          animation: transform 18s ease-in-out infinite both alternate;
+  animation: transform 18s ease-in-out infinite both alternate;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-@-webkit-keyframes transform {
-  0%, 100% {
-    border-radius: 33% 67% 70% 30%/30% 30% 70% 70%;
-  }
-  20% {
-    border-radius: 37% 63% 51% 49%/37% 65% 35% 63%;
-  }
-  40% {
-    border-radius: 36% 64% 64% 36%/64% 48% 52% 36%;
-  }
-  60% {
-    border-radius: 37% 63% 51% 49%/30% 30% 70% 70%;
-  }
-  80% {
-    border-radius: 40% 60% 42% 58%/41% 51% 49% 59%;
-  }
 }
 
 @keyframes transform {
@@ -259,8 +234,7 @@ i {
   opacity: 0.1;
   background-color: #3a9488;
   transform: scale(1.02) rotate(120deg);
-  -webkit-animation: transform 20s ease-in-out infinite both;
-          animation: transform 20s ease-in-out infinite both;
+  animation: transform 20s ease-in-out infinite both;
 }
 
 .changeImg-box {
@@ -297,14 +271,7 @@ i {
   border-bottom: solid 2px;
   -o-border-image: conic-gradient(from var(--angle), #B294FF, #57E6E6, #B294FF) 1;
      border-image: conic-gradient(from var(--angle), #B294FF, #57E6E6, #B294FF) 1;
-  -webkit-animation: 2s rotate linear infinite;
-          animation: 2s rotate linear infinite;
-}
-
-@-webkit-keyframes rotate {
-  to {
-    --angle: 360deg;
-  }
+  animation: 2s rotate linear infinite;
 }
 
 @keyframes rotate {
@@ -382,6 +349,7 @@ i {
 
 .example {
   padding-left: 90px;
+  margin-bottom: 50px;
 }
 .example .message {
   position: relative;
@@ -430,13 +398,14 @@ h3 {
   align-items: flex-start;
 }
 
+.bottom h2 {
+  margin-bottom: 0.5em;
+}
+
 .name-select {
   min-height: 6em;
   margin-left: 90px;
   font-size: 1.4rem;
-}
-.name-select > h2 {
-  margin-bottom: 0.5em;
 }
 
 /*flex items*/
@@ -447,7 +416,7 @@ h3 {
 
 .item {
   background-color: #FEFEFE;
-  flex-basis: 240px;
+  flex-basis: 300px;
   flex-grow: 2;
   flex-shrink: 0;
   padding: 10px;
@@ -464,7 +433,7 @@ h3 {
   background-color: #000000;
   background-image: linear-gradient(to bottom, #325745 0%, #004225 100%);
   padding: 10px 10px 10px 20px;
-  color: white;
+  color: rgb(255, 255, 255);
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
 }
@@ -505,6 +474,9 @@ h3 {
 }
 .item a:hover, .item a:focus {
   color: #ECA4A6;
+}
+.item .btn-full {
+  width: calc(100% - 10px);
 }
 
 .labeldiv {
@@ -558,10 +530,8 @@ h3 {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   padding: 0.2em;
@@ -611,25 +581,74 @@ h3 {
   align-items: center;
 }
 
-#log-content {
-  max-height: 200px;
-  overflow: hidden;
+.preview-box {
+  display: flex;
   position: relative;
-  margin-top: 50px;
+  gap: 10px;
+  margin-bottom: 2rem;
 }
-#log-content::before {
-  content: "미리보기";
-  font-size: 1.8rem;
-  line-height: 2.5rem;
-  font-weight: bold;
-  color: #2c695f;
+.preview-box p {
+  display: flex;
+  align-items: center;
+  margin-block: 0;
+  font-size: 1.5rem;
+  color: #9c9c9c;
   font-family: "NEXON Lv1 Gothic OTF";
+  line-height: 1em;
+}
+.preview-box p input.ckbx {
+  flex-shrink: 0;
+  margin-right: 0.5rem;
+}
+.preview-box p:hover + tooltip, .preview-box p:focus + tooltip, .preview-box p:active + tooltip {
+  display: block;
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  width: 80%;
+  max-width: 600px;
+}
+
+@media screen and (max-width: 767px) {
+  .preview-box {
+    flex-direction: column;
+  }
+}
+#log-content {
+  overflow-y: clip;
+  position: relative;
 }
 #log-content + p {
   font-size: 1.5rem;
   line-height: 2.5rem;
   color: #9c9c9c;
   font-family: "NEXON Lv1 Gothic OTF";
+}
+#log-content .delete-message-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: -25px;
+  top: 2px;
+  padding: 1px;
+  color: white;
+  background-color: #a3afb8;
+  border-radius: 2px;
+}
+#log-content .delete-message-btn:hover, #log-content .delete-message-btn:focus {
+  color: #D91E36 !important;
+  background-color: transparent !important;
+}
+#log-content .delete-message-btn i {
+  font-size: 20px !important;
+}
+#log-content .message:nth-child(even) .delete-message-btn {
+  background-color: transparent !important;
+  color: #a3afb8;
+}
+#log-content .message[style="overflow: hidden;"] .delete-message-btn {
+  left: 0px;
 }
 
 button.reset {
@@ -714,23 +733,11 @@ tooltip {
   z-index: 10;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07), 0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07), 0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
   transform-origin: left top;
-  -webkit-animation: slide-down 0.2s ease-in-out;
-          animation: slide-down 0.2s ease-in-out;
+  animation: slide-down 0.2s ease-in-out;
 }
 
 li:hover + tooltip {
   display: inline-block;
-}
-
-@-webkit-keyframes slide-down {
-  0% {
-    opacity: 0;
-    transform: scaleY(0);
-  }
-  100% {
-    opacity: 1;
-    transform: scaleY(1);
-  }
 }
 
 @keyframes slide-down {
@@ -767,7 +774,6 @@ input[type=radio] {
     background: var(--b, var(--background));
     transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
   }
-
   input[type=checkbox].ckbx:after,
 input[type=radio]:after {
     content: "";
@@ -777,7 +783,6 @@ input[type=radio]:after {
     position: absolute;
     transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);
   }
-
   input[type=checkbox].ckbx:checked,
 input[type=radio]:checked {
     --b: var(--active);
@@ -786,50 +791,41 @@ input[type=radio]:checked {
     --d-t: 0.6s;
     --d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2);
   }
-
   input[type=checkbox].ckbx:disabled,
 input[type=radio]:disabled {
     --b: var(--disabled);
     cursor: not-allowed;
     opacity: 0.9;
   }
-
   input[type=checkbox].ckbx:disabled:checked,
 input[type=radio]:disabled:checked {
     --b: var(--disabled-inner);
     --bc: var(--border);
   }
-
   input[type=checkbox].ckbx:disabled + label,
 input[type=radio]:disabled + label {
     cursor: not-allowed;
   }
-
   input[type=checkbox].ckbx:hover:not(:checked):not(:disabled),
 input[type=radio]:hover:not(:checked):not(:disabled) {
     --bc: var(--border-hover);
   }
-
   input[type=checkbox].ckbx:focus,
 input[type=radio]:focus {
     box-shadow: 0 0 0 var(--focus);
   }
-
   input[type=checkbox].ckbx:not(.switch),
 input[type=radio]:not(.switch) {
     width: 21px;
   }
-
   input[type=checkbox].ckbx:not(.switch):after,
 input[type=radio]:not(.switch):after {
     opacity: var(--o, 0);
   }
-
   input[type=checkbox].ckbx:not(.switch):checked,
 input[type=radio]:not(.switch):checked {
     --o: 1;
   }
-
   input[type=checkbox].ckbx + label,
 input[type=radio] + label {
     font-size: 1.4rem;
@@ -839,11 +835,9 @@ input[type=radio] + label {
     cursor: pointer;
     margin-left: 4px;
   }
-
   input[type=checkbox].ckbx:not(.switch) {
     border-radius: 7px;
   }
-
   input[type=checkbox].ckbx:not(.switch):after {
     width: 5px;
     height: 9px;
@@ -854,16 +848,13 @@ input[type=radio] + label {
     top: 4px;
     transform: rotate(var(--r, 20deg));
   }
-
   input[type=checkbox].ckbx:not(.switch):checked {
     --r: 43deg;
   }
-
   input[type=checkbox].ckbx.switch {
     width: 38px;
     border-radius: 11px;
   }
-
   input[type=checkbox].ckbx.switch:after {
     left: 2px;
     top: 2px;
@@ -873,20 +864,16 @@ input[type=radio] + label {
     background: var(--ab, var(--border));
     transform: translateX(var(--x, 0));
   }
-
   input[type=checkbox].ckbx.switch:checked {
     --ab: var(--active-inner);
     --x: 17px;
   }
-
   input[type=checkbox].ckbx.switch:disabled:not(:checked):after {
     opacity: 0.6;
   }
-
   input[type=radio] {
     border-radius: 50%;
   }
-
   input[type=radio]:after {
     width: 19px;
     height: 19px;
@@ -895,7 +882,6 @@ input[type=radio] + label {
     opacity: 0;
     transform: scale(var(--s, 0.7));
   }
-
   input[type=radio]:checked {
     --s: 0.5;
   }
@@ -973,10 +959,8 @@ input[type=radio] + label {
   cursor: zoom-out;
 }
 #preview-modal .modal-content {
-  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   max-width: 100%;
@@ -1047,45 +1031,27 @@ input[type=radio] + label {
   background: #3ac;
   border-radius: 100%;
   display: inline-block;
-  -webkit-animation: slide 1s infinite;
-          animation: slide 1s infinite;
+  animation: slide 1s infinite;
 }
 #loader-modal .dot:nth-child(1) {
-  -webkit-animation-delay: 0.1s;
-          animation-delay: 0.1s;
+  animation-delay: 0.1s;
   background: #32aacc;
 }
 #loader-modal .dot:nth-child(2) {
-  -webkit-animation-delay: 0.2s;
-          animation-delay: 0.2s;
+  animation-delay: 0.2s;
   background: #64aacc;
 }
 #loader-modal .dot:nth-child(3) {
-  -webkit-animation-delay: 0.3s;
-          animation-delay: 0.3s;
+  animation-delay: 0.3s;
   background: #96aacc;
 }
 #loader-modal .dot:nth-child(4) {
-  -webkit-animation-delay: 0.4s;
-          animation-delay: 0.4s;
+  animation-delay: 0.4s;
   background: #c8aacc;
 }
 #loader-modal .dot:nth-child(5) {
-  -webkit-animation-delay: 0.5s;
-          animation-delay: 0.5s;
+  animation-delay: 0.5s;
   background: #faaacc;
-}
-@-webkit-keyframes slide {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.3;
-    transform: scale(2);
-  }
-  100% {
-    transform: scale(1);
-  }
 }
 @keyframes slide {
   0% {
@@ -1101,7 +1067,7 @@ input[type=radio] + label {
 }
 
 #modal-reset {
-  background-color: red;
+  background-color: #D91E36;
 }
 
 #ld4 {
@@ -1132,49 +1098,19 @@ input[type=radio] + label {
 }
 
 #ld4 div:nth-child(1) {
-  -webkit-animation: ld4 3s linear infinite 0s;
-          animation: ld4 3s linear infinite 0s;
+  animation: ld4 3s linear infinite 0s;
 }
 
 #ld4 div:nth-child(2) {
-  -webkit-animation: ld4 3s linear infinite 0.15s;
-          animation: ld4 3s linear infinite 0.15s;
+  animation: ld4 3s linear infinite 0.15s;
 }
 
 #ld4 div:nth-child(3) {
-  -webkit-animation: ld4 3s linear infinite 0.3s;
-          animation: ld4 3s linear infinite 0.3s;
+  animation: ld4 3s linear infinite 0.3s;
 }
 
 #ld4 div:nth-child(4) {
-  -webkit-animation: ld4 3s linear infinite 0.45s;
-          animation: ld4 3s linear infinite 0.45s;
-}
-
-@-webkit-keyframes ld4 {
-  0% {
-    opacity: 0;
-    transform: scale(0.3);
-    background: #59CD90;
-  }
-  25% {
-    opacity: 1;
-    transform: scale(1.8);
-    background: #0072BB;
-  }
-  50% {
-    opacity: 0;
-    transform: scale(0.3);
-    background: #FE4A49;
-  }
-  75% {
-    opacity: 1;
-    transform: scale(1.8);
-    background: #FED766;
-  }
-  100% {
-    opacity: 0;
-  }
+  animation: ld4 3s linear infinite 0.45s;
 }
 
 @keyframes ld4 {
@@ -1261,15 +1197,13 @@ input[type=radio] + label {
 #editing {
   color: transparent;
   background: transparent;
-  caret-color: white;
-  /* Or choose your favourite color */
+  caret-color: white; /* Or choose your favourite color */
 }
 
 /* Can be scrolled */
 #editing, #highlighting {
   overflow: auto;
-  white-space: nowrap;
-  /* Allows textarea to scroll horizontally */
+  white-space: nowrap; /* Allows textarea to scroll horizontally */
 }
 
 #highlighting-content::-webkit-scrollbar {
@@ -1317,7 +1251,6 @@ embed {
   .btn-box button:last-child {
     flex: auto;
   }
-
   .btn-box-half button {
     flex: auto;
   }

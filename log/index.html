@@ -8,7 +8,7 @@
   <meta property="og:url" content="https://headdrop.github.io/RollingMint/">
   <meta property="og:title" content="Rolling Mint: Roll20 log customizer">
   <meta property="og:image" content="https://raw.githubusercontent.com/headdrop/RollingMint/main/source/ogimg.png">
-  <meta property="og:description" content="Roll20 로그를 커스텀해 티스토리에 쉽게 백업하기 위한 사이트입니다.">
+  <meta property="og:description" content="Roll20 로그를 커스텀해 쉽게 백업하기 위한 사이트입니다.">
   <meta property="og:site_name" content="Rolling Mint">
   <meta property="og:locale" content="ko_KR">
   <link rel="icon" type="image/svg+xml" href="../source/favicon.svg">
@@ -40,15 +40,16 @@
     </div>
     <h2>Roll20 로그 커스터마이징 도구</h2>
     <div class="text">
-      <p>Roll20 로그를 Tistory 신에디터 HTML 편집모드를 사용해 백업하기 위한 커스터마이징 페이지입니다.</p>
-      <p>이 페이지는 chrome 에서 테스트하였습니다.</p>
+      <p>Roll20 로그를 HTML 편집모드를 사용해 백업하기 위한 커스터마이징 페이지입니다.<br>Blogger, 티스토리 등 <b>HTML 편집 가능한 포스트를 작성할 수 있는 블로그 서비스</b>나 기타 HTML 편집 에디터, 개인홈에서 사용할 수 있습니다.</p>
+      <p>이 페이지는 Windows10 chrome 환경에서 테스트하였습니다.</p>
       <p>반응형 디자인 적용, 주사위 이미지 출력을 원하는 분은 <b>반드시</b> 가이드 페이지를 확인해 주세요.</p>
         <div class="btn-box-grid">
           <button class="btn" target="_blank" onclick="window.open('https://hdtrpg.notion.site/Rolling-Mint-README-533da86adc214833bdf328403e301c74')">가이드 페이지 바로가기</button>
         <button class="btn" target="_blank" onclick="window.open('https://hdtrpg.postype.com/')">포스타입 바로가기</button>
         </div>
+      <p><b>문의는 ↖메뉴 버튼을 누르세요! 문의 전, 가이드 페이지를 확인해 주세요!</b></p>
       <p style="text-align: center;"><a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fheaddrop.github.io%2FRollingMint&count_bg=%233A9488&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/></a></p>
-      <p><span>@HDTRPG</span><span>ver 3.51</span></p>
+      <p><span>@HDTRPG</span><span>ver 4.0</span></p>
     </div>
   </div>
   <div style="overflow: hidden;">
@@ -89,6 +90,7 @@
         <hr />
         <h3>룰에 따른 주사위 굴림 출력</h3>
         <p>커스텀 시트를 적용하고 싶을 때에는 이곳에서 룰을 선택하지 마세요.</p>
+        <p>아래의 캐릭터별 색상 설정에서 롤 템플릿을 미리볼 수 있습니다.</p>
         <select name="rule" id="rule">
           <option value="RULE" default>RULE</option>
           <option value="1">inSANe</option>
@@ -120,7 +122,7 @@
             <label for="ck-noimg">프로필 사진 삭제</label>
           </li>
           <li><input type="checkbox" class="ckbx"  name="glo-ck" id="ck-you">
-            <label for="ck-you">내 메시지 배경색 투명</label>
+            <label for="ck-you">내 메시지 배경색 기본으로</label>
           </li><tooltip>자신이 작성한 메시지의 색이 다른 플레이어가 작성한 메시지의 색과 같아집니다.</tooltip>
           <li><input type="checkbox" class="ckbx"  name="glo-ck" id="ck-time">
             <label for="ck-time">시각 표시</label>
@@ -254,7 +256,14 @@
         </div>
       </div>
     </div>
-    <div id="log-content" style="height:unset;">
+    <h2>미리보기</h2>
+    <div class="preview-box">
+      <p><input type="checkbox" class="ckbx" name="preview-max-height" id="preview-max-height">체크하면 전체 로그가 아래에 나타납니다.</p>
+      <tooltip>메시지 왼쪽의 마이너스(-) 버튼을 누르면 해당 메시지를 삭제할 수 있습니다.</tooltip>
+      <p><input type="checkbox" class="ckbx" name="preview-editable" id="preview-editable">체크하면 내용을 수정할 수 있습니다.</p>
+      <tooltip>오탈자 수정 용도로만 사용하기를 권장합니다.<br>엔터를 추가하거나 삭제하면 레이아웃이 깨질 수 있습니다. 체크를 해제하면 원래대로 돌아갑니다.</tooltip>
+    </div>
+    <div id="log-content" style="height:unset; max-height:200px;">
     </div>
     <p>플레이어 아바타 이미지가 로딩되지 않을 경우, [ HTML입력-다음 ] 을 한번 더 누르고 잠시 기다려 주세요.</p>
     <hr>

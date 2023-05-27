@@ -24,6 +24,8 @@ $(function () {
   $("[name='glo-ck']").on("change", checkOpt);
   $("[name='glo-name']").on("change", radioOpt);
   document.querySelector(".example").addEventListener("click",hideMessageCP);
+  document.getElementById("preview-max-height").addEventListener("change",checkPreview);
+  document.getElementById("preview-editable").addEventListener("change",checkEdit);
   tableColor('rgba(112, 32, 130, 1)');
   
   // modal 창
@@ -33,6 +35,10 @@ $(function () {
 
   //에디터로 복사
   document.querySelector("#log-copy").addEventListener('click',()=>{
+    $(".preview-box input").prop("checked",false);
+    checkEdit();
+    checkPreview();
+    //--- 
     var copyTest = document.getElementById("log-content");
     selectRange(copyTest);
     document.execCommand("copy");
@@ -109,7 +115,6 @@ function modifying() {
   let bgMod = document.querySelectorAll("#log-content [style]");
   for (var bg of bgMod) {
     if(bg.style.boxShadow&&bg.parentNode.classList.contains("message")) {
-      console.log(bg.style.boxShadow);
       bg.parentNode.style.overflow = "hidden";
     }
   }
@@ -139,6 +144,9 @@ function reset () {
 </select>`;
   $(".name-select>h2")[0].insertAdjacentHTML('afterend', charColorSet);
   $(".example .general").not(".global").remove();
+  $(".preview-box input").prop("checked",false);
+  checkEdit();
+  checkPreview();
 }
 //커스텀시트 리셋함수
 function resetCustom () {
@@ -484,11 +492,12 @@ function checkOpt() { // 체크박스
     document.getElementById("ck-circle").disabled=false;
   }
 
-  if ($("#ck-you").is(":checked")) { // you
+  if ($("#ck-you").is(":checked")) { // you 내 메시지 배경색 기본으로
     for (var j of styleNew) {
       if (j.selectorText === '.message.you') j.selectorText = '.message.you-noapply';
       else if (j.selectorText === '.message.you .spacer') j.selectorText = '.message.you .spacer-noapply';
     }
+    document.querySelector(".example .message.global.you").style.display = 'none';
   } else {
     for (var j of styleNew) {
       let sel = j.selectorText;
@@ -496,6 +505,7 @@ function checkOpt() { // 체크박스
         j.selectorText = sel.replace('-noapply', '')
       }
     }
+    document.querySelector(".example .message.global.you").style.display = 'block';
   }
   if ($("#ck-time").is(":checked")) { //.message .tstamp
     styleNew[12].style.display="";
@@ -515,6 +525,44 @@ function checkOpt() { // 체크박스
   }
 }
 
+function checkPreview() {
+  if ($("#preview-max-height").is(":checked")) { // max height 미지정 + 삭제 아이콘과 기능 추가
+    document.getElementById("log-content").style.maxHeight="unset";
+
+    let DIV = document.createElement('div');
+    DIV.className = "delete-message-btn";
+    DIV.contentEditable=false;
+    DIV.innerHTML = `<i class="material-icons-round">remove</i>`;
+    const logList = document.querySelectorAll("#log-content .message");
+    for (messageItem of logList) {
+      const deleteButton = DIV.cloneNode(true);
+      messageItem.appendChild(deleteButton);
+    }
+
+    $(".delete-message-btn").click(function(e) {
+        const w = confirm('해당 줄을 삭제합니다. 이 작업은 취소할 수 없습니다.\n정말로 삭제하나요?');
+        if (w) {
+          e.target.parentElement.parentElement.remove();
+        } else {
+        }
+      });
+  } else {
+    document.getElementById("log-content").style.maxHeight="200px";
+    $(".delete-message-btn").remove();
+  }
+}
+
+function checkEdit() {
+  let log = document.getElementById("log-content");
+  if ($("#preview-editable").is(":checked")) {
+    log.contentEditable=true;
+  } else {
+    log.contentEditable=false;
+  }
+}
+
+
+//------------------------------------------------
 
 function addID() {
   // id달기
@@ -535,7 +583,7 @@ function addID() {
     if (x.parentNode.classList.value.indexOf("general")!=-1|x.parentNode.classList.value.indexOf("rollresult")!=-1) {x.parentNode.id = byId;} // only .general
   }
   // by 없는 message 에 ID 달기
-  let noID = document.querySelectorAll("#log-content .message.general:not([ID]), #log-content .message.rollresult:not([ID])");
+  let noID = document.querySelectorAll("#log-content .message.general:not([ID]), #log-content .message.rollresult:not([ID]), #log-content .message.hidden-message:not([ID])");
   try {
     for (var y of noID) {
       var z = y.previousElementSibling;

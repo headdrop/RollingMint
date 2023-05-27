@@ -7,6 +7,7 @@ fetch("https://headdrop.github.io/RollingMint/footer.html")
       document.querySelector("footer").innerHTML = data;
       });
 fetch("https://headdrop.github.io/RollingMint/menu.html")
+// fetch("../menu.html") // 테스트용
       .then(response => {
         return response.text()
       })
