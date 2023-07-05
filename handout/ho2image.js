@@ -24,6 +24,7 @@ window.onload = function () {
   }
   });
   }
+  // 다운로드 (의식시트)
   document.getElementById("down").onclick = function(){
   var target = document.querySelector('input[name="tabmenu"]:checked+.tabCon .content');
   var fileName = document.querySelector('input[name="tabmenu"]:checked').value+"_"+document.querySelector('input[name="tabmenu"]:checked+.tabCon .inputbox').innerHTML;
@@ -32,6 +33,23 @@ window.onload = function () {
   window.saveAs(blob, fileName+'.png');
   });
   }
+  // 다운로드 (핸드아웃)
+  document.getElementById("downHO").onclick = function(){
+    const targetArr = Array.from(document.querySelectorAll('.item .ho-output>div'));
+    console.log(targetArr);
+    targetArr.map((target,i)=>{
+      const nm = Math.ceil((i+1)/2);
+      console.log(nm);
+      let fileName = document.querySelector(`.content>.item:nth-of-type(${1+nm})>input.front-1`).value;
+      if(target.classList.contains("ho-back")){
+        fileName = fileName+"_뒷면";
+      }
+      domtoimage.toBlob(target,{cacheBuster: true})
+      .then(function (blob) {
+        saveAs(blob, "핸드아웃_"+fileName+'.png')});
+    })
+  };
+
   //에디터로 복사
   document.querySelector("#copy").addEventListener('click',()=>{
   document.querySelectorAll("td>span").forEach(function(val){
@@ -106,6 +124,14 @@ window.onload = function () {
     newNode.querySelector(".remove").addEventListener("click",function(){
       this.parentNode.parentNode.remove();
     },{ once: true });
+    document.getElementById("down").onclick = function(){
+      var target = document.querySelector('input[name="tabmenu"]:checked+.tabCon .content');
+      var fileName = document.querySelector('input[name="tabmenu"]:checked').value+"_"+document.querySelector('input[name="tabmenu"]:checked+.tabCon .inputbox').innerHTML;
+      domtoimage.toBlob(target)
+      .then(function (blob) {
+      window.saveAs(blob, fileName+'.png');
+      });
+      }
     sync(newNode);
   });
   sync();

@@ -170,6 +170,10 @@ input:checked + .tabCon {
   display: none;
 }
 
+#insane:checked ~ .bottom > #downHO {
+  display: none;
+}
+
 #insaneHO + .tabCon {
   font-size: 16px;
 }

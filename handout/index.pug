@@ -20,6 +20,7 @@ html(lang='ko')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js')
     script(src="ho2image.js")
 
+
   body
     #wrapper
       nav#float-menu
@@ -30,7 +31,7 @@ html(lang='ko')
         label(for='insaneHO')
           p 인세인
           | 핸드아웃
-      input#insane(type='radio' name='tabmenu' value='인세인_의식시트')
+      input#insane(type='radio' name='tabmenu' value='의식시트')
       .tabCon
         .content
           table
@@ -60,7 +61,7 @@ html(lang='ko')
         p 표 안에 의식시트의 내용을 붙여넣기 할 때는 Ctrl+Shift+V (서식 없이 붙여넣기) 를 이용하세요.
         button#addRow 의식 단계 추가
         button#copy 표 복사하기
-      input#insaneHO(type='radio' name='tabmenu' value='인세인_핸드아웃' checked='')
+      input#insaneHO(type='radio' name='tabmenu' value='핸드아웃' checked='')
       .tabCon
         .content
           style#width #insaneHO + .tabCon .ho-output > div {width:250px;}
@@ -116,5 +117,6 @@ html(lang='ko')
         button#addHo 핸드아웃 추가
       .bottom
         button#down 이미지 다운로드
+        button#downHO 핸드아웃 일괄 다운로드
     footer#footer
     script(src="../module.js")
