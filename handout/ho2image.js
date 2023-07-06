@@ -84,7 +84,9 @@ window.onload = function () {
       val.addEventListener('click',(e)=>{
         var page = e.target.classList[2].replace("c-",'');
         var tg = e.target.parentNode.parentNode.getElementsByClassName(page)[0];
-        tg.querySelector(".ho-box-2>img").src = "https://imgur.com/4MJ4Ar0.png";
+        try {
+          tg.querySelector(".ho-box-2>img").src = "https://imgur.com/4MJ4Ar0.png";
+        } catch (err) {}
         selectRange(tg);
         document.execCommand("copy");
         alert("복사가 완료되었습니다. roll20 핸드아웃 편집 창에 붙여넣기하세요.")
