@@ -212,10 +212,10 @@ nav#float-menu {
   z-index:2;
 
   .f-menu ~ a {
-    display:none;
+    pointer-events: none;
   }
   .f-menu.is-active ~a {
-    display: flex;
+    pointer-events: unset;
   }
   &>label,
   &>a {

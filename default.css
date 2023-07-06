@@ -196,10 +196,10 @@ nav#float-menu {
   z-index: 2;
 }
 nav#float-menu .f-menu ~ a {
-  display: none;
+  pointer-events: none;
 }
 nav#float-menu .f-menu.is-active ~ a {
-  display: flex;
+  pointer-events: unset;
 }
 nav#float-menu > label, nav#float-menu > a {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
