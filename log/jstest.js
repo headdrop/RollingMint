@@ -27,6 +27,9 @@ $(function () {
   document.getElementById("preview-max-height").addEventListener("change",checkPreview);
   document.getElementById("preview-editable").addEventListener("change",checkEdit);
   tableColor('rgba(112, 32, 130, 1)');
+  // 버전
+  document.querySelector(".top .text>p:last-child>span:last-child").innerText=
+  document.getElementById("version").innerText;
   
   // modal 창
   $(".modal-content .modal-close, #modal-submit, #modal-reset,.modal-layer, #preview-modal").on("click",()=>modaltog());
