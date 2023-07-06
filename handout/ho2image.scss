@@ -263,10 +263,11 @@ input:checked+.tabCon {
     border-collapse: collapse;
     border-spacing:0;
     margin-bottom:0;
-    td{ padding : 3px; box-sizing:border-box!important}
+    td{ padding : 3px; box-sizing:border-box!important;vertical-align:middle;}
     td:first-child {
       border-right:solid 1px black;
       text-align:center;
+      width:40px;
     }
 
   }

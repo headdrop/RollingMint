@@ -263,10 +263,12 @@ input:checked + .tabCon {
 #insaneHO + .tabCon table td {
   padding: 3px;
   box-sizing: border-box !important;
+  vertical-align: middle;
 }
 #insaneHO + .tabCon table td:first-child {
   border-right: solid 1px black;
   text-align: center;
+  width: 40px;
 }
 #insaneHO + .tabCon .ho-front, #insaneHO + .tabCon .ho-back {
   display: inline-block;
