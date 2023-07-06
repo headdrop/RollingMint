@@ -5,6 +5,12 @@ fetch("https://headdrop.github.io/RollingMint/footer.html")
       })
       .then(data => {
         document.querySelector("footer").innerHTML = data;
+        return document.getElementById("version").innerText;
+      })
+      .then(version => {
+        if (document.getElementById("version-log")!=null) {
+          document.getElementById("version-log").innerText = version;
+        }
       });
 fetch("https://headdrop.github.io/RollingMint/menu.html")
 // fetch("../menu.html") // 테스트용
