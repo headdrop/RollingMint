@@ -1,0 +1,101 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
+* {font-family:'Pretendard',sans-serif}
+*:focus {outline:none}
+
+//색상
+$coc-sheet-bg:#888888;
+$coc-box-bg:#c4beb6;
+$coc-input-bg:rgba(255,255,255,0.5);
+$coc-sheet-title-bg:linear-gradient(black, #262626);
+
+@import '../checkbox';
+.setting>label {
+  font-family: 'NEXON Lv1 Gothic OTF';
+}
+.sheet {
+  text-align: center;
+  background-color:$coc-sheet-bg;
+  .title {
+    font-family: 'NEXON Lv1 Gothic OTF';
+    font-size:2rem;
+    color:white;
+    background:$coc-sheet-title-bg;
+  }
+}
+.sheet_box{
+  background-color: $coc-box-bg;
+  font-size: 1.6rem;
+  input {
+    background-color: $coc-input-bg;
+    border:0;
+  }
+}
+.table_title {
+  font-weight:bold;
+}
+.attr {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-auto-flow: column;
+  >div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    >span {
+
+    }
+    >input {
+      width:2.5em;
+      height:2em;
+      font-size:2rem;
+      text-align:center;
+    }
+  }
+  
+}
+.skills {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(19, 1fr);
+  grid-auto-flow: column;
+  >div {
+    display: flex;
+    height: 1.6em;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: center;
+  }
+  .option{
+    font-size:1.4rem;
+  }
+  .skill_name{
+    width:8em;
+    display:inline-block;
+    &::after{
+      content:'('attr(default)'%)';
+      font-size:1rem;
+    }
+  }
+  >div>input {
+    width:2em;
+    height:100%;
+    text-align:center;
+  }
+
+  .halfvalue, .fifthvalue {
+    font-size:0.5em;
+  }
+}
+.battle{
+  >div{
+    display: grid;
+    grid-template-columns: 12em 8em repeat(6,1fr);
+    font-size: 1.6rem;
+  }
+}
+.table_item>input {
+  width:100%;
+}

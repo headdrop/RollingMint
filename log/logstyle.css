@@ -10,17 +10,14 @@
   padding-right: 5px;
   padding-bottom: 6px;
   position: relative;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   line-height: 1.25em;
 }
-
 .message .spacer {
   background-color: #e1e1e1;
   margin: 0 -5px 8px -45px;
   height: 1px;
 }
-
 .message.rollresult .clear div {
   display: none !important;
 }
@@ -45,11 +42,8 @@
   width: 28px;
   height: 28px;
   text-align: left;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
-
 .avatar img {
   padding: 0;
   width: 28px;
@@ -86,7 +80,6 @@
 .withoutavatars .message, .message.desc {
   padding-left: 15px;
 }
-
 .withoutavatars .message .spacer, .message.desc .spacer {
   margin-left: -15px;
 }
@@ -94,14 +87,11 @@
 .rollresult {
   line-height: 2.5em;
 }
-
 .rollresult .spacer {
   margin-bottom: 5px;
 }
-
 .rollresult > .formula {
   display: block;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   background-color: rgba(255, 255, 255, 0.3);
@@ -109,7 +99,6 @@
   word-break: break-all;
   line-height: 1.5em;
 }
-
 .rollresult .formattedformula {
   display: inline-block;
   vertical-align: middle;
@@ -133,19 +122,18 @@
 }
 
 .dicon .backing {
-  font-family: 'Diceicon';
+  font-family: "Diceicon";
   position: absolute;
   font-size: 1.4em;
   font-weight: bold;
   left: 50%;
-  -webkit-transform: translateX(-48%);
-          transform: translateX(-48%);
+  transform: translateX(-48%);
   top: 0.1em;
   width: 0.8em;
   text-align: center;
   color: inherit;
   text-shadow: 0 0 4px;
-  opacity: .5;
+  opacity: 0.5;
   pointer-events: none;
   z-index: 1;
 }
@@ -211,14 +199,13 @@ div.sheet-rolltemplate-default table {
     width: 400px;
   }
 }
-
 .sheet-rolltemplate-default table {
   background-color: rgba(255, 255, 255, 0.6);
-  border: 1px solid #702082;
+  border: 1px solid rgb(112, 32, 130);
 }
 
 .sheet-rolltemplate-default caption {
-  background-color: #702082;
+  background-color: rgb(112, 32, 130);
   color: #fff;
   font-weight: 700;
   font-size: 1.1em;
@@ -241,4 +228,3 @@ div.sheet-rolltemplate-default table {
 .sheet-rolltemplate-default tr:nth-child(even) {
   background-color: rgba(200, 200, 200, 0.6);
 }
-/*# sourceMappingURL=logstyle.css.map */
