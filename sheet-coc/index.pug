@@ -80,19 +80,22 @@ html(lang='ko')
             div
               span 이동력
               span
-        .sheet_box
+        .sheet_box.skills
           .title 탐사자 기능
+          .option
             div
-          .skills
-            .option 
+              span
+                input(type='radio' name='skill-type' checked)
+                | 기능치를 직접 입력
               span
                 input(type='radio' name='skill-type')
-                span 간단
-              .desc 설명설명설명
-              span
-                input(type='radio' name='skill-type')
-                span 복잡
-              .desc 설
+                | 초기, 추가 기능치를 구분해서 입력
+            div.skill_point
+              span 초기 기능점수
+              input(type='text')
+              span 남은 기능점수
+              input(type='text')
+          .content
             #appraise(order='1')
               div.skill_name(default='05') 감정
               input(value='05')

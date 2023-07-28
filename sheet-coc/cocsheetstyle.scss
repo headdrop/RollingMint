@@ -25,7 +25,7 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
 .sheet_box{
   background-color: $coc-box-bg;
   font-size: 1.6rem;
-  input {
+  div:not(.option)>input {
     background-color: $coc-input-bg;
     border:0;
   }
@@ -43,9 +43,6 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    >span {
-
-    }
     >input {
       width:2.5em;
       height:2em;
@@ -55,10 +52,25 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
   }
   
 }
-.skills {
+.skills .option{
+  font-size:1.4rem;
+  display: flex;
+  align-items: center;
+  justify-items: start;
+  background: #262626;
+  color: floralwhite;
+  padding: 0 10% 1rem 10%;
+  >span {
+    line-height:1.5em;
+  }
+  .skill_point {
+
+  }
+}
+.skills .content {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: repeat(19, 1fr);
+  grid-template-rows: repeat(18, 1fr);
   grid-auto-flow: column;
   >div {
     display: flex;
@@ -68,9 +80,7 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
     align-content: flex-start;
     justify-content: center;
   }
-  .option{
-    font-size:1.4rem;
-  }
+
   .skill_name{
     width:8em;
     display:inline-block;
@@ -79,7 +89,7 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
       font-size:1rem;
     }
   }
-  >div>input {
+  >div:not(.option)>input {
     width:2em;
     height:100%;
     text-align:center;

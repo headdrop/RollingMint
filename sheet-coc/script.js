@@ -13,7 +13,7 @@ window.onload=function() {
 
 function computeValue (target) {
   console.log(target);
-    if(target.nodeName=="INPUT") {
+    if(target.nodeName=="INPUT" && target.type=="text") {
       console.log("테스트")
       let skillVal = target.value;
       target.nextSibling.textContent=Math.floor(skillVal / 2);
