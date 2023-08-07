@@ -56,30 +56,46 @@ html(lang='ko')
             #str
               span 근력
               input(type='text')
+              span.halfvalue
+              span.fifthvalue
             #con
               span 건강
               input(type='text')
+              span.halfvalue
+              span.fifthvalue
             #siz
               span 크기
               input(type='text')
+              span.halfvalue
+              span.fifthvalue
             #dex
               span 민첩성
               input(type='text')
+              span.halfvalue
+              span.fifthvalue
             #app 
               span 외모
               input(type='text')
+              span.halfvalue
+              span.fifthvalue
             #int
               span 지능
               input(type='text')
+              span.halfvalue
+              span.fifthvalue
             #pow
               span 정신력
               input(type='text')
+              span.halfvalue
+              span.fifthvalue
             #edu
               span 교육
               input(type='text')
+              span.halfvalue
+              span.fifthvalue
             div
               span 이동력
-              span
+              span 1
         .sheet_box.skills
           .title 탐사자 기능
           .option
@@ -91,217 +107,317 @@ html(lang='ko')
                 input(type='radio' name='skill-type')
                 | 초기, 추가 기능치를 구분해서 입력
             div.skill_point
-              span 초기 기능점수
-              input(type='text')
-              span 남은 기능점수
-              input(type='text')
+              div 
+                span 초기 기능점수
+                input#sp_0(type='text')
+              div
+                span 성장 기능점수
+                input#sp_1(type='text')
+              div 
+                span 남은 기능점수
+                input#sp_2(type='text')
           .content
             #appraise(order='1')
               div.skill_name(default='05') 감정
-              input(value='05')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='05')
               span.halfvalue
               span.fifthvalue
             #archaeology(order='2')
               div.skill_name(default='01') 고고학
-              input(value='01')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='01')
               span.halfvalue
               span.fifthvalue
             #spot_hidden(order='3')
               div.skill_name(default='25') 관찰력
-              input(value='25')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='25')
               span.halfvalue
               span.fifthvalue
             #fighting_brawl(order='4')
               div.skill_name(default='25') 근접전(격투)
-              input(value='25')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='25')
               span.halfvalue
               span.fifthvalue
             #mech_repair(order='5') 
               div.skill_name(default='10') 기계수리
-              input(value='10')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='10')
               span.halfvalue
               span.fifthvalue
             #jump(order='6')
               div.skill_name(default='20') 도약
-              input(value='20')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='20')
               span.halfvalue
               span.fifthvalue
             #listen(order='7')
               div.skill_name(default='20') 듣기
-              input(value='20')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='20')
               span.halfvalue
               span.fifthvalue
             #fast_talk(order='8')
               div.skill_name(default='05') 말재주
-              input(value='05')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='05')
               span.halfvalue
               span.fifthvalue
             #charm(order='9')
               div.skill_name(default='15') 매혹
-              input(value='15')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='15')
               span.halfvalue
               span.fifthvalue
             #law(order='10')
               div.skill_name(default='05') 법률
-              input(value='05')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='05')
               span.halfvalue
               span.fifthvalue
             #disguise(order='11')
               div.skill_name(default='05') 변장
-              input(value='05')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='05')
               span.halfvalue
               span.fifthvalue
             #firearms_handgun(order='12')
               div.skill_name(default='20') 사격(권총)
-              input(value='20')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='20')
               span.halfvalue
               span.fifthvalue
             #firearms_rifle(order='13')
               div.skill_name(default='25') 사격(라/산)
-              input(value='25')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='25')
               span.halfvalue
               span.fifthvalue
             #persuade(order='14')
               div.skill_name(default='10') 설득
-              input(value='10')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='10')
               span.halfvalue
               span.fifthvalue
             #sleight_of_hand(order='15')
               div.skill_name(default='10') 손놀림
-              input(value='10')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='10')
               span.halfvalue
               span.fifthvalue
             #swim(order='16')
               div.skill_name(default='20') 수영
-              input(value='20')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='20')
               span.halfvalue
               span.fifthvalue
             #ride(order='17')
               div.skill_name(default='05') 승마
-              input(value='05')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='05')
               span.halfvalue
               span.fifthvalue
             #psychology(order='18')
               div.skill_name(default='10') 심리학
-              input(value='10')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='10')
               span.halfvalue
               span.fifthvalue
             #language_own(order='19')
               div.skill_name(default='') 언어(모국어)
-              input(placeholder='교육')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" placeholder='교육')
               span.halfvalue
               span.fifthvalue
             #history(order='20')
               div.skill_name(default='05') 역사
-              input(value='05')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='05')
               span.halfvalue
               span.fifthvalue
             #locksmith(order='21')
               div.skill_name(default='01') 열쇠공
-              input(value='01')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='01')
               span.halfvalue
               span.fifthvalue
             #climb(order='22')
               div.skill_name(default='20') 오르기
-              input(value='20')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='20')
               span.halfvalue
               span.fifthvalue
             #occult(order='23')
               div.skill_name(default='05') 오컬트
-              input(value='05')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='05')
               span.halfvalue
               span.fifthvalue
             #intimidate(order='24')
               div.skill_name(default='15') 위협
-              input(value='15')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='15')
               span.halfvalue
               span.fifthvalue
             #stealth(order='25')
               div.skill_name(default='20') 은밀행동
-              input(value='20')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='20')
               span.halfvalue
               span.fifthvalue
             #first_aid(order='26')
               div.skill_name(default='30') 응급처치
-              input(value='30')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='30')
               span.halfvalue
               span.fifthvalue
             #medicine(order='27')
               div.skill_name(default='01') 의료
-              input(value='01')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='01')
               span.halfvalue
               span.fifthvalue
             #anthropology(order='28')
               div.skill_name(default='01') 인류학
-              input(value='01')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='01')
               span.halfvalue
               span.fifthvalue
             #drive_auto(order='29')
               div.skill_name(default='20') 자동차 운전
-              input(value='20')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='20')
               span.halfvalue
               span.fifthvalue
             #library_use(order='30')
               div.skill_name(default='20') 자료조사
-              input(value='20')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='20')
               span.halfvalue
               span.fifthvalue
             #natural_world(order='31')
               div.skill_name(default='10') 자연
-              input(value='10')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='10')
               span.halfvalue
               span.fifthvalue
             #credit_rating(order='32')
               div.skill_name(default='') 재력
-              input(value='00')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='00')
               span.halfvalue
               span.fifthvalue
             #elec_repair(order='33')
               div.skill_name(default='01') 전기수리
-              input(value='01')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='01')
               span.halfvalue
               span.fifthvalue
             #psychoanalysis(order='34')
               div.skill_name(default='01') 정신분석
-              input(value='01')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='01')
               span.halfvalue
               span.fifthvalue
             #op_hv_machine(order='35')
               div.skill_name(default='01') 중장비 조작
-              input(value='01')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='01')
               span.halfvalue
               span.fifthvalue
             #track(order='36')
               div.skill_name(default='10') 추적
-              input(value='10')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='10')
               span.halfvalue
               span.fifthvalue
             #cthulhu_mythos(order='37')
               div.skill_name(default='00') 크툴루 신화
-              input(value='00')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='00')
               span.halfvalue
               span.fifthvalue
             #throw(order='38')
               div.skill_name(default='20') 투척
-              input(value='20')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='20')
               span.halfvalue
               span.fifthvalue
             #navigate(order='39')
               div.skill_name(default='10') 항법
-              input(value='10')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='10')
               span.halfvalue
               span.fifthvalue
             #accounting(order='40')
               div.skill_name(default='05') 회계
-              input(value='05')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" value='05')
               span.halfvalue
               span.fifthvalue
             #dodge(order='41')
               div.skill_name(default='') 회피
-              input(placeholder='민/2')
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value" placeholder='민/2')
               span.halfvalue
               span.fifthvalue
-            button#add_skill 
+            #otherskill
+              .skill_name 
+                input(class='_name' value='추가 기능')
+                span (
+                  input 
+                  | %)
+              input(class="sp")
+              input(class="sp-add")
+              input(class="value")
+              span.halfvalue
+              span.fifthvalue
+              span.skill_icon.remove
+                <i class="fa-solid fa-trash-can"></i>
+            button#add_skill <i class="fa-solid fa-circle-plus"></i>
         .sheet_box
           .title 전투
           .battle
