@@ -150,6 +150,11 @@
 .sheet {
   text-align: center;
   background-color: #888888;
+  display: flex;
+  flex-wrap: wrap;
+}
+.sheet .sheet_box:first-child, .sheet .sheet_box:nth-child(2) {
+  flex-basis: 50%;
 }
 .sheet .title {
   font-family: "NEXON Lv1 Gothic OTF";
@@ -162,7 +167,7 @@
   background-color: #c4beb6;
   font-size: 1.6rem;
 }
-.sheet_box div:not(.option) > input:not(._name) {
+.sheet_box div:not(.option) > input:not(._name, [type=checkbox]) {
   background-color: rgba(255, 255, 255, 0.5);
   border: 0;
 }
@@ -218,14 +223,37 @@
 .skills .option div:not(.skill_point) > span {
   display: block;
   text-align: left;
+  position: relative;
 }
 
 .skill_point {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  gap: 0.4rem input;
-  gap-width: 2rem !important;
+  gap: 0.4rem;
+}
+.skill_point input {
+  width: 6em !important;
+}
+
+#sp_0_text {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.4rem);
+  transform: translate(-50%, 0%);
+  padding: 0.2rem 1rem;
+  background-color: #333;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.4;
+  white-space: nowrap;
+  outline: 0;
+  opacity: 0;
+}
+
+.skill_point > div > span:hover #sp_0_text, .skill_point > div > span:focus #sp_0_text, .skill_point > div > span:active #sp_0_text {
+  opacity: 1;
 }
 
 .skills .content {
@@ -250,7 +278,7 @@
   justify-content: center;
 }
 .skills .content .skill_name {
-  width: calc(100% - 7em);
+  width: calc(100% - 7.6em);
   display: inline-block;
 }
 .skills .content .skill_name::after {
@@ -298,12 +326,12 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
   background-color: rgba(255, 255, 255, 0.5) !important;
 }
 
-.skills .content > div[id]:has(input.sp:not(:-moz-placeholder-shown)) {
+.skills .content > div[id]:has(input[class^=sp]:not(:-moz-placeholder-shown)) {
   background-color: #c4beb6;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset, #c4beb6 0 2px 0 0;
 }
 
-.skills .content > div[id]:has(input.sp:not(:placeholder-shown)) {
+.skills .content > div[id]:has(input[class^=sp]:not(:placeholder-shown)) {
   background-color: #c4beb6;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset, #c4beb6 0 2px 0 0;
 }
@@ -335,9 +363,40 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
   width: 100%;
 }
 
-.skills input.ckbx[type=checkbox] {
-  height: 2.1rem;
-  width: 2.1rem;
-  transform: scale(0.6);
-  background-color: transparent;
+.skills input[type=checkbox] {
+  height: 1.6rem;
+  width: 1.6rem;
+  border: 0;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  position: relative;
+}
+.skills input[type=checkbox]::before {
+  content: "";
+  display: inline-block;
+  width: 1.6rem;
+  height: 1.6rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 0.4rem;
+  transition: all 0.3s ease-in-out;
+}
+.skills input[type=checkbox]::after {
+  opacity: 0;
+  content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ffffff' viewBox='0 0 16 16'%3E%3Cpath d='M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z'/%3E%3C/svg%3E");
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1.6rem;
+  height: 1.6rem;
+  transform: scale(1.2);
+  transition: all 0.3s ease-in-out;
+}
+.skills input[type=checkbox]:checked::before {
+  box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.2);
+  background: transparent;
+}
+.skills input[type=checkbox]:checked::after {
+  opacity: 1;
 }
