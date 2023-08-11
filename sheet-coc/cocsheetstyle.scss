@@ -38,7 +38,7 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
 .table_title {
   font-weight:bold;
 }
-.attr {
+.attr .content {
   display:grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
@@ -65,7 +65,11 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
       justify-content: center;
     }
   }
-  
+}
+.stats .content {
+  >div {
+    
+  }
 }
 .skills .option{
   font-size:1.4rem;

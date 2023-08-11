@@ -1,10 +1,11 @@
 document.write(`<script src="https://unpkg.com/@popperjs/core@2"></script>
 <script src="https://unpkg.com/tippy.js@6"></script>`);
 var attr; // 특성치 저장
-window.onload=function() {
+window.onload=function() { // 특성치 바뀔때마다
   document.querySelector(".attr").addEventListener("change",()=>{
     attr = getAttr();
     console.log(attr);
+    calcStats();
   });
   document.getElementById("sp_0").addEventListener("click",firstSkillPoint)
   const _skill = document.querySelectorAll("input.value");
@@ -90,7 +91,25 @@ function clacValue(target){
   }
 }
 function divValue (target) {
+  try  {
   let skillVal = target.value;
   target.nextSibling.textContent=Math.floor(skillVal / 2);
   target.nextSibling.nextSibling.textContent=Math.floor(skillVal/5);
+  } catch(e) {console.log(e)}
+}
+function calcStats(target) {
+  let maxHP = Math.floor((Number(attr.con) + Number(attr.siz)) / 10);
+  console.log(maxHP);
+  document.querySelector("#hp input.value").value=maxHP;
+  let maxMP = Math.floor((Number(attr.pow)) / 5);
+  document.querySelector("#mp input.value").value=maxMP;
+  console.log(maxMP);
+  // 전투 수치
+  let strSiz = Number(attr.str)+Number(attr.siz);
+  let bonus, build;
+  if (2<=strSiz<=64) {bonus=-2, build=-2}
+  else if (65<=strSiz<=84) {bonus=-1, build=-1}
+  else if (85<=strSiz<=124) {bonus=0, build=0}
+  else if (125<=strSiz<=164) {bonus="+1D4", build=1}
+  else if (165<=strSiz<=204) {bonus="+1D6", build=2}
 }

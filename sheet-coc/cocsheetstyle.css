@@ -176,13 +176,13 @@
   font-weight: bold;
 }
 
-.attr {
+.attr .content {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   grid-auto-flow: column;
 }
-.attr > div {
+.attr .content > div {
   display: flex;
   position: relative;
   flex-direction: column;
@@ -192,13 +192,13 @@
   flex-wrap: wrap;
   height: 6rem;
 }
-.attr > div > input {
+.attr .content > div > input {
   width: 2.5em;
   height: 2em;
   font-size: 2rem;
   text-align: center;
 }
-.attr > div .halfvalue, .attr > div .fifthvalue {
+.attr .content > div .halfvalue, .attr .content > div .fifthvalue {
   height: 2rem;
   display: flex;
   align-items: center;
