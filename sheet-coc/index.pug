@@ -50,9 +50,9 @@ html(lang='ko')
               input(type='text', placeholder='거주지')
             #birthplace 출생지
               input(type='text', placeholder='출생지')
-        .sheet_box
+        .sheet_box.attr
           .title 특성치
-          .attr 
+          .content
             #str
               span 근력
               input.value(type='text')
@@ -96,6 +96,27 @@ html(lang='ko')
             div
               span 이동력
               span 1
+        .sheet_box.stats
+          .title 상태
+          .content
+            #luck 운
+              input.value
+            #hp 체력
+              input.value
+              input
+            #mp 마력
+              input.value
+              input
+            #san 이성
+              span
+              input.value
+              span
+            #san_start
+              input.value
+            #damage_bonus 피해 보너스
+              input.value
+            #build 체구
+              input.value
         .sheet_box.skills
           .title 탐사자 기능
           .option
