@@ -1,23 +1,42 @@
 document.write(`<script src="https://unpkg.com/@popperjs/core@2"></script>
 <script src="https://unpkg.com/tippy.js@6"></script>`);
 var attr; // 특성치 저장
-window.onload=function() { // 특성치 바뀔때마다
-  document.querySelector(".attr").addEventListener("change",()=>{
-    attr = getAttr();
-    console.log(attr);
-    calcStats();
-  });
+window.onload=function() {
+  // 시작할 때
+  attr = getAttr();
+  calcStats();
+  defaultSkill();
+
   document.getElementById("sp_0").addEventListener("click",firstSkillPoint)
   const _skill = document.querySelectorAll("input.value");
   _skill.forEach((element)=>{
     divValue(element);
   });
-  document.querySelector(".sheet").addEventListener("change",(e)=>{
-    if(e.target.className=="value") {
-      divValue(e.target);
+  // 시트의 모든 .value 바뀔때마다
+  document.querySelectorAll(".sheet .content").forEach(item=>{
+    console.log(item.parentNode);
+    if (item.parentNode.classList.contains("attr")) { // 특성치
+      // 특성치 반값, 상태 계산, 특성치 영향 초기값
+      item.addEventListener("change",(e)=>{
+        attr = getAttr();
+        defaultSkill();
+        calcStats();
+        if(e.target.className=="value") divValue(e.target);
+      });
+    } else if (item.parentNode.classList.contains("skills")) { // 기능치
+      item.addEventListener("change",(e)=>{
+        if(e.target.className=="value") {
+          clacSkillValue(e.target);
+          divValue(e.target);
+        }
+      });
     }
-    clacValue(e.target);
   });
+  // san_start 바뀔때마다
+  document.querySelector("#san_start input").addEventListener("change",(e)=>{
+    document.querySelector("#san span:first-child").textContent = Math.floor((e.target.value)/5*4);
+  });
+
 
   document.querySelectorAll(".sp, .sp-add").forEach(element=>{
     if (element.className=="sp"){
@@ -30,9 +49,6 @@ window.onload=function() { // 특성치 바뀔때마다
       });
     }
   });
-  
-
-
 }
 
 function getAttr() {
@@ -75,7 +91,7 @@ function firstSkillPoint() {
   }
   console.log(sum);
 }
-function clacValue(target){
+function clacSkillValue(target){ // 기능치 값 더하기
   if(target.className=="sp"|target.className=="sp-add") {
     const div = target.parentNode;
     let v0;
@@ -88,8 +104,18 @@ function clacValue(target){
     const v2 = Number(div.querySelector(".sp-add").value);
     div.querySelector(".value").value = v0 + v1 + v2;
     divValue(div.querySelector(".value"));
+    calcStats();
   }
+  console.log(": calcValued");
 }
+// 특성치에 영향받는 기능치 초기값 + 계산
+function defaultSkill () {
+  document.querySelector("#language_own .skill_name").setAttribute("default",attr.edu);
+  clacSkillValue(document.querySelector("#language_own .sp"));
+  document.querySelector("#dodge .skill_name").setAttribute("default",Math.floor(attr.dex / 2));
+  clacSkillValue(document.querySelector("#dodge .sp"));
+}
+
 function divValue (target) {
   try  {
   let skillVal = target.value;
@@ -97,19 +123,25 @@ function divValue (target) {
   target.nextSibling.nextSibling.textContent=Math.floor(skillVal/5);
   } catch(e) {console.log(e)}
 }
-function calcStats(target) {
+function calcStats() {
   let maxHP = Math.floor((Number(attr.con) + Number(attr.siz)) / 10);
-  console.log(maxHP);
-  document.querySelector("#hp input.value").value=maxHP;
+  document.querySelector("#hp span:last-child").textContent=maxHP;
   let maxMP = Math.floor((Number(attr.pow)) / 5);
-  document.querySelector("#mp input.value").value=maxMP;
-  console.log(maxMP);
+  document.querySelector("#mp span:last-child").textContent=maxMP;
+  let maxSan = Math.floor(Number(attr.pow) - Number(document.querySelector("#cthulhu_mythos>input.value").value));
+  document.querySelector("#san span:last-child").textContent=maxSan;
   // 전투 수치
   let strSiz = Number(attr.str)+Number(attr.siz);
-  let bonus, build;
-  if (2<=strSiz<=64) {bonus=-2, build=-2}
-  else if (65<=strSiz<=84) {bonus=-1, build=-1}
-  else if (85<=strSiz<=124) {bonus=0, build=0}
-  else if (125<=strSiz<=164) {bonus="+1D4", build=1}
-  else if (165<=strSiz<=204) {bonus="+1D6", build=2}
+  var bonus, build;
+  if (2<=strSiz&&strSiz<=64) {bonus=-2, build=-2}
+  else if (65<=strSiz&&strSiz<=84) {bonus="-1", build="-1"}
+  else if (85<=strSiz&&strSiz<=124) {bonus="0", build="0"}
+  else if (125<=strSiz&&strSiz<=164) {bonus="+1D4", build=1}
+  else if (165<=strSiz&&strSiz<=204) {bonus="+1D6", build=2}
+  else {
+    build = Math.floor((strSiz - 204) / 80)+3;
+    bonus = "+"+(build-1)+"D6";
+  }
+  document.querySelector("#damage_bonus>input").value=bonus;
+  document.querySelector("#build>input").value=build;
 }

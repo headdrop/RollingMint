@@ -68,7 +68,23 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
 }
 .stats .content {
   >div {
-    
+    &:first-child {
+      display:grid;
+      // grid-template-columns: ;
+    }
+    &:last-child {
+
+    }
+    input, span {
+      background-color: $coc-input-bg;
+      border:0;
+      padding: 1px 2px;
+      font-size:1.2rem;
+      width:2em;
+    }
+    input {
+      font-size:1.6rem;
+    }
   }
 }
 .skills .option{

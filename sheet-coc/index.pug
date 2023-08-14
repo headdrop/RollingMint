@@ -33,9 +33,9 @@ html(lang='ko')
         button 불러오기
         button 코코포리아 API로 복사
       .sheet
-        .sheet_box
+        .sheet_box.info
           .title 탐사자 정보
-          .info
+          .content
             #name 이름
               input(type='text', placeholder='이름')
             #player PL 
@@ -55,42 +55,42 @@ html(lang='ko')
           .content
             #str
               span 근력
-              input.value(type='text')
+              input.value(type='text' value='50')
               span.halfvalue
               span.fifthvalue
             #con
               span 건강
-              input.value(type='text')
+              input.value(type='text' value='50')
               span.halfvalue
               span.fifthvalue
             #siz
               span 크기
-              input.value(type='text')
+              input.value(type='text' value='50')
               span.halfvalue
               span.fifthvalue
             #dex
               span 민첩성
-              input.value(type='text')
+              input.value(type='text' value='50')
               span.halfvalue
               span.fifthvalue
             #app 
               span 외모
-              input.value(type='text')
+              input.value(type='text' value='50')
               span.halfvalue
               span.fifthvalue
             #int
               span 지능
-              input.value(type='text')
+              input.value(type='text' value='50')
               span.halfvalue
               span.fifthvalue
             #pow
               span 정신력
-              input.value(type='text')
+              input.value(type='text' value='50')
               span.halfvalue
               span.fifthvalue
             #edu
               span 교육
-              input.value(type='text')
+              input.value(type='text' value='50')
               span.halfvalue
               span.fifthvalue
             div
@@ -100,23 +100,27 @@ html(lang='ko')
           .title 상태
           .content
             #luck 운
-              input.value
+              input(placeholder="3D6*5")
             #hp 체력
-              input.value
               input
+              span
             #mp 마력
-              input.value
               input
+              span
             #san 이성
               span
-              input.value
+              input
               span
             #san_start
-              input.value
+              input
+          .title 전투
+          .content
             #damage_bonus 피해 보너스
-              input.value
+              input
             #build 체구
-              input.value
+              input
+            #dodge_stats 회피
+              span
         .sheet_box.skills
           .title 탐사자 기능
           .option
