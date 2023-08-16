@@ -99,27 +99,31 @@ html(lang='ko')
         .sheet_box.stats
           .title 상태
           .content
-            #luck 운
+            #luck 
+              span 운
               input(placeholder="3D6*5")
-            #hp 체력
+            #hp
+              span 체력
               input
-              span
-            #mp 마력
+              span.input
+            #mp
+              span 마력
               input
-              span
-            #san 이성
-              span
+              span.input
+            #san
+              span 이성
+              span.input
               input
-              span
-            #san_start
-              input
+              span.input
+              input#san_start
+        .sheet_box.battle
           .title 전투
           .content
             #damage_bonus 피해 보너스
               input
             #build 체구
               input
-            #dodge_stats 회피
+            #dodge_ 회피
               span
         .sheet_box.skills
           .title 탐사자 기능
@@ -487,8 +491,8 @@ html(lang='ko')
                 <i class="fa-solid fa-trash-can"></i>
             button#add_skill <i class="fa-solid fa-circle-plus"></i>
         .sheet_box
-          .title 전투
-          .battle
+          .title 무기
+          .weapons
             .table_title 
               div 무기
               div 기능

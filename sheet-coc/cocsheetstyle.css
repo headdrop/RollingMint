@@ -205,20 +205,40 @@
   justify-content: center;
 }
 
-.stats .content > div:first-child {
-  display: grid;
+.stats .content {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: left;
 }
-.stats .content > div input, .stats .content > div span {
+.stats .content > div {
+  display: flex;
+  width: 100%;
+}
+.stats .content > div span {
+  display: inline-block;
+  width: 3em;
+  flex-shrink: 0;
+}
+.stats .content > div input, .stats .content > div span.input {
+  display: inline-block;
   background-color: rgba(255, 255, 255, 0.5);
   border: 0;
   padding: 1px 2px;
   font-size: 1.2rem;
-  width: 2em;
 }
 .stats .content > div input {
   font-size: 1.6rem;
+  width: 2em;
 }
-
+.stats .content > div#mp, .stats .content > div#hp {
+  width: 50%;
+}
+.stats .content > div#luck input {
+  width: 2em;
+  flex-basis: calc(100% - 2em);
+  flex-grow: 0;
+  flex-shrink: 1;
+}
 .skills .option {
   font-size: 1.4rem;
   display: flex;
@@ -367,7 +387,7 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
   width: 2em;
 }
 
-.battle > div {
+.weapons > div {
   display: grid;
   grid-template-columns: 12em 8em repeat(6, 1fr);
   font-size: 1.6rem;

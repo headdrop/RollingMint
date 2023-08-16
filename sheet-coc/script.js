@@ -2,6 +2,7 @@ document.write(`<script src="https://unpkg.com/@popperjs/core@2"></script>
 <script src="https://unpkg.com/tippy.js@6"></script>`);
 var attr; // 특성치 저장
 window.onload=function() {
+  setTippy(); //툴팁
   // 시작할 때
   attr = getAttr();
   calcStats();
@@ -14,7 +15,6 @@ window.onload=function() {
   });
   // 시트의 모든 .value 바뀔때마다
   document.querySelectorAll(".sheet .content").forEach(item=>{
-    console.log(item.parentNode);
     if (item.parentNode.classList.contains("attr")) { // 특성치
       // 특성치 반값, 상태 계산, 특성치 영향 초기값
       item.addEventListener("change",(e)=>{
@@ -25,7 +25,7 @@ window.onload=function() {
       });
     } else if (item.parentNode.classList.contains("skills")) { // 기능치
       item.addEventListener("change",(e)=>{
-        if(e.target.className=="value") {
+        if(e.target.tagName=="INPUT" && e.target.type=="text") {
           clacSkillValue(e.target);
           divValue(e.target);
         }
@@ -33,11 +33,13 @@ window.onload=function() {
     }
   });
   // san_start 바뀔때마다
-  document.querySelector("#san_start input").addEventListener("change",(e)=>{
-    document.querySelector("#san span:first-child").textContent = Math.floor((e.target.value)/5*4);
+  document.querySelector("#san_start").addEventListener("change",(e)=>{
+    document.querySelector("#san span:nth-of-type(2)").textContent = Math.floor((e.target.value)/5*4);
   });
+}
 
-
+// -------------------------------- FUNCTIONS --------------------------------
+function setTippy() { // 툴팁
   document.querySelectorAll(".sp, .sp-add").forEach(element=>{
     if (element.className=="sp"){
       tippy(element,{
@@ -49,6 +51,10 @@ window.onload=function() {
       });
     }
   });
+  tippy(document.getElementById("san_start"),{content:"하루 시작시의 이성치"});
+  tippy(document.querySelectorAll("#san .input")[0],{content:"장기적인 광기 기준 이성치"});
+  tippy(document.querySelectorAll("#san .input")[1],{content:"이성 최대치"});
+  
 }
 
 function getAttr() {
@@ -106,7 +112,7 @@ function clacSkillValue(target){ // 기능치 값 더하기
     divValue(div.querySelector(".value"));
     calcStats();
   }
-  console.log(": calcValued");
+  console.log(": calcSKILLValued");
 }
 // 특성치에 영향받는 기능치 초기값 + 계산
 function defaultSkill () {
@@ -129,7 +135,7 @@ function calcStats() {
   let maxMP = Math.floor((Number(attr.pow)) / 5);
   document.querySelector("#mp span:last-child").textContent=maxMP;
   let maxSan = Math.floor(Number(attr.pow) - Number(document.querySelector("#cthulhu_mythos>input.value").value));
-  document.querySelector("#san span:last-child").textContent=maxSan;
+  document.querySelectorAll("#san .input")[1].textContent=maxSan;
   // 전투 수치
   let strSiz = Number(attr.str)+Number(attr.siz);
   var bonus, build;

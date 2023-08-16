@@ -67,23 +67,43 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
   }
 }
 .stats .content {
+  display: flex;
+  flex-wrap:wrap;
+  text-align:left;
   >div {
-    &:first-child {
-      display:grid;
-      // grid-template-columns: ;
+    display:flex;
+    width:100%;
+    span {
+      display:inline-block;
+      width:3em;
+      flex-shrink:0;
     }
-    &:last-child {
-
-    }
-    input, span {
+    input, span.input {
+      display:inline-block;
       background-color: $coc-input-bg;
       border:0;
       padding: 1px 2px;
       font-size:1.2rem;
-      width:2em;
     }
     input {
       font-size:1.6rem;
+      width:2em
+    }
+    &#mp, &#hp {
+      width:50%;
+    }
+    &#luck {
+      input {
+        width: 2em;
+        flex-basis: calc(100% - 2em);
+        flex-grow: 0;
+        flex-shrink: 1;
+      }
+      
+      // grid-column-end: span 2;
+    }
+    &#luck>input { 
+      // grid-column-end: span 3;
     }
   }
 }
@@ -219,7 +239,7 @@ input.sp, input.sp-add {
   text-align:center;
   width:2em;
 }
-.battle{
+.weapons{
   >div{
     display: grid;
     grid-template-columns: 12em 8em repeat(6,1fr);
