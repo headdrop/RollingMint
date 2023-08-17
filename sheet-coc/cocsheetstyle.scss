@@ -148,6 +148,9 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
   white-space: nowrap;
   outline: 0;
   opacity:0;
+  &::before {
+    content:"현재 직업 기능점수: "
+  }
 }
 .skill_point>div>span{
   &:hover, &:focus, &:active {

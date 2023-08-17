@@ -1,6 +1,7 @@
 document.write(`<script src="https://unpkg.com/@popperjs/core@2"></script>
 <script src="https://unpkg.com/tippy.js@6"></script>`);
 var attr; // 특성치 저장
+var otherskill; // 다른 스킬 양식 저장
 window.onload=function() {
   setTippy(); //툴팁
   // 시작할 때
@@ -8,7 +9,12 @@ window.onload=function() {
   calcStats();
   defaultSkill();
 
-  document.getElementById("sp_0").addEventListener("click",firstSkillPoint)
+  // 초기 기능점수 클릭시
+  document.getElementById("sp_0").addEventListener("click",()=>{
+    let pmt = prompt("직업 기능 점수를 입력하세요\n(CoC7th 수호자 룰북 p.34-36, p.40-41 참고)\n예시) EDU*4 or 교육*4 or 60*4","근력*2+건강*4+크기*2");
+    firstSkillPoint(pmt);
+  });
+
   const _skill = document.querySelectorAll("input.value");
   _skill.forEach((element)=>{
     divValue(element);
@@ -21,25 +27,35 @@ window.onload=function() {
         attr = getAttr();
         defaultSkill();
         calcStats();
+        firstSkillPoint(document.getElementById("sp_0_text").textContent);
         if(e.target.className=="value") divValue(e.target);
       });
     } else if (item.parentNode.classList.contains("skills")) { // 기능치
       item.addEventListener("change",(e)=>{
-        if(e.target.tagName=="INPUT" && e.target.type=="text") {
+        if(e.target.tagName=="INPUT" && e.target.type=="text" && !e.target.classList.contains("add")) {
           clacSkillValue(e.target);
           divValue(e.target);
+        }
+        if (e.target.className=="sp-add"|e.target.className=="sp") {  // 성장점수 바뀔때마다
+          calcSkillPoint();
         }
       });
     }
   });
+
   // san_start 바뀔때마다
   document.querySelector("#san_start").addEventListener("change",(e)=>{
     document.querySelector("#san span:nth-of-type(2)").textContent = Math.floor((e.target.value)/5*4);
   });
+
+
+
+
+// onload 함수 종료
 }
 
 // -------------------------------- FUNCTIONS --------------------------------
-function setTippy() { // 툴팁
+function setTippy() { // 툴팁 및 기타 디폴트 세팅
   document.querySelectorAll(".sp, .sp-add").forEach(element=>{
     if (element.className=="sp"){
       tippy(element,{
@@ -54,7 +70,16 @@ function setTippy() { // 툴팁
   tippy(document.getElementById("san_start"),{content:"하루 시작시의 이성치"});
   tippy(document.querySelectorAll("#san .input")[0],{content:"장기적인 광기 기준 이성치"});
   tippy(document.querySelectorAll("#san .input")[1],{content:"이성 최대치"});
-  
+  tippy(document.getElementById("sp_0"),{
+    content:"이 값은 직업 기능 점수와 관심 기능 점수를 더한 값입니다. 클릭하면 직업 기능 점수를 입력할 수 있습니다.",
+    placement:"bottom"
+  });
+
+  // 기타 세팅
+  const otherskillbase = document.getElementById("otherskill");
+  const otherskill_ = otherskillbase.cloneNode(true);
+  otherskill_.id="otherskill_";
+  otherskill=otherskill_;
 }
 
 function getAttr() {
@@ -70,12 +95,8 @@ function getAttr() {
   };
   return attr;
 }
-function jobPoint() {
-
-}
-
-function firstSkillPoint() {
-  let pmt = prompt("직업 기능 점수를 입력하세요\n(CoC7th 수호자 룰북 p.34-36, p.40-41 참고)\n예시) EDU*4 or 교육*4 or 60*4","근력*2+건강*4+크기*2");
+// 초기 기능 점수 계산
+function firstSkillPoint(pmt) {
   pmt=pmt.
   replace(/(근력)/,"str").
   replace(/(건강)/,"con").
@@ -84,19 +105,47 @@ function firstSkillPoint() {
   replace(/(외모)/,"app").
   replace(/(지능)/,"int").
   replace(/(정신력)/,"pow").
-  replace(/(교육)/gi,"r");
+  replace(/(교육)/,"edu");
   document.getElementById("sp_0_text").textContent = pmt;
   pmt=pmt.toLowerCase();
-  
   pmt=pmt.replace(/\s+/g, '');
   pmt=pmt.split("+");
+
   let sum = {...pmt};
-  console.log(sum);
+  let rexResult=0;
   for (let key in sum ) {
     sum[key]=sum[key].split("*");
+    sum[key][1]=Number(sum[key][1]);
+    switch (sum[key][0]) {
+      case "str" : sum[key][0]=Number(attr.str); break;
+      case "con" : sum[key][0]=Number(attr.con); break;
+      case "siz" : sum[key][0]=Number(attr.siz); break;
+      case "dex" : sum[key][0]=Number(attr.dex); break;
+      case "app" : sum[key][0]=Number(attr.app); break;
+      case "int" : sum[key][0]=Number(attr.int); break;
+      case "pow" : sum[key][0]=Number(attr.pow); break;
+      case "edu" : sum[key][0]=Number(attr.edu); break;
+    }
+    rexResult = (sum[key][0] * sum[key][1]) + (attr.int * 2) + rexResult;
   }
   console.log(sum);
+  document.getElementById("sp_0").value=rexResult;
+  calcSkillPoint();
 }
+function calcSkillPoint() {
+  const sp0 = document.getElementById("sp_0").value;
+  let addSkillPoint =0;
+  let sumSkillPoint =0;
+  document.querySelectorAll(".sp-add").forEach((item) => {
+    addSkillPoint = Number(addSkillPoint) + Number(item.value);
+  });
+  document.querySelectorAll(".sp").forEach((item)=>{
+    sumSkillPoint = Number(sumSkillPoint) + Number(item.value);
+  });
+  document.getElementById("sp_add").value = Number(addSkillPoint);
+  document.getElementById("sp_remain").value = Number(sp0) - Number(sumSkillPoint);
+}
+
 function clacSkillValue(target){ // 기능치 값 더하기
   if(target.className=="sp"|target.className=="sp-add") {
     const div = target.parentNode;
@@ -150,4 +199,9 @@ function calcStats() {
   }
   document.querySelector("#damage_bonus>input").value=bonus;
   document.querySelector("#build>input").value=build;
+}
+
+function addOtherSkill() {
+  let skill = otherskill.cloneNode(true);
+  document.getElementById("add_skill").checked = true;
 }
