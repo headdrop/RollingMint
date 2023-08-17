@@ -30,9 +30,23 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
 .sheet_box{
   background-color: $coc-box-bg;
   font-size: 1.6rem;
-  div:not(.option)>input:not(._name,[type="checkbox"]) {
+  div:not(.option)>input:not(._name,[type="checkbox"]),textarea {
     background-color: $coc-input-bg;
     border:0;
+  }
+  textarea {
+    width:100%;
+    border-radius: 0;
+  }
+  .option {
+    gap:1rem;
+    font-size:1.4rem;
+    background: #262626;
+    color: floralwhite;
+    padding: 1rem 10%;
+    >span {
+      line-height:1.5em;
+    }
   }
 }
 .table_title {
@@ -108,19 +122,10 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
   }
 }
 .skills .option{
-  font-size:1.4rem;
   display: flex;
   position:relative;
-  z-index:1;
   align-items: center;
   justify-items: start;
-  background: #262626;
-  color: floralwhite;
-  padding: 1rem 10%;
-  gap:1rem;
-  >span {
-    line-height:1.5em;
-  }
   div:not(.skill_point)>span {
     display:block;
     text-align:left;
@@ -132,7 +137,10 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
   flex-wrap: wrap;
   align-items: flex-start;
   gap:0.4rem;
-  input {width:6em!important;}
+  input {
+    width:6em!important;
+    
+  }
 }
 #sp_0_text {
   position:absolute;
@@ -173,7 +181,7 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
     width:100%;
     flex-direction: column;
     flex-wrap: wrap;
-    align-content: flex-end;
+    align-content: flex-start;
     justify-content: center;
   }
 
@@ -212,7 +220,8 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
     font-weight:bold;
   }
 }
-
+#cthulhu_mythos>input[type="checkbox"] {opacity:0}
+#otherskill1>.skill_icon.remove {display:none;}
 input.sp, input.sp-add {
   background-color: rgba(255,255,255,0.2)!important;
   transition: background-color 0.2s ease;
@@ -232,7 +241,8 @@ input.sp, input.sp-add {
     right:100%;
   }
   &.remove {
-    right:0.4rem;
+    right:-2rem;
+    cursor: pointer;
   }
 }
 
@@ -242,7 +252,7 @@ input.sp, input.sp-add {
   text-align:center;
   width:2em;
 }
-.weapons{
+.weapons .content{
   >div{
     display: grid;
     grid-template-columns: 12em 8em repeat(6,1fr);
@@ -296,5 +306,8 @@ input.sp, input.sp-add {
       
     }
   }
+  
+}
+.hide {
   
 }

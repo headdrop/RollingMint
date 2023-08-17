@@ -130,22 +130,22 @@ html(lang='ko')
           .option
             div
               span
-                input(type='radio' name='skill-type' checked)
+                input(type='radio' name='skill-type' checked value=1)
                 | 초기, 추가 기능 점수를 구분해서 입력
               span
-                input(type='radio' name='skill-type')
+                input(type='radio' name='skill-type' value=2)
                 | 기능 점수를 직접 입력
             div.skill_point
               div 
                 span 초기 기능점수
                   span#sp_0_text POW*4+SIZ*5
-                input#sp_0(type='text')
+                input#sp_0(type='text' readonly)
               div 
                 span 남은 기능점수
-                input#sp_remain(type='text')
+                input#sp_remain(type='text' readonly )
               div
                 span 추가 기능점수
-                input#sp_add(type='text')
+                input#sp_add(type='text' readonly)
           .content
             #appraise(order='1')
               input(type='checkbox')
@@ -475,7 +475,7 @@ html(lang='ko')
               input(class="value" placeholder='민/2')
               span.halfvalue
               span.fifthvalue
-            #otherskill
+            #otherskill1
               input(type='checkbox')
               .skill_name
                 input.add._name(value='추가 기능')
@@ -490,9 +490,9 @@ html(lang='ko')
               span.skill_icon.remove
                 <i class="fa-solid fa-trash-can"></i>
             button#add_skill <i class="fa-solid fa-circle-plus"></i>
-        .sheet_box
+        .sheet_box.weapons
           .title 무기
-          .weapons
+          .content
             .table_title 
               div 무기
               div 기능
@@ -511,5 +511,58 @@ html(lang='ko')
               input.range(type='text')
               input.ammo(type='text')
               input.malf(type='text')
+        .sheet_box.backstory 
+          .title 백스토리
+          .content
+            #personal_description
+              .subtitle 겉보기
+              textarea
+            #ideaology_beliefs
+              .subtitle 사상/신념
+              textarea
+            #significant_people
+              .subtitle 중요한 사람들
+              textarea
+            #meaningful_locations
+              .subtitle 의미 있는 장소들
+              textarea
+            #teasured_posessions 
+              .subtitle 소중한 물건들
+              textarea
+            #traits 
+              .subtitle 성격
+              textarea
+            #injuries_scars 
+              .subtitle 부상과 흉터
+              textarea
+            #phobias_manias
+              .subtitle 공포증과 집착증
+              textarea
+            #tomes_spells_artifacts
+              .subtitle 신화서, 주문, 유물
+              textarea
+            #encounters_with_strange_entities
+              .subtitle 기이한 존재들과의 만남
+              textarea
+        .sheet_box.money 
+          .title 장비와 소지품
+          .content 
+            textarea#gear_and_posessions
+          .title 현금과 자산
+          .option 
+            input(type="radio", name="assets", value="1")
+            | 자동계산
+            input(type="radio", name="assets", value="2")
+            | 수동계산
+          .content
+            #spending_level
+              span.subtitle 소비 수준
+              input(type="text")
+            #cash 
+              span.subtitle 현금
+              input(type="text")
+            #assets
+              .subtitle 자산
+              textarea
     footer#footer
     //- script(src='../module.js')

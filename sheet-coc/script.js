@@ -9,16 +9,11 @@ window.onload=function() {
   calcStats();
   defaultSkill();
 
-  // 초기 기능점수 클릭시
-  document.getElementById("sp_0").addEventListener("click",()=>{
-    let pmt = prompt("직업 기능 점수를 입력하세요\n(CoC7th 수호자 룰북 p.34-36, p.40-41 참고)\n예시) EDU*4 or 교육*4 or 60*4","근력*2+건강*4+크기*2");
-    firstSkillPoint(pmt);
-  });
-
   const _skill = document.querySelectorAll("input.value");
   _skill.forEach((element)=>{
     divValue(element);
   });
+
   // 시트의 모든 .value 바뀔때마다
   document.querySelectorAll(".sheet .content").forEach(item=>{
     if (item.parentNode.classList.contains("attr")) { // 특성치
@@ -47,7 +42,17 @@ window.onload=function() {
   document.querySelector("#san_start").addEventListener("change",(e)=>{
     document.querySelector("#san span:nth-of-type(2)").textContent = Math.floor((e.target.value)/5*4);
   });
-
+  // otherskill 추가
+  document.getElementById("add_skill").addEventListener("click",addOtherSkill);
+  // 초기 기능점수 클릭시
+  document.getElementById("sp_0").addEventListener("click",()=>{
+    let pmt = prompt("직업 기능 점수를 입력하세요\n(CoC7th 수호자 룰북 p.34-36, p.40-41 참고)\n예시) EDU*4 or 교육*4 or 60*4","근력*2+건강*4+크기*2");
+    firstSkillPoint(pmt);
+  });
+  // 스킬 출력 옵션 변경시
+  document.querySelector("[name='skill-type']").parentElement.parentElement.addEventListener("change",(e)=>{
+    optionSkill(e.target.value)
+  });
 
 
 
@@ -76,9 +81,9 @@ function setTippy() { // 툴팁 및 기타 디폴트 세팅
   });
 
   // 기타 세팅
-  const otherskillbase = document.getElementById("otherskill");
+  const otherskillbase = document.getElementById("otherskill1");
   const otherskill_ = otherskillbase.cloneNode(true);
-  otherskill_.id="otherskill_";
+  otherskill_.id="otherskill";
   otherskill=otherskill_;
 }
 
@@ -203,5 +208,34 @@ function calcStats() {
 
 function addOtherSkill() {
   let skill = otherskill.cloneNode(true);
-  document.getElementById("add_skill").checked = true;
+  skill.querySelector(".remove").addEventListener("click",(e)=>{
+    skill.remove();
+  });
+  let otherskills = document.querySelectorAll("[id^='otherskill']");
+  otherskills.forEach((item,index)=>{
+    item.id="otherskill"+Number(index+1);
+  });
+  let num = Number(otherskills.length)+1;
+  skill.id=skill.id+num;
+  document.getElementById("add_skill").before(skill);
+}
+
+function optionSkill(x) {
+  if (x==1) {
+    document.querySelectorAll(".skills .content input.value").forEach((item)=>{
+      console.log(item)
+      item.readOnly=true;
+    });
+    document.querySelectorAll(".skills .content input[class^='sp']").forEach((item)=>{
+      item.classList.remove("hide");
+    });
+  } else if (x==2){
+    document.querySelectorAll(".skills .content input.value").forEach((item)=>{
+      item.readOnly=false;
+    });
+    document.querySelectorAll(".skills .content input[class^='sp']").forEach((item)=>{
+      item.classList.add("hide");
+    });
+  }
+  console.log(x);
 }
