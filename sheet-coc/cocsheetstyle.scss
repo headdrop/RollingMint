@@ -221,7 +221,7 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
   }
 }
 #cthulhu_mythos>input[type="checkbox"] {opacity:0}
-#otherskill1>.skill_icon.remove {display:none;}
+#otherskill1>.skill_icon.remove, #weapon1>.skill_icon.remove {display:none;}
 input.sp, input.sp-add {
   background-color: rgba(255,255,255,0.2)!important;
   transition: background-color 0.2s ease;
@@ -309,5 +309,5 @@ input.sp, input.sp-add {
   
 }
 .hide {
-  
+  display:none;
 }

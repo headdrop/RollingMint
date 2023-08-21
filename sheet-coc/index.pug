@@ -31,6 +31,7 @@ html(lang='ko')
       .button_box 
         button 저장
         button 불러오기
+        button#opt_vtt Roll20 VTT로 내보내기
         button 코코포리아 API로 복사
       .sheet
         .sheet_box.info
@@ -405,7 +406,7 @@ html(lang='ko')
               span.fifthvalue
             #elec_repair(order='33')
               input(type='checkbox')
-              div.skill_name(default='01') 전기수리
+              div.skill_name(default='10') 전기수리
               input.sp(placeholder='')
               input.sp-add(placeholder='')
               input(class="value" value='01')
@@ -511,6 +512,9 @@ html(lang='ko')
               input.range(type='text')
               input.ammo(type='text')
               input.malf(type='text')
+              span.skill_icon.remove
+                <i class="fa-solid fa-trash-can"></i>
+            button#add_weapon <i class="fa-solid fa-circle-plus"></i>
         .sheet_box.backstory 
           .title 백스토리
           .content

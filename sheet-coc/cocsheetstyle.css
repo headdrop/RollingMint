@@ -362,7 +362,7 @@
   opacity: 0;
 }
 
-#otherskill1 > .skill_icon.remove {
+#otherskill1 > .skill_icon.remove, #weapon1 > .skill_icon.remove {
   display: none;
 }
 
@@ -451,4 +451,8 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
 }
 .skills input[type=checkbox]:checked::after {
   opacity: 1;
+}
+
+.hide {
+  display: none;
 }

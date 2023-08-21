@@ -1,7 +1,7 @@
 document.write(`<script src="https://unpkg.com/@popperjs/core@2"></script>
 <script src="https://unpkg.com/tippy.js@6"></script>`);
 var attr; // 특성치 저장
-var otherskill; // 다른 스킬 양식 저장
+var otherskill, otherweapon; // 추가 양식 저장
 window.onload=function() {
   setTippy(); //툴팁
   // 시작할 때
@@ -42,8 +42,9 @@ window.onload=function() {
   document.querySelector("#san_start").addEventListener("change",(e)=>{
     document.querySelector("#san span:nth-of-type(2)").textContent = Math.floor((e.target.value)/5*4);
   });
-  // otherskill 추가
-  document.getElementById("add_skill").addEventListener("click",addOtherSkill);
+  // otherskill, otherweapon 추가
+  document.getElementById("add_skill").addEventListener("click", ()=>addOther("skill"));
+  document.getElementById("add_weapon").addEventListener("click", ()=>addOther("weapon"));
   // 초기 기능점수 클릭시
   document.getElementById("sp_0").addEventListener("click",()=>{
     let pmt = prompt("직업 기능 점수를 입력하세요\n(CoC7th 수호자 룰북 p.34-36, p.40-41 참고)\n예시) EDU*4 or 교육*4 or 60*4","근력*2+건강*4+크기*2");
@@ -54,6 +55,8 @@ window.onload=function() {
     optionSkill(e.target.value)
   });
 
+  // option 버튼 동작
+  document.getElementById("opt_vtt").addEventListener("click",vtt);
 
 
 // onload 함수 종료
@@ -80,11 +83,14 @@ function setTippy() { // 툴팁 및 기타 디폴트 세팅
     placement:"bottom"
   });
 
-  // 기타 세팅
-  const otherskillbase = document.getElementById("otherskill1");
-  const otherskill_ = otherskillbase.cloneNode(true);
+  // 기타 세팅 참조 => addOther
+  // const otherskillbase = document.getElementById("otherskill1");
+  const otherskill_ = document.getElementById("otherskill1").cloneNode(true);
   otherskill_.id="otherskill";
   otherskill=otherskill_;
+  const otherweapon_ = document.getElementById("weapon1").cloneNode(true);
+  otherweapon_.id="otherweapon";
+  otherweapon=otherweapon_;
 }
 
 function getAttr() {
@@ -206,24 +212,25 @@ function calcStats() {
   document.querySelector("#build>input").value=build;
 }
 
-function addOtherSkill() {
-  let skill = otherskill.cloneNode(true);
-  skill.querySelector(".remove").addEventListener("click",(e)=>{
-    skill.remove();
-  });
-  let otherskills = document.querySelectorAll("[id^='otherskill']");
-  otherskills.forEach((item,index)=>{
-    item.id="otherskill"+Number(index+1);
-  });
-  let num = Number(otherskills.length)+1;
-  skill.id=skill.id+num;
-  document.getElementById("add_skill").before(skill);
+function addOther(type_) {
+  let type;
+  if (type_ == "skill") {
+    type = otherskill.cloneNode(true);
+  } else if (type_ == "weapon") {
+    type = otherweapon.cloneNode(true);
+  }
+  type.querySelector(".remove").addEventListener("click",(e)=>type.remove());
+  let otheritems = document.querySelectorAll(`[id^='other${type_}']`);
+  otheritems.forEach((item,index)=>item.id=`other${type_}`+Number(index+1));
+  let num = Number(otheritems.length)+1;
+  type.id=type.id+num;
+  document.getElementById(`add_${type_}`).before(type);
 }
+
 
 function optionSkill(x) {
   if (x==1) {
     document.querySelectorAll(".skills .content input.value").forEach((item)=>{
-      console.log(item)
       item.readOnly=true;
     });
     document.querySelectorAll(".skills .content input[class^='sp']").forEach((item)=>{
@@ -237,5 +244,377 @@ function optionSkill(x) {
       item.classList.add("hide");
     });
   }
-  console.log(x);
 }
+
+function vtt () {
+  var xx;
+  const idFirst = "-"+random(5);
+  
+  xx={
+    "schema_version": 3,
+    "type": "character",
+    "character": {
+      "name": document.querySelector("#name input").value,
+      // 여기서 아래까지 이미 입력된 것을 불러온 상태라면 그것으로 대체
+      "avatar": "",
+      "bio": "",
+      "gmnotes": "",
+      "defaulttoken": "",
+      "tags": "[]",
+      // 여기까지 + 뒤의 어빌리티
+      "controlledby": "",
+      "inplayerjournals": "",
+      "attribs": [
+        {
+          "name": "str_txt",
+          "current": "근력",
+          "max": "",
+          "id": "-Na9T7x9bPNEYP1ejP1a"
+        },
+        {
+            "name": "dex_txt",
+            "current": "민첩",
+            "max": "",
+            "id": "-Na9T7xALmC10F2jmIPG"
+        },
+        {
+            "name": "pow_txt",
+            "current": "정신",
+            "max": "",
+            "id": "-Na9T7xDhddnu03wOxyM"
+        },
+        {
+            "name": "con_txt",
+            "current": "건강",
+            "max": "",
+            "id": "-Na9T7xET96uxevWLEnE"
+        },
+        {
+            "name": "app_txt",
+            "current": "외모",
+            "max": "",
+            "id": "-Na9T7xFsCMn3shInBS5"
+        },
+        {
+            "name": "edu_txt",
+            "current": "교육",
+            "max": "",
+            "id": "-Na9T7xFsCMn3shInBS6"
+        },
+        {
+            "name": "siz_txt",
+            "current": "크기",
+            "max": "",
+            "id": "-Na9T7xGsxTEsZcVc4kl"
+        },
+        {
+            "name": "int_txt",
+            "current": "지능",
+            "max": "",
+            "id": "-Na9T7xHsXoHe9hg9mmb"
+        },
+        {
+            "name": "luck_txt",
+            "current": "운",
+            "max": "",
+            "id": "-Na9T7xHsXoHe9hg9mmc"
+        },
+        {
+            "name": "accounting_txt",
+            "current": "회계",
+            "max": "",
+            "id": "-Na9T7xHsXoHe9hg9mmd"
+        },
+        {
+            "name": "anthropology_txt",
+            "current": "인류학",
+            "max": "",
+            "id": "-Na9T7xI9Hxy9Jp_iaYj"
+        },
+        {
+            "name": "appraise_txt",
+            "current": "감정",
+            "max": "",
+            "id": "-Na9T7xI9Hxy9Jp_iaYk"
+        },
+        {
+            "name": "archaeology_txt",
+            "current": "고고학",
+            "max": "",
+            "id": "-Na9T7xJUrd6_Vhp12Pc"
+        },
+        {
+            "name": "charm_txt",
+            "current": "매혹",
+            "max": "",
+            "id": "-Na9T7xJUrd6_Vhp12Pd"
+        },
+        {
+            "name": "climb_txt",
+            "current": "오르기",
+            "max": "",
+            "id": "-Na9T7xJUrd6_Vhp12Pe"
+        },
+        {
+            "name": "creditrating_txt",
+            "current": "재력",
+            "max": "",
+            "id": "-Na9T7xKK4eI6lLjmy3B"
+        },
+        {
+            "name": "cthulhumythos_txt",
+            "current": "크툴루 신화",
+            "max": "",
+            "id": "-Na9T7xKK4eI6lLjmy3C"
+        },
+        {
+            "name": "disguise_txt",
+            "current": "변장",
+            "max": "",
+            "id": "-Na9T7xKK4eI6lLjmy3D"
+        },
+        {
+            "name": "dodge_txt",
+            "current": "회피",
+            "max": "",
+            "id": "-Na9T7xLRNCcwkqTnV8p"
+        },
+        {
+            "name": "driveauto_txt",
+            "current": "자동차 운전",
+            "max": "",
+            "id": "-Na9T7xLRNCcwkqTnV8q"
+        },
+        {
+            "name": "elecrepair_txt",
+            "current": "전기수리",
+            "max": "",
+            "id": "-Na9T7xMSMdwIVDVvT51"
+        },
+        {
+            "name": "fasttalk_txt",
+            "current": "말재주",
+            "max": "",
+            "id": "-Na9T7xMSMdwIVDVvT52"
+        },
+        {
+            "name": "fighting_brawl_txt",
+            "current": "근접전(격투)",
+            "max": "",
+            "id": "-Na9T7xNpM9tTSctDIwz"
+        },
+        {
+            "name": "firearms_hg_txt",
+            "current": "사격(권총)",
+            "max": "",
+            "id": "-Na9T7xNpM9tTSctDIx-"
+        },
+        {
+            "name": "firearms_rs_txt",
+            "current": "사격(라/산)",
+            "max": "",
+            "id": "-Na9T7xOx2R29kPSj4Uv"
+        },
+        {
+            "name": "firstaid_txt",
+            "current": "응급처치",
+            "max": "",
+            "id": "-Na9T7xOx2R29kPSj4Uw"
+        },
+        {
+            "name": "history_txt",
+            "current": "역사",
+            "max": "",
+            "id": "-Na9T7xPpjAtU1ieqW7t"
+        },
+        {
+            "name": "intimidate_txt",
+            "current": "위협",
+            "max": "",
+            "id": "-Na9T7xPpjAtU1ieqW7u"
+        },
+        {
+            "name": "jump_txt",
+            "current": "도약",
+            "max": "",
+            "id": "-Na9T7xPpjAtU1ieqW7v"
+        },
+        {
+            "name": "language_own_txt",
+            "current": "언어(모국어)",
+            "max": "",
+            "id": "-Na9T7xQJRF1O-sI43GM"
+        },
+        {
+            "name": "law_txt",
+            "current": "법률",
+            "max": "",
+            "id": "-Na9T7xQJRF1O-sI43GN"
+        },
+        {
+            "name": "libraryuse_txt",
+            "current": "자료조사",
+            "max": "",
+            "id": "-Na9T7xQJRF1O-sI43GO"
+        },
+        {
+            "name": "listen_txt",
+            "current": "듣기",
+            "max": "",
+            "id": "-Na9T7xR3squ-KLXqXiU"
+        },
+        {
+            "name": "locksmith_txt",
+            "current": "열쇠공",
+            "max": "",
+            "id": "-Na9T7xR3squ-KLXqXiV"
+        },
+        {
+            "name": "mechrepair_txt",
+            "current": "기계수리",
+            "max": "",
+            "id": "-Na9T7xSCw5XcpnbIqiZ"
+        },
+        {
+            "name": "medicine_txt",
+            "current": "의료",
+            "max": "",
+            "id": "-Na9T7xSCw5XcpnbIqi_"
+        },
+        {
+            "name": "naturalworld_txt",
+            "current": "자연",
+            "max": "",
+            "id": "-Na9T7xSCw5XcpnbIqia"
+        },
+        {
+            "name": "navigate_txt",
+            "current": "항법",
+            "max": "",
+            "id": "-Na9T7xTH6Ht1Fsfcte8"
+        },
+        {
+            "name": "occult_txt",
+            "current": "오컬트",
+            "max": "",
+            "id": "-Na9T7xTH6Ht1Fsfcte9"
+        },
+        {
+            "name": "ophvmachine_txt",
+            "current": "중장비 조작",
+            "max": "",
+            "id": "-Na9T7xU7KW9EwOX-ky7"
+        },
+        {
+            "name": "persuade_txt",
+            "current": "설득",
+            "max": "",
+            "id": "-Na9T7xU7KW9EwOX-ky8"
+        },
+        {
+            "name": "psychology_txt",
+            "current": "심리학",
+            "max": "",
+            "id": "-Na9T7xVANYPX8OIo-4x"
+        },
+        {
+            "name": "psychoanalysis_txt",
+            "current": "정신분석",
+            "max": "",
+            "id": "-Na9T7xVANYPX8OIo-4y"
+        },
+        {
+            "name": "ride_txt",
+            "current": "승마",
+            "max": "",
+            "id": "-Na9T7xVANYPX8OIo-4z"
+        },
+        {
+            "name": "sleightofhand_txt",
+            "current": "손놀림",
+            "max": "",
+            "id": "-Na9T7xW5SC8O2ZaX-GS"
+        },
+        {
+            "name": "spothidden_txt",
+            "current": "관찰력",
+            "max": "",
+            "id": "-Na9T7xW5SC8O2ZaX-GT"
+        },
+        {
+            "name": "stealth_txt",
+            "current": "은밀행동",
+            "max": "",
+            "id": "-Na9T7xXgqUVfGycVJVC"
+        },
+        {
+            "name": "swim_txt",
+            "current": "수영",
+            "max": "",
+            "id": "-Na9T7xXgqUVfGycVJVD"
+        },
+        {
+            "name": "throw_txt",
+            "current": "투척",
+            "max": "",
+            "id": "-Na9T7xXgqUVfGycVJVE"
+        },
+        {
+            "name": "track_txt",
+            "current": "추적",
+            "max": "",
+            "id": "-Na9T7xYIHUHQW28_xTd"
+        },
+        {
+            "name": "unarmed_txt",
+            "current": "비무장",
+            "max": "",
+            "id": "-Na9T7xYIHUHQW28_xTe"
+        }
+      ]
+    }
+  }
+  const skill = document.querySelectorAll(".skills .content>div[id]");
+  const weapon = document.querySelectorAll(".weapons .content>div.table_item[id]");
+  // -----
+  xx.character.bio = xx.character.bio+"\n이 캐릭터시트는 Rolling Mint 에서 작성되었습니다.";
+  xx.character.attribs.name = xx.character.name;
+  skill.forEach(function (item) {
+    xx.character.attribs.push({
+      "name": item.id,
+      "current" : item.querySelector(".value").value,
+      "max" : "",
+      "id" : idFirst+random(14)
+    });
+      if (item.id.startsWith('otherskill')) {
+        xx.character.attribs.push({
+          "name":item.id+"_name",
+          "current":item.querySelector(".skill_name input._name").value,
+          "max":"",
+          "id" : idFirst+random(14)
+        })
+      }
+  });
+  weapon.forEach(function (item) {
+    item.querySelectorAll("input").forEach((wp) => {
+      xx.character.attribs.push({
+        "name" : item.id +"_"+ wp.className,
+        "current" : wp.value,
+        "max" : "",
+        "id" : idFirst+random(14)
+      });
+    });
+  });
+
+  return xx;
+}
+
+const random = (length = 8) => {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let str = '';
+
+  for (let i = 0; i < length; i++) {
+    str += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return str;
+};
