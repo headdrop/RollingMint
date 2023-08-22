@@ -20,21 +20,27 @@ html(lang='ko')
   body
     #wrapper
       nav#float-menu
-      .todo
-        p 시트 요소 넣기 [ ]
-        | 시트 요소... html 파일 속성으로 order 를 넣으면 거기 맞춰서 정렬되게 하고 싶음
-        | 제일 위에 설명
       .setting
-        label.saveslot
-          input.hide(name='saveslot' type='radio')
-        label.saveslot
-          input.hide(name='saveslot' type='radio')
-        label.saveslot
-          input.hide(name='saveslot' type='radio')
-        label.saveslot
-          input.hide(name='saveslot' type='radio')
-        label.saveslot
-          input.hide(name='saveslot' type='radio')
+        #saveslots
+          label.saveslot
+            input(name='saveslot' type='radio' value=1)
+            span [1]-캐릭터명
+          label.saveslot
+            input(name='saveslot' type='radio' value=2)
+            span [2]-캐릭터명
+          label.saveslot
+            input(name='saveslot' type='radio' value=3)
+            span [3]-캐릭터명
+          label.saveslot
+            input(name='saveslot' type='radio' value=4)
+            span [4]-캐릭터명
+          label.saveslot
+            input(name='saveslot' type='radio' value=5)
+            span [5]-캐릭터명
+        span 선택한 슬롯
+        button#opt_slot_get 불러오기
+        button#opt_slot_set 저장
+        button#opt_slot_remove 삭제
       .button_box 
         button 저장
         button 불러오기

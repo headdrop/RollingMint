@@ -9,6 +9,9 @@ $coc-input-bg:rgba(255,255,255,0.5);
 $coc-sheet-title-bg:linear-gradient(black, #262626);
 
 @import '../checkbox';
+#wrapper {
+  font-size:1.6rem;
+}
 .setting>label {
   font-family: 'NEXON Lv1 Gothic OTF';
 }
@@ -306,8 +309,41 @@ input.sp, input.sp-add {
       
     }
   }
+}
+
+// 세팅
+.setting {
   
 }
+#saveslots {
+  display:flex;
+}
+.saveslot {
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:1rem;
+  border:1px solid #333;
+  border-radius: 0.4rem;
+  margin:0.4rem;
+  cursor:pointer;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    background-color: #333;
+    color:white;
+  }
+  &:focus, &:has(input:checked) {
+    background-color: #333;
+    color:white;
+  }
+  >input {display:none}
+}
+
+
+
+
 .hide {
   display:none;
 }

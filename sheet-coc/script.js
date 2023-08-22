@@ -57,6 +57,9 @@ window.onload=function() {
 
   // option 버튼 동작
   document.getElementById("opt_vtt").addEventListener("click",vtt);
+  document.getElementById("opt_slot_get").addEventListener("click",slotButton);
+  document.getElementById("opt_slot_set").addEventListener("click",slotButton);
+  document.getElementById("opt_slot_remove").addEventListener("click",slotButton);
 
 
 // onload 함수 종료
@@ -246,7 +249,19 @@ function optionSkill(x) {
   }
 }
 
+
+
 function vtt () {
+  const random = (length = 8) => {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let str = '';
+    for (let i = 0; i < length; i++) {
+      str += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return str;
+  };
+  // 랜덤 함수 끝
+
   console.log("vtt");
   var xx;
   const idFirst = "-"+random(5);
@@ -577,6 +592,8 @@ function vtt () {
   }
   const skill = document.querySelectorAll(".skills .content>div[id]");
   const weapon = document.querySelectorAll(".weapons .content>div.table_item[id]");
+  const etc = document.querySelectorAll(".backstory .content>div[id], .money .content>div[id], .info .content>div[id]");
+  const stat = document.querySelectorAll(".stats .content>div[id]>input:not([id]), .battle .content>div[id]>input");
   // -----
   xx.character.bio = xx.character.bio+"\n이 캐릭터시트는 Rolling Mint 에서 작성되었습니다.";
   xx.character.attribs.name = xx.character.name;
@@ -606,16 +623,72 @@ function vtt () {
       });
     });
   });
+  etc.forEach(function (item) {
+    xx.character.attribs.push({
+      "name": item.id,
+      "current" : item.querySelector("textarea, input").value,
+      "max" : "",
+      "id" : idFirst+random(14)
+    });
+  });
+  stat.forEach(function (item) {
+    xx.character.attribs.push({
+      "name": item.id,
+      "current" : item.value,
+      "max" : "",
+      "id" : idFirst+random(14)
+    });
+  });
 
   return xx;
 }
 
-const random = (length = 8) => {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let str = '';
-
-  for (let i = 0; i < length; i++) {
-    str += chars.charAt(Math.floor(Math.random() * chars.length));
+// SAVE FUNCTIONS
+function slotButton (e) {
+  try {
+    const type = e.target.id.replace("opt_slot_","");
+    const num = document.querySelector("[name='saveslot']:checked").value;
+    console.log(type);
+    switch (type) {
+      case "get" :
+        console.log(localStorage.getItem(num));
+      break;
+      case "set" :
+        localStorage.setItem(num,JSON.stringify(slot()));
+      break;
+      case "remove" :
+        localStorage.removeItem(num);
+      break;
+    }
+  } catch (err) {
+    console.log(err);
   }
-  return str;
-};
+}
+function slot () {
+  var ss;
+  ss = vtt();
+  ss.rolling_mint = {};
+  ss.rolling_mint.job_point = document.getElementById("sp_0_text").textContent;
+  ss.rolling_mint.skill_type=document.querySelector("[name='skill-type']").value;
+
+  if (ss.rolling_mint.skill_type==1) {
+    ss.rolling_mint.skills = [];
+    const skill = document.querySelectorAll(".skills .content>div[id]");
+    skill.forEach(function (item) {
+      var dd;
+      if (item.id.startsWith('otherskill')) {
+        dd = item.querySelector(".skill_name>span>input.add").value;
+      } else {
+        dd = item.querySelector(".skill_name").attributes.default.value;
+      }
+      ss.rolling_mint.skills.push({
+        "name": item.id,
+        "sp" : item.querySelector(".sp").value,
+        "sp-add" : item.querySelector(".sp-add").value,
+        "default" : dd
+      });
+    });
+  }
+
+  return ss;
+}
