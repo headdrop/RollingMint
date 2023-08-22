@@ -247,6 +247,7 @@ function optionSkill(x) {
 }
 
 function vtt () {
+  console.log("vtt");
   var xx;
   const idFirst = "-"+random(5);
   
