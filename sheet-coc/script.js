@@ -633,7 +633,7 @@ function vtt () {
   });
   stat.forEach(function (item) {
     xx.character.attribs.push({
-      "name": item.id,
+      "name": item.parentNode.id,
       "current" : item.value,
       "max" : "",
       "id" : idFirst+random(14)
@@ -649,15 +649,18 @@ function slotButton (e) {
     const type = e.target.id.replace("opt_slot_","");
     const num = document.querySelector("[name='saveslot']:checked").value;
     console.log(type);
+    const slot_ = slot();
     switch (type) {
       case "get" :
         console.log(localStorage.getItem(num));
       break;
       case "set" :
-        localStorage.setItem(num,JSON.stringify(slot()));
+        localStorage.setItem(num,JSON.stringify(slot_));
+        document.querySelector("[name='saveslot']:checked").nextSibling.textContent = `[${num}]-${slot_.character.name}`;
       break;
       case "remove" :
         localStorage.removeItem(num);
+        document.querySelector("[name='saveslot']:checked").nextSibling.textContent = `[${num}]-캐릭터명`;
       break;
     }
   } catch (err) {
@@ -691,4 +694,25 @@ function slot () {
   }
 
   return ss;
+}
+
+
+
+function load (jj) {
+  // const notskill;
+  if (jj.schema_version==3 && jj.type=='character') {
+    jj.arrtibs.forEach((item)=>{
+      if (item.name.indexOf("_txt")===-1 && item.name.indexOf("otherskill")===-1 && item.name.indexOf("weapon")===-1) {
+      }
+    });
+
+    if (jj.rolling_mint==undefined) { // 불러온 파일이 vtt 추출 파일일 때
+    } else if (jj.rolling_mint!=undefined) { // 불러온 파일이 롤링민트 파일일 때
+    }
+
+  } else {
+    console.log("불러온 파일이 캐릭터시트가 아닙니다.");
+  }
+
+  
 }
