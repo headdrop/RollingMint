@@ -592,8 +592,15 @@ function vtt () {
   }
   const skill = document.querySelectorAll(".skills .content>div[id]");
   const weapon = document.querySelectorAll(".weapons .content>div.table_item[id]");
-  const etc = document.querySelectorAll(".backstory .content>div[id], .money .content>div[id], .info .content>div[id]");
-  const stat = document.querySelectorAll(".stats .content>div[id]>input:not([id]), .battle .content>div[id]>input");
+  const etc = document.querySelectorAll(`
+    .info .content>div[id]>input,
+    .attr .content>div[id]>input,
+    .stats .content>div[id]>input:not([id]),
+    .battle .content>div[id]>input,
+    .backstory .content>div[id]>textarea,
+    #spending_level>input, #cash>input, #assets>textarea
+    `);
+  const xcpt = document.querySelectorAll("#san_start, #gear_and_posessions"); // input or textarea 의 id를 가지고 있는 것
   // -----
   xx.character.bio = xx.character.bio+"\n이 캐릭터시트는 Rolling Mint 에서 작성되었습니다.";
   xx.character.attribs.name = xx.character.name;
@@ -625,21 +632,20 @@ function vtt () {
   });
   etc.forEach(function (item) {
     xx.character.attribs.push({
-      "name": item.id,
-      "current" : item.querySelector("textarea, input").value,
-      "max" : "",
-      "id" : idFirst+random(14)
-    });
-  });
-  stat.forEach(function (item) {
-    xx.character.attribs.push({
       "name": item.parentNode.id,
       "current" : item.value,
       "max" : "",
       "id" : idFirst+random(14)
     });
   });
-
+  xcpt.forEach(function (item) {
+    xx.character.attribs.push({
+      "name": item.id,
+      "current" : item.value,
+      "max" : "",
+      "id" : idFirst+random(14)
+    });
+  });
   return xx;
 }
 
@@ -681,38 +687,183 @@ function slot () {
       var dd;
       if (item.id.startsWith('otherskill')) {
         dd = item.querySelector(".skill_name>span>input.add").value;
+        ss.rolling_mint.skills.push({
+          "name": item.id,
+          "sp" : item.querySelector(".sp").value,
+          "sp-add" : item.querySelector(".sp-add").value,
+          "default" : dd
+        });
       } else {
+        const txt = item.querySelector("._name").value;
         dd = item.querySelector(".skill_name").attributes.default.value;
+        ss.rolling_mint.skills.push({
+          "name": item.id,
+          "sp" : item.querySelector(".sp").value,
+          "sp-add" : item.querySelector(".sp-add").value,
+          "default" : dd,
+          "txt" : txt
+        });
       }
-      ss.rolling_mint.skills.push({
-        "name": item.id,
-        "sp" : item.querySelector(".sp").value,
-        "sp-add" : item.querySelector(".sp-add").value,
-        "default" : dd
-      });
+      
     });
   }
 
   return ss;
 }
 
-
+[
+  "appraise",
+  "archaeology",
+  "spot_hidden",
+  "fighting_brawl",
+  "mech_repair",
+  "jump",
+  "listen",
+  "fast_talk",
+  "charm",
+  "law",
+  "disguise",
+  "firearms_handgun",
+  "firearms_rifle",
+  "persuade",
+  "sleight_of_hand",
+  "swim",
+  "ride",
+  "psychology",
+  "language_own",
+  "history",
+  "locksmith",
+  "climb",
+  "occult",
+  "intimidate",
+  "stealth",
+  "first_aid",
+  "medicine",
+  "anthropology",
+  "drive_auto",
+  "library_use",
+  "natural_world",
+  "credit_rating",
+  "elec_repair",
+  "psychoanalysis",
+  "op_hv_machine",
+  "track",
+  "cthulhu_mythos",
+  "throw",
+  "navigate",
+  "accounting",
+  "dodge",
+  "otherskill1",
+  "otherskill1_name",
+  "weapon1_name",
+  "weapon1_skill",
+  "weapon1_damage",
+  "weapon1_db",
+  "weapon1_attacks",
+  "weapon1_range",
+  "weapon1_ammo",
+  "weapon1_malf",
+  "name",
+  "player",
+  "occupation",
+  "age",
+  "sex",
+  "residence",
+  "birthplace",
+  "str",
+  "con",
+  "siz",
+  "dex",
+  "app",
+  "int",
+  "pow",
+  "edu",
+  "luck",
+  "hp",
+  "mp",
+  "san",
+  "damage_bonus",
+  "build",
+  "personal_description",
+  "ideaology_beliefs",
+  "significant_people",
+  "meaningful_locations",
+  "teasured_posessions",
+  "traits",
+  "injuries_scars",
+  "phobias_manias",
+  "tomes_spells_artifacts",
+  "encounters_with_strange_entities",
+  "spending_level",
+  "cash",
+  "assets",
+  "san_start",
+  "gear_and_posessions"
+]
 
 function load (jj) {
-  // const notskill;
+  const tg = {
+    "A" : ["name","player","occupation","age","sex","residence","birthplace","str","con","siz","dex","app","int","pow","edu","hp","mp","san","luck","build","damage_bonus","spending_level","cash"],
+    "A_address" : ">input:not([id])",
+    "B": ["personal_description","ideaology_beliefs","significant_people","meaningful_locations","teasured_posessions","traits","injuries_scars","phobias_manias","tomes_spells_artifacts","encounters_with_strange_entities","assets"],
+    "B_address" : ">textarea",
+    "C" : ["san_start","gear_and_posessions"]
+  }
+
   if (jj.schema_version==3 && jj.type=='character') {
-    jj.arrtibs.forEach((item)=>{
-      if (item.name.indexOf("_txt")===-1 && item.name.indexOf("otherskill")===-1 && item.name.indexOf("weapon")===-1) {
+    var arr = [];
+    jj.character.attribs.forEach((item)=>{
+      if (item.name.indexOf("_txt")===-1) arr.push(item)
+    });
+    jj.character.attribs = arr; // txt 삭제
+    var skills = [];
+    jj.character.attribs.forEach((item)=>{
+      if (tg.A.indexOf(item.name)!==-1) { // item name 이 tg A에 있을 때
+        document.querySelector(`#${item.name+tg.A_address}`).value=item.current;
+      } else if (tg.B.indexOf(item.name)!==-1) {
+        document.querySelector(`#${item.name+tg.B_address}`).value=item.current;
+      } else if (tg.C.indexOf(item.name)!==-1) {
+        document.querySelector(`#${item.name}`).value=item.current;
+      } else if (item.name.startsWith("weapon")!==-1) { // weapons
+        const weaponNum = item.name.split("_")[0];
+        const sub = item.name.split("_")[1];
+        document.querySelector(`#${weaponNum}>.${sub}`).value=item.current;
+      } else {
+        skills.push(item); // skill 분리
       }
     });
 
-    if (jj.rolling_mint==undefined) { // 불러온 파일이 vtt 추출 파일일 때
-    } else if (jj.rolling_mint!=undefined) { // 불러온 파일이 롤링민트 파일일 때
+  try {
+    if (jj.rolling_mint==undefined) { 
+      skills.forEach((item)=>{
+        if (item.name.startsWith("otherskill")!==-1) { // otherskill
+          const itemId = item.name.split("_")[0];
+          const sub = item.name.split("_")[1]===undefined ? `.value`:`._name`;
+          document.querySelector(`#${itemId} input${sub}`).value=item.current;
+        } else {
+          console.log(item.name);
+          document.querySelector(`#${item.name} .value`).value=item.current;
+        }
+      });
+    } else {
+      jj.rolling_mint.skills.forEach((item)=>{
+        if (item.name.startsWith("otherskill")) {
+          document.querySelector(`#${item.name} ._name`).value=item.txt;
+        }
+        if (jj.rolling_mint.skill_type==1) {
+          document.querySelector(`#${item.name} .sp`).value=item.sp;
+          document.querySelector(`#${item.name} .sp-add`).value=item["sp-add"];
+          document.querySelector(`#${item.name}`).default=item.default;
+        } else {
+          document.querySelector(`#${item.name} .value`).value=skills[item.name].current;
+        }
+      });
+
+
+
     }
-
+  } catch (err) {console.log(err)}
   } else {
-    console.log("불러온 파일이 캐릭터시트가 아닙니다.");
+    alert("불러온 파일이 캐릭터시트가 아닙니다.");
   }
-
-  
 }
