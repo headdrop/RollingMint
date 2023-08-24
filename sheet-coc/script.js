@@ -8,6 +8,7 @@ window.onload=function() {
   attr = getAttr();
   calcStats();
   defaultSkill();
+  defaultSaveSlot();
 
   const _skill = document.querySelectorAll("input.value");
   _skill.forEach((element)=>{
@@ -56,10 +57,12 @@ window.onload=function() {
   });
 
   // option 버튼 동작
-  document.getElementById("opt_vtt").addEventListener("click",vtt);
-  document.getElementById("opt_slot_get").addEventListener("click",slotButton);
-  document.getElementById("opt_slot_set").addEventListener("click",slotButton);
-  document.getElementById("opt_slot_remove").addEventListener("click",slotButton);
+  document.getElementById("slot_get").addEventListener("click",slotButton);
+  document.getElementById("slot_set").addEventListener("click",slotButton);
+  document.getElementById("slot_remove").addEventListener("click",slotButton);
+  // document.getElementById("export_json").addEventListener("click",);
+  document.getElementById("export_vtt").addEventListener("click",vtt);
+  document.getElementById("import_button").addEventListener("click",importButton);
 
 
 // onload 함수 종료
@@ -96,6 +99,14 @@ function setTippy() { // 툴팁 및 기타 디폴트 세팅
   otherweapon=otherweapon_;
 }
 
+function defaultSaveSlot() {
+  for (i=1;i<=5;i++) {
+    try{
+    const saveSlotName = JSON.parse(localStorage[i]).character.name;
+    document.querySelectorAll(".saveslot>span")[i-1].textContent = `[${i}]-${saveSlotName}`;
+    } catch  {}
+  }
+}
 function getAttr() {
   var attr = {
     str : document.querySelector("#str input").value,
@@ -187,6 +198,9 @@ function defaultSkill () {
 
 function divValue (target) {
   try  {
+    if(target.nextSibling.className=="여기부터 다시봐야함") {
+      
+    }
   let skillVal = target.value;
   target.nextSibling.textContent=Math.floor(skillVal / 2);
   target.nextSibling.nextSibling.textContent=Math.floor(skillVal/5);
@@ -269,6 +283,7 @@ function vtt () {
   xx={
     "schema_version": 3,
     "type": "character",
+    "name": document.querySelector("#name input").value,
     "character": {
       "name": document.querySelector("#name input").value,
       // 여기서 아래까지 이미 입력된 것을 불러온 상태라면 그것으로 대체
@@ -658,7 +673,8 @@ function slotButton (e) {
     const slot_ = slot();
     switch (type) {
       case "get" :
-        console.log(localStorage.getItem(num));
+        const data = JSON.parse(localStorage.getItem(num));
+        load(data);
       break;
       case "set" :
         localStorage.setItem(num,JSON.stringify(slot_));
@@ -686,124 +702,36 @@ function slot () {
     skill.forEach(function (item) {
       var dd;
       if (item.id.startsWith('otherskill')) {
+        const txt = item.querySelector("._name").value;
         dd = item.querySelector(".skill_name>span>input.add").value;
         ss.rolling_mint.skills.push({
           "name": item.id,
           "sp" : item.querySelector(".sp").value,
           "sp-add" : item.querySelector(".sp-add").value,
-          "default" : dd
+          "current" : item.querySelector(".value").value,
+          "default" : dd,
+          "txt" : txt
         });
       } else {
-        const txt = item.querySelector("._name").value;
         dd = item.querySelector(".skill_name").attributes.default.value;
         ss.rolling_mint.skills.push({
           "name": item.id,
           "sp" : item.querySelector(".sp").value,
           "sp-add" : item.querySelector(".sp-add").value,
-          "default" : dd,
-          "txt" : txt
+          "current" : item.querySelector(".value").value,
+          "default" : dd
         });
       }
-      
     });
   }
 
   return ss;
 }
 
-[
-  "appraise",
-  "archaeology",
-  "spot_hidden",
-  "fighting_brawl",
-  "mech_repair",
-  "jump",
-  "listen",
-  "fast_talk",
-  "charm",
-  "law",
-  "disguise",
-  "firearms_handgun",
-  "firearms_rifle",
-  "persuade",
-  "sleight_of_hand",
-  "swim",
-  "ride",
-  "psychology",
-  "language_own",
-  "history",
-  "locksmith",
-  "climb",
-  "occult",
-  "intimidate",
-  "stealth",
-  "first_aid",
-  "medicine",
-  "anthropology",
-  "drive_auto",
-  "library_use",
-  "natural_world",
-  "credit_rating",
-  "elec_repair",
-  "psychoanalysis",
-  "op_hv_machine",
-  "track",
-  "cthulhu_mythos",
-  "throw",
-  "navigate",
-  "accounting",
-  "dodge",
-  "otherskill1",
-  "otherskill1_name",
-  "weapon1_name",
-  "weapon1_skill",
-  "weapon1_damage",
-  "weapon1_db",
-  "weapon1_attacks",
-  "weapon1_range",
-  "weapon1_ammo",
-  "weapon1_malf",
-  "name",
-  "player",
-  "occupation",
-  "age",
-  "sex",
-  "residence",
-  "birthplace",
-  "str",
-  "con",
-  "siz",
-  "dex",
-  "app",
-  "int",
-  "pow",
-  "edu",
-  "luck",
-  "hp",
-  "mp",
-  "san",
-  "damage_bonus",
-  "build",
-  "personal_description",
-  "ideaology_beliefs",
-  "significant_people",
-  "meaningful_locations",
-  "teasured_posessions",
-  "traits",
-  "injuries_scars",
-  "phobias_manias",
-  "tomes_spells_artifacts",
-  "encounters_with_strange_entities",
-  "spending_level",
-  "cash",
-  "assets",
-  "san_start",
-  "gear_and_posessions"
-]
 
 function load (jj) {
   const tg = {
-    "A" : ["name","player","occupation","age","sex","residence","birthplace","str","con","siz","dex","app","int","pow","edu","hp","mp","san","luck","build","damage_bonus","spending_level","cash"],
+    "A" : ["name","player","occupation","age","sex","residence","birthplace","str","con","siz","dex","app","int","pow","edu","mov","hp","mp","san","luck","build","damage_bonus","spending_level","cash"],
     "A_address" : ">input:not([id])",
     "B": ["personal_description","ideaology_beliefs","significant_people","meaningful_locations","teasured_posessions","traits","injuries_scars","phobias_manias","tomes_spells_artifacts","encounters_with_strange_entities","assets"],
     "B_address" : ">textarea",
@@ -817,6 +745,7 @@ function load (jj) {
     });
     jj.character.attribs = arr; // txt 삭제
     var skills = [];
+    try {
     jj.character.attribs.forEach((item)=>{
       if (tg.A.indexOf(item.name)!==-1) { // item name 이 tg A에 있을 때
         document.querySelector(`#${item.name+tg.A_address}`).value=item.current;
@@ -824,7 +753,7 @@ function load (jj) {
         document.querySelector(`#${item.name+tg.B_address}`).value=item.current;
       } else if (tg.C.indexOf(item.name)!==-1) {
         document.querySelector(`#${item.name}`).value=item.current;
-      } else if (item.name.startsWith("weapon")!==-1) { // weapons
+      } else if (item.name.startsWith("weapon")) { // weapons
         const weaponNum = item.name.split("_")[0];
         const sub = item.name.split("_")[1];
         document.querySelector(`#${weaponNum}>.${sub}`).value=item.current;
@@ -833,7 +762,7 @@ function load (jj) {
       }
     });
 
-  try {
+  
     if (jj.rolling_mint==undefined) { 
       skills.forEach((item)=>{
         if (item.name.startsWith("otherskill")!==-1) { // otherskill
@@ -851,9 +780,13 @@ function load (jj) {
           document.querySelector(`#${item.name} ._name`).value=item.txt;
         }
         if (jj.rolling_mint.skill_type==1) {
+          if (item.name.startsWith("otherskill")) {
+            document.querySelector(`#${item.name} .skill_name>span>.add`).value=item.default;
+          } else {
+            document.querySelector(`#${item.name}`).default=item.default;
+          }
           document.querySelector(`#${item.name} .sp`).value=item.sp;
           document.querySelector(`#${item.name} .sp-add`).value=item["sp-add"];
-          document.querySelector(`#${item.name}`).default=item.default;
         } else {
           document.querySelector(`#${item.name} .value`).value=skills[item.name].current;
         }
@@ -866,4 +799,15 @@ function load (jj) {
   } else {
     alert("불러온 파일이 캐릭터시트가 아닙니다.");
   }
+}
+
+function importButton () {
+  const file = document.getElementById("import_file").files[0];
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    const data = JSON.parse(e.target.result);
+    console.log(data);
+    load(data);
+  }
+  reader.readAsText(file);
 }

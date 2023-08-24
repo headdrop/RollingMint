@@ -21,31 +21,38 @@ html(lang='ko')
     #wrapper
       nav#float-menu
       .setting
-        #saveslots
-          label.saveslot
-            input(name='saveslot' type='radio' value=1)
-            span [1]-캐릭터명
-          label.saveslot
-            input(name='saveslot' type='radio' value=2)
-            span [2]-캐릭터명
-          label.saveslot
-            input(name='saveslot' type='radio' value=3)
-            span [3]-캐릭터명
-          label.saveslot
-            input(name='saveslot' type='radio' value=4)
-            span [4]-캐릭터명
-          label.saveslot
-            input(name='saveslot' type='radio' value=5)
-            span [5]-캐릭터명
-        span 선택한 슬롯
-        button#opt_slot_get 불러오기
-        button#opt_slot_set 저장
-        button#opt_slot_remove 삭제
-      .button_box 
-        button 저장
-        button 불러오기
-        button#opt_vtt Roll20 VTT로 내보내기
-        button 코코포리아 API로 복사
+        #save.setting_item
+          #saveslots
+            label.saveslot
+              input(name='saveslot' type='radio' value=1)
+              span [1]-캐릭터명
+            label.saveslot
+              input(name='saveslot' type='radio' value=2)
+              span [2]-캐릭터명
+            label.saveslot
+              input(name='saveslot' type='radio' value=3)
+              span [3]-캐릭터명
+            label.saveslot
+              input(name='saveslot' type='radio' value=4)
+              span [4]-캐릭터명
+            label.saveslot
+              input(name='saveslot' type='radio' value=5)
+              span [5]-캐릭터명
+          span 선택한 슬롯
+          button#slot_get 불러오기
+          button#slot_set 저장
+          button#slot_remove 삭제
+        #export.setting_item
+          button#export_json JSON 파일로 내보내기
+          button#export_vtt Roll20 VTT로 내보내기
+          button#export_ccf 코코포리아 API로 복사
+        #import.setting_item
+          input#import_file(type='file' accept='.json')
+          .desc
+            p VTT에서 export 한 JSON 파일
+            p rolling mint (이 사이트)에서 내보내기 한 JSON 파일
+            p 코코포리아 API형식의 텍스트를 .JSON 확장자로 저장한 파일
+          button#import_button 불러오기
       .sheet
         .sheet_box.info
           .title 탐사자 정보
@@ -107,9 +114,10 @@ html(lang='ko')
               input.value(type='text' value='50')
               span.halfvalue
               span.fifthvalue
-            div
+            #mov
               span 이동력
-              span 1
+              input.value 
+              <i class="fa-solid fa-calculator"></i>
         .sheet_box.stats
           .title 상태
           .content

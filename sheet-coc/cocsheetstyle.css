@@ -211,7 +211,7 @@
   flex-wrap: wrap;
   height: 6rem;
 }
-.attr .content > div > input {
+.attr .content > div > .value {
   width: 2.5em;
   height: 2em;
   font-size: 2rem;
