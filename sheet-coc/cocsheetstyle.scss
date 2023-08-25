@@ -83,6 +83,10 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
     }
   }
 }
+#mov i {
+  width: 16px;
+}
+// ---
 .stats .content {
   display: flex;
   flex-wrap:wrap;
@@ -116,7 +120,6 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
         flex-grow: 0;
         flex-shrink: 1;
       }
-      
       // grid-column-end: span 2;
     }
     &#luck>input { 

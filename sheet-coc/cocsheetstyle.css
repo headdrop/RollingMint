@@ -224,6 +224,10 @@
   justify-content: center;
 }
 
+#mov i {
+  width: 16px;
+}
+
 .stats .content {
   display: flex;
   flex-wrap: wrap;

@@ -55,6 +55,8 @@ window.onload=function() {
   document.querySelector("[name='skill-type']").parentElement.parentElement.addEventListener("change",(e)=>{
     optionSkill(e.target.value)
   });
+  // mov 계산
+  document.querySelector("#mov>i").addEventListener("click",mov);
 
   // option 버튼 동작
   document.getElementById("slot_get").addEventListener("click",slotButton);
@@ -88,6 +90,10 @@ function setTippy() { // 툴팁 및 기타 디폴트 세팅
     content:"이 값은 직업 기능 점수와 관심 기능 점수를 더한 값입니다. 클릭하면 직업 기능 점수를 입력할 수 있습니다.",
     placement:"bottom"
   });
+  tippy(document.getElementById("mov"),{
+    content:"아이콘을 클릭하면 이동력이 계산됩니다. 계산된 값은 인간 기준이며, 나이에 따른 이동력 감소가 적용되어 있지 않습니다.(수호자 룰북 33p) ",
+    placement:"bottom"
+  });
 
   // 기타 세팅 참조 => addOther
   // const otherskillbase = document.getElementById("otherskill1");
@@ -109,14 +115,14 @@ function defaultSaveSlot() {
 }
 function getAttr() {
   var attr = {
-    str : document.querySelector("#str input").value,
-    con : document.querySelector("#con input").value,
-    siz : document.querySelector("#siz input").value,
-    dex : document.querySelector("#dex input").value,
-    app : document.querySelector("#app input").value,
-    int : document.querySelector("#int input").value,
-    pow : document.querySelector("#pow input").value,
-    edu : document.querySelector("#edu input").value
+    str : Number(document.querySelector("#str input").value),
+    con : Number(document.querySelector("#con input").value),
+    siz : Number(document.querySelector("#siz input").value),
+    dex : Number(document.querySelector("#dex input").value),
+    app : Number(document.querySelector("#app input").value),
+    int : Number(document.querySelector("#int input").value),
+    pow : Number(document.querySelector("#pow input").value),
+    edu : Number(document.querySelector("#edu input").value)
   };
   return attr;
 }
@@ -142,18 +148,17 @@ function firstSkillPoint(pmt) {
     sum[key]=sum[key].split("*");
     sum[key][1]=Number(sum[key][1]);
     switch (sum[key][0]) {
-      case "str" : sum[key][0]=Number(attr.str); break;
-      case "con" : sum[key][0]=Number(attr.con); break;
-      case "siz" : sum[key][0]=Number(attr.siz); break;
-      case "dex" : sum[key][0]=Number(attr.dex); break;
-      case "app" : sum[key][0]=Number(attr.app); break;
-      case "int" : sum[key][0]=Number(attr.int); break;
-      case "pow" : sum[key][0]=Number(attr.pow); break;
-      case "edu" : sum[key][0]=Number(attr.edu); break;
+      case "str" : sum[key][0]=attr.str; break;
+      case "con" : sum[key][0]=attr.con; break;
+      case "siz" : sum[key][0]=attr.siz; break;
+      case "dex" : sum[key][0]=attr.dex; break;
+      case "app" : sum[key][0]=attr.app; break;
+      case "int" : sum[key][0]=attr.int; break;
+      case "pow" : sum[key][0]=attr.pow; break;
+      case "edu" : sum[key][0]=attr.edu; break;
     }
     rexResult = (sum[key][0] * sum[key][1]) + (attr.int * 2) + rexResult;
   }
-  console.log(sum);
   document.getElementById("sp_0").value=rexResult;
   calcSkillPoint();
 }
@@ -198,23 +203,22 @@ function defaultSkill () {
 
 function divValue (target) {
   try  {
-    if(target.nextSibling.className=="여기부터 다시봐야함") {
-      
+    if(target.nextSibling.className=="halfvalue") {
+      let skillVal = target.value;
+      target.nextSibling.textContent=Math.floor(skillVal / 2);
+      target.nextSibling.nextSibling.textContent=Math.floor(skillVal/5);
     }
-  let skillVal = target.value;
-  target.nextSibling.textContent=Math.floor(skillVal / 2);
-  target.nextSibling.nextSibling.textContent=Math.floor(skillVal/5);
   } catch(e) {console.log(e)}
 }
 function calcStats() {
-  let maxHP = Math.floor((Number(attr.con) + Number(attr.siz)) / 10);
+  let maxHP = Math.floor((attr.con + attr.siz) / 10);
   document.querySelector("#hp span:last-child").textContent=maxHP;
-  let maxMP = Math.floor((Number(attr.pow)) / 5);
+  let maxMP = Math.floor((attr.pow) / 5);
   document.querySelector("#mp span:last-child").textContent=maxMP;
-  let maxSan = Math.floor(Number(attr.pow) - Number(document.querySelector("#cthulhu_mythos>input.value").value));
+  let maxSan = Math.floor(attr.pow - Number(document.querySelector("#cthulhu_mythos>input.value").value));
   document.querySelectorAll("#san .input")[1].textContent=maxSan;
   // 전투 수치
-  let strSiz = Number(attr.str)+Number(attr.siz);
+  let strSiz = attr.str+attr.siz;
   var bonus, build;
   if (2<=strSiz&&strSiz<=64) {bonus=-2, build=-2}
   else if (65<=strSiz&&strSiz<=84) {bonus="-1", build="-1"}
@@ -229,6 +233,15 @@ function calcStats() {
   document.querySelector("#build>input").value=build;
 }
 
+function mov() {
+  if (attr.dex<attr.siz && attr.str<attr.siz) {
+    document.querySelector("#mov>input.value").value=7;
+  } else if (attr.dex>attr.siz && attr.str>attr.siz) {
+    document.querySelector("#mov>input.value").value=9;
+  } else {
+    document.querySelector("#mov>input.value").value=8;
+  }
+}
 function addOther(type_) {
   let type;
   if (type_ == "skill") {
@@ -667,9 +680,9 @@ function vtt () {
 // SAVE FUNCTIONS
 function slotButton (e) {
   try {
-    const type = e.target.id.replace("opt_slot_","");
+    const type = e.target.id.replace("slot_","");
     const num = document.querySelector("[name='saveslot']:checked").value;
-    console.log(type);
+    console.log(num+"번 슬롯에 "+type+" 합니다.");
     const slot_ = slot();
     switch (type) {
       case "get" :
@@ -686,7 +699,7 @@ function slotButton (e) {
       break;
     }
   } catch (err) {
-    console.log(err);
+    console.log("err:"+err);
   }
 }
 function slot () {
@@ -791,9 +804,6 @@ function load (jj) {
           document.querySelector(`#${item.name} .value`).value=skills[item.name].current;
         }
       });
-
-
-
     }
   } catch (err) {console.log(err)}
   } else {
@@ -808,6 +818,9 @@ function importButton () {
     const data = JSON.parse(e.target.result);
     console.log(data);
     load(data);
+    if (document.querySelector("[name='skill-type']").value==1) {
+      document.querySelectorAll(".skills>.content>div[id]>input .sp, .skills>.content>div[id]>input .sp-add").forEach((item)=>{clacSkillValue(item)});
+    }
   }
   reader.readAsText(file);
 }
