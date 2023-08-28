@@ -20,9 +20,6 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
   background-color:$coc-sheet-bg;
   display:flex;
   flex-wrap:wrap;
-  .sheet_box:first-child,.sheet_box:nth-child(2) {
-    flex-basis:50%;
-  }
   .title {
     font-family: 'NEXON Lv1 Gothic OTF';
     font-size:2rem;
@@ -51,6 +48,9 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
       line-height:1.5em;
     }
   }
+}
+.content {
+  padding:0 1rem 1rem 1rem;
 }
 .table_title {
   font-weight:bold;
@@ -88,50 +88,68 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
 }
 // ---
 .stats .content {
-  display: flex;
-  flex-wrap:wrap;
+  // flex-wrap:wrap;
   text-align:left;
   >div {
     display:flex;
-    width:100%;
-    span {
+    margin-top:0.5rem;
+    align-items: center;
+    // width:100%;
+    .sub_title {
       display:inline-block;
-      width:3em;
+      width:2.5em;
       flex-shrink:0;
     }
-    input, span.input {
+    input:not([type]), span.input {
+      width:2em;
       display:inline-block;
-      background-color: $coc-input-bg;
       border:0;
       padding: 1px 2px;
       font-size:1.2rem;
     }
-    input {
+    input:not([type]) {
       font-size:1.6rem;
-      width:2em
     }
-    &#mp, &#hp {
-      width:50%;
-    }
-    &#luck {
-      input {
-        width: 2em;
-        flex-basis: calc(100% - 2em);
-        flex-grow: 0;
-        flex-shrink: 1;
-      }
-      // grid-column-end: span 2;
-    }
-    &#luck>input { 
-      // grid-column-end: span 3;
+    input:not([class]){
+      background-color: $coc-input-bg;
+      border-radius:0.2rem;
+      text-align:center;
     }
   }
+  .desc {
+    font-size:1.2rem;
+  }
+  .max {
+    background-color:transparent;
+    &::before{
+      content:"/";
+      display:inline-block;
+    }
+  }
+}
+#majorwoundcurrent{width:10em;display:none}
+#major-wound-toggle:checked~#majorwoundcurrent {display:inline}
+#mp, #luck {
+  width:50%;
+  display:inline-flex;
+}
+#luck {
+  justify-content: flex-end;
+  input {
+    flex-basis: 4em;
+    
+    flex-shrink: 1;
+  }
+}
+//-----
+.skills {
+  width:100%;
 }
 .skills .option{
   display: flex;
   position:relative;
   align-items: center;
-  justify-items: start;
+  justify-content: center;
   div:not(.skill_point)>span {
     display:block;
     text-align:left;
@@ -247,7 +265,7 @@ input.sp, input.sp-add {
     right:100%;
   }
   &.remove {
-    right:-2rem;
+    right:0.3rem;
     cursor: pointer;
   }
 }
@@ -258,11 +276,15 @@ input.sp, input.sp-add {
   text-align:center;
   width:2em;
 }
-.weapons .content{
-  >div{
-    display: grid;
-    grid-template-columns: 12em 8em repeat(6,1fr);
-    font-size: 1.6rem;
+.weapons {
+  width:100%;
+  .content{
+    width:calc(100% - 2rem);
+    >div{
+      display: grid;
+      grid-template-columns: 2fr 1fr repeat(6,4em);
+      font-size: 1.6rem;
+    }
   }
 }
 .table_item>input {
@@ -313,11 +335,10 @@ input.sp, input.sp-add {
     }
   }
 }
-
-// 세팅
-.setting {
-  
+.backstory, .money {
+  flex-basis: 50%;
 }
+// 세팅
 #saveslots {
   display:flex;
 }

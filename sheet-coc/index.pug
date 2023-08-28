@@ -121,23 +121,33 @@ html(lang='ko')
         .sheet_box.stats
           .title 상태
           .content
-            #luck 
-              span 운
-              input(placeholder="3D6*5")
             #hp
-              span 체력
+              span.sub_title 체력
               input
-              span.input
+              span.input.max
+              input(type='checkbox')
+              span.desc 빈사
+              input#major-wound-toggle(type='checkbox')
+              span.desc 중상
+              input#majorwoundcurrent(type='text' placeholder='중상 설명')
             #mp
-              span 마력
+              span.sub_title 마력
               input
-              span.input
+              span.input.max
+            #luck 
+              span.sub_title 운
+              input(placeholder="3D6*5")
             #san
-              span 이성
+              span.sub_title 이성
               span.input
               input
-              span.input
+              span.input.max
               input#san_start
+              input#temp_insane(type='checkbox')
+              span.desc 일시적
+              input#indef_insane(type='checkbox')
+              span.desc 장기적
+            input#current_mental_condition(type='text' placeholder='현재 정신 상태')
         .sheet_box.battle
           .title 전투
           .content

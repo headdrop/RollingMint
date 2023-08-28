@@ -158,9 +158,6 @@
   display: flex;
   flex-wrap: wrap;
 }
-.sheet .sheet_box:first-child, .sheet .sheet_box:nth-child(2) {
-  flex-basis: 50%;
-}
 .sheet .title {
   font-family: "NEXON Lv1 Gothic OTF";
   font-size: 2rem;
@@ -189,6 +186,10 @@
 }
 .sheet_box .option > span {
   line-height: 1.5em;
+}
+
+.content {
+  padding: 0 1rem 1rem 1rem;
 }
 
 .table_title {
@@ -229,44 +230,75 @@
 }
 
 .stats .content {
-  display: flex;
-  flex-wrap: wrap;
   text-align: left;
 }
 .stats .content > div {
   display: flex;
-  width: 100%;
+  margin-top: 0.5rem;
+  align-items: center;
 }
-.stats .content > div span {
+.stats .content > div .sub_title {
   display: inline-block;
-  width: 3em;
+  width: 2.5em;
   flex-shrink: 0;
 }
-.stats .content > div input, .stats .content > div span.input {
+.stats .content > div input:not([type]), .stats .content > div span.input {
+  width: 2em;
   display: inline-block;
-  background-color: rgba(255, 255, 255, 0.5);
   border: 0;
   padding: 1px 2px;
   font-size: 1.2rem;
 }
-.stats .content > div input {
+.stats .content > div input:not([type]) {
   font-size: 1.6rem;
-  width: 2em;
 }
-.stats .content > div#mp, .stats .content > div#hp {
+.stats .content > div input:not([class]) {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 0.2rem;
+  text-align: center;
+}
+.stats .content .desc {
+  font-size: 1.2rem;
+}
+.stats .content .max {
+  background-color: transparent;
+}
+.stats .content .max::before {
+  content: "/";
+  display: inline-block;
+}
+
+#majorwoundcurrent {
+  width: 10em;
+  display: none;
+}
+
+#major-wound-toggle:checked ~ #majorwoundcurrent {
+  display: inline;
+}
+
+#mp, #luck {
   width: 50%;
+  display: inline-flex;
 }
-.stats .content > div#luck input {
-  width: 2em;
-  flex-basis: calc(100% - 2em);
-  flex-grow: 0;
+
+#luck {
+  justify-content: flex-end;
+}
+#luck input {
+  flex-basis: 4em;
   flex-shrink: 1;
 }
+
+.skills {
+  width: 100%;
+}
+
 .skills .option {
   display: flex;
   position: relative;
   align-items: center;
-  justify-items: start;
+  justify-content: center;
 }
 .skills .option div:not(.skill_point) > span {
   display: block;
@@ -402,7 +434,7 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
   right: 100%;
 }
 .skill_icon.remove {
-  right: -2rem;
+  right: 0.3rem;
   cursor: pointer;
 }
 
@@ -413,9 +445,15 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
   width: 2em;
 }
 
+.weapons {
+  width: 100%;
+}
+.weapons .content {
+  width: calc(100% - 2rem);
+}
 .weapons .content > div {
   display: grid;
-  grid-template-columns: 12em 8em repeat(6, 1fr);
+  grid-template-columns: 2fr 1fr repeat(6, 4em);
   font-size: 1.6rem;
 }
 
@@ -459,6 +497,10 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
 }
 .skills input[type=checkbox]:checked::after {
   opacity: 1;
+}
+
+.backstory, .money {
+  flex-basis: 50%;
 }
 
 #saveslots {

@@ -212,9 +212,9 @@ function divValue (target) {
 }
 function calcStats() {
   let maxHP = Math.floor((attr.con + attr.siz) / 10);
-  document.querySelector("#hp span:last-child").textContent=maxHP;
+  document.querySelector("#hp span.input").textContent=maxHP;
   let maxMP = Math.floor((attr.pow) / 5);
-  document.querySelector("#mp span:last-child").textContent=maxMP;
+  document.querySelector("#mp span.input").textContent=maxMP;
   let maxSan = Math.floor(attr.pow - Number(document.querySelector("#cthulhu_mythos>input.value").value));
   document.querySelectorAll("#san .input")[1].textContent=maxSan;
   // 전투 수치
