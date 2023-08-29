@@ -125,7 +125,7 @@ html(lang='ko')
               span.sub_title 체력
               input
               span.input.max
-              input(type='checkbox')
+              input#dying(type='checkbox')
               span.desc 빈사
               input#major-wound-toggle(type='checkbox')
               span.desc 중상
@@ -144,9 +144,9 @@ html(lang='ko')
               span.input.max
               input#san_start
               input#temp_insane(type='checkbox')
-              span.desc 일시적
+              span.desc 일시적 광기
               input#indef_insane(type='checkbox')
-              span.desc 장기적
+              span.desc 장기적 광기
             input#current_mental_condition(type='text' placeholder='현재 정신 상태')
         .sheet_box.battle
           .title 전투
