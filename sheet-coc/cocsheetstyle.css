@@ -167,6 +167,8 @@
 }
 
 .sheet_box {
+  flex-grow: 1;
+  flex-basis: 45%;
   background-color: #c4beb6;
   font-size: 1.6rem;
 }
@@ -205,9 +207,10 @@
 
 .attr .content {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 7rem);
   grid-template-rows: 1fr 1fr 1fr;
   grid-auto-flow: column;
+  justify-content: center;
   gap: 0.2rem 0.6rem;
 }
 .attr .content > div {
@@ -437,14 +440,18 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
 }
 
 .skill_icon {
+  cursor: pointer;
   position: absolute;
 }
 .skill_icon.grip {
   right: 100%;
 }
-.skill_icon.remove {
-  right: 0.3rem;
-  cursor: pointer;
+.skills .skill_icon.remove {
+  left: calc(100% + 0.5rem);
+}
+
+.weapons .skill_icon.remove {
+  right: 1rem;
 }
 
 .halfvalue, .fifthvalue {
@@ -455,7 +462,7 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
 }
 
 .weapons {
-  width: 100%;
+  flex-basis: 100%;
 }
 .weapons .content {
   width: calc(100% - 2rem);
@@ -464,6 +471,7 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
   display: grid;
   grid-template-columns: 2fr 1fr repeat(6, 4em);
   font-size: 1.6rem;
+  margin-top: 0.4rem;
 }
 
 .table_item > input {
@@ -510,6 +518,15 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
 
 .backstory, .money {
   flex-basis: 50%;
+}
+
+.backstory .content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem;
+}
+.backstory .content textarea {
+  height: 5em;
 }
 
 #saveslots {

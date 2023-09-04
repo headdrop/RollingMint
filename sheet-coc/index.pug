@@ -583,12 +583,13 @@ html(lang='ko')
           .title 장비와 소지품
           .content 
             textarea#gear_and_posessions
-          .title 현금과 자산
-          .option 
-            input(type="radio", name="assets", value="1")
-            | 자동계산
-            input(type="radio", name="assets", value="2")
-            | 수동계산
+          .title 현금과 자산 
+            <i class="fa-solid fa-calculator"></i>
+          .option
+            input(type="radio", name="assets", value="1920")
+            | 1920s
+            input(type="radio", name="assets", value="modern")
+            | 현대
           .content
             #spending_level
               span.subtitle 소비 수준

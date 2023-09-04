@@ -29,6 +29,8 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
   }
 }
 .sheet_box{
+  flex-grow:1;
+  flex-basis: 45%;
   background-color: $coc-box-bg;
   font-size: 1.6rem;
   div:not(.option)>input:not(._name,[type="checkbox"]),textarea {
@@ -67,9 +69,11 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
 }
 .attr .content {
   display:grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 7rem);
   grid-template-rows: 1fr 1fr 1fr;
   grid-auto-flow: column;
+  justify-content: center;
+
   gap: 0.2rem 0.6rem;
   >div {
     display: flex;
@@ -272,14 +276,19 @@ input.sp, input.sp-add {
   }
 }
 .skill_icon {
+  cursor: pointer;
   position:absolute;
   &.grip {
     right:100%;
   }
   &.remove {
-    right:0.3rem;
-    cursor: pointer;
   }
+}
+.skills .skill_icon.remove {
+  left: calc(100% + 0.5rem);
+}
+.weapons .skill_icon.remove {
+  right:1rem;
 }
 
 .halfvalue, .fifthvalue {
@@ -289,13 +298,14 @@ input.sp, input.sp-add {
   width:2em;
 }
 .weapons {
-  width:100%;
+  flex-basis: 100%;
   .content{
     width:calc(100% - 2rem);
     >div{
       display: grid;
       grid-template-columns: 2fr 1fr repeat(6,4em);
       font-size: 1.6rem;
+      margin-top:0.4rem;
     }
   }
 }
@@ -349,6 +359,14 @@ input.sp, input.sp-add {
 }
 .backstory, .money {
   flex-basis: 50%;
+}
+.backstory .content {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem;
+  textarea {
+    height:5em;
+  }
 }
 // 세팅
 #saveslots {

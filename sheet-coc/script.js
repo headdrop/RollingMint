@@ -94,6 +94,9 @@ function setTippy() { // 툴팁 및 기타 디폴트 세팅
     content:"아이콘을 클릭하면 이동력이 계산됩니다. 계산된 값은 인간 기준이며, 나이에 따른 이동력 감소가 적용되어 있지 않습니다.(수호자 룰북 33p) ",
     placement:"bottom"
   });
+  tippy(document.querySelectorAll(".money .title")[1],{
+    content:"아이콘을 클릭하면 재력에서 소비수준, 현금, 자산이 계산됩니다.(수호자 룰북 47p) "
+  });
 
   // 기타 세팅 참조 => addOther
   // const otherskillbase = document.getElementById("otherskill1");
@@ -241,7 +244,19 @@ function mov() {
   } else {
     document.querySelector("#mov>input.value").value=8;
   }
+
 }
+function calcAssets () {
+  const credit = document.querySelector("#credit_rating input.value").value;
+  let spending = document.querySelector("#spending_level input");
+  let cash = document.querySelector("#cash input");
+  let asset = document.querySelector("#assets textarea")
+  if (credit==0)  {
+
+  }
+
+}
+
 function addOther(type_) {
   let type;
   if (type_ == "skill") {
@@ -260,6 +275,7 @@ function addOther(type_) {
 
 function optionSkill(x) {
   if (x==1) {
+    document.querySelector(".skill_point").classList.remove("hide");
     document.querySelectorAll(".skills .content input.value").forEach((item)=>{
       item.readOnly=true;
     });
@@ -267,6 +283,7 @@ function optionSkill(x) {
       item.classList.remove("hide");
     });
   } else if (x==2){
+    document.querySelector(".skill_point").classList.add("hide");
     document.querySelectorAll(".skills .content input.value").forEach((item)=>{
       item.readOnly=false;
     });
@@ -767,15 +784,19 @@ function load (jj) {
       } else if (tg.C.indexOf(item.name)!==-1) {
         document.querySelector(`#${item.name}`).value=item.current;
       } else if (item.name.startsWith("weapon")) { // weapons
+        
         const weaponNum = item.name.split("_")[0];
         const sub = item.name.split("_")[1];
+        if(document.querySelector(`#${weaponNum}`)===null) {
+          addOther("weapon");
+          document.querySelectorAll('[id^=weapon]')[document.querySelectorAll('[id^=weapon]').length -1].id=weaponNum;
+        }
         document.querySelector(`#${weaponNum}>.${sub}`).value=item.current;
       } else {
         skills.push(item); // skill 분리
       }
     });
 
-  
     if (jj.rolling_mint==undefined) { 
       skills.forEach((item)=>{
         if (item.name.startsWith("otherskill")!==-1) { // otherskill
@@ -790,6 +811,10 @@ function load (jj) {
     } else {
       jj.rolling_mint.skills.forEach((item)=>{
         if (item.name.startsWith("otherskill")) {
+          if(document.querySelector(`#${item.name}`)===null) {
+            addOther("skill");
+            document.querySelectorAll('[id^=otherskill]')[document.querySelectorAll('[id^=otherskill]').length -1].id=item.name;
+          }
           document.querySelector(`#${item.name} ._name`).value=item.txt;
         }
         if (jj.rolling_mint.skill_type==1) {
