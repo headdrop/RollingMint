@@ -9,6 +9,7 @@ window.onload=function() {
   calcStats();
   defaultSkill();
   defaultSaveSlot();
+  optionSkill(document.querySelector("[name='skill-type']:checked").value);
 
   const _skill = document.querySelectorAll("input.value");
   _skill.forEach((element)=>{
@@ -55,8 +56,9 @@ window.onload=function() {
   document.querySelector("[name='skill-type']").parentElement.parentElement.addEventListener("change",(e)=>{
     optionSkill(e.target.value)
   });
-  // mov 계산
+  // 계산: 이동력(mov), 현금자산
   document.querySelector("#mov>i").addEventListener("click",mov);
+  document.querySelector(".money .title>i").addEventListener("click",calcAssets);
 
   // option 버튼 동작
   document.getElementById("slot_get").addEventListener("click",slotButton);
@@ -247,14 +249,46 @@ function mov() {
 
 }
 function calcAssets () {
-  const credit = document.querySelector("#credit_rating input.value").value;
-  let spending = document.querySelector("#spending_level input");
-  let cash = document.querySelector("#cash input");
-  let asset = document.querySelector("#assets textarea")
-  if (credit==0)  {
+  if (document.querySelector("[name='assets']:checked")===null) {
+    alert("시대 구분을 선택하세요!")
+  } else {
+    const credit = document.querySelector("#credit_rating input.value").value;
+    const era = document.querySelector("[name='assets']:checked").value;
+    let spending = document.querySelector("#spending_level input");
+    let cash = document.querySelector("#cash input");
+    let asset = document.querySelector("#assets textarea");
+    switch (era) {
+      case "1920":
+        console.log(credit)
+        if (credit<=0)  {
+          cash.value = "$0.50";
+          asset.value = "없음";
+          spending.value = "$0.50";
+        } else if (1<=credit<10) {
+          cash.value = "$"+credit*1;
+          asset.value = "$"+credit*10;
+          //spending.value = "$2";
+        } else if (10<=credit<50) {
+          cash.value = "$"+credit*2;
+          asset.value = "$"+credit*50;
+          spending.value = "$10";
+        } else if (50<=credit<90) {
+          cash.value = "$"+credit*5;
+          asset.value = "$"+credit*500;
+          spending.value = "$50";
+        } else if (90<=credit<99) {
+          cash.value = "$"+credit*20;
+          asset.value = "$"+credit*2000;
+          spending.value = "$250";
+        } else if (credit>=99) {
+          cash.value = "$50,000";
+          asset.value = "$5백만+";
+          spending.value = "$5000";
+        }
+    }
+    
 
   }
-
 }
 
 function addOther(type_) {
@@ -274,6 +308,7 @@ function addOther(type_) {
 
 
 function optionSkill(x) {
+  console.log(x);
   if (x==1) {
     document.querySelector(".skill_point").classList.remove("hide");
     document.querySelectorAll(".skills .content input.value").forEach((item)=>{
@@ -848,5 +883,6 @@ function importButton () {
     }
   }
   reader.readAsText(file);
+  optionSkill(document.querySelector("[name='skill-type']:checked").value);
 }
 // DESIGN FUNCTIONS
