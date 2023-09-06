@@ -30,3 +30,14 @@ fetch("https://headdrop.github.io/RollingMint/menu.html")
           }
         })
       });
+
+// 공지
+if (document.URL.indexOf("log")!==-1) {
+  fetch("update.json").then(responce=>{
+    return responce.json()
+  })
+  .then(data=>{
+    document.getElementById("notice-version").innerText = data[0].version;
+    document.getElementById("notice-context").innerText = data[0].context;
+  })
+}

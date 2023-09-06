@@ -55,6 +55,7 @@ h2, h3, .item, .text {
   -ms-text-size-adjust: 100%;
   font-size: 1.3em;
   -webkit-user-select: text;
+  user-select: text;
   }
 
 /*color*/
@@ -117,6 +118,7 @@ input[type=checkbox].ckbx, input[type=radio] {
   word-wrap: normal;
   direction: ltr;
   -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
 }
 i {
@@ -176,6 +178,40 @@ i {
     font-size: 1.1rem;
     color:#999;
     padding:5px;
+  }
+}
+div.notice {
+  p {
+    margin:0;
+    font-family: "NEXON Lv1 Gothic OTF";
+    &:first-child {
+      display:inline-block;
+      background:$btnHovColor;
+      position:relative;
+      padding:0.2rem 0.5rem 0 1rem;
+      border-top-left-radius: 0.4rem;
+      color: white;
+      font-weight:600;
+      font-size:1.2rem;
+      &::after {
+        content:"";
+        display:inline-block;
+        width:1rem;
+        height:100%;
+        position:absolute;
+        left:calc(100% - 0.5rem);
+        top:0;
+        transform:skew(20deg);
+        background:inherit;
+      }
+    }
+    &:last-child {
+      background:$lightBg;
+      box-shadow: $btnShadow;
+      border-radius: 0 0.6em 0.6em 0.6em;
+      padding-left:1rem;
+      font-size:1.4rem;
+    }
   }
 }
 .shape-blob {
@@ -723,6 +759,7 @@ li:hover + tooltip {
       --disabled-inner: #e1e6f9;
       -webkit-appearance: none;
       -moz-appearance: none;
+      appearance:none;
 
       height: 21px;
       outline: none;

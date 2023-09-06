@@ -4,9 +4,9 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css" />
     <style>
       
-      #editable div.message {
+      /* #editable div.message {
          font-size:unset;
-      }
+      } */
     </style>
 
   </head>
@@ -23,42 +23,6 @@
       <button id="copy" data-clipboard-target="#logdata">2. HTML 코드 복사하기</button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
-    <script>
-      document.getElementById("font-size-tog").addEventListener('change',(tog)=>{
-        var tg = tog.target;
-        if (tg.checked) {
-          tg.nextSibling.setAttribute("disabled",true);
-          tg.nextSibling.value="";
-        } else {
-          tg.nextSibling.removeAttribute("disabled");
-        }
-      })
-      document.getElementById("font-size").addEventListener('change',()=>{
-        var fontSize = document.getElementById("font-size").value;
-        document.styleSheets[2].rules[0].style.fontSize = fontSize;
-      })
-      document.querySelector("#log-paste").addEventListener('click',()=>{
-        var htmlContent = document.getElementById("editable").innerHTML;
-        var fontTog = document.getElementById("font-size-tog").checked;
-        var fontSize = document.getElementById("font-size").value;
-        htmlContent = htmlContent.replace(/( id=".+?")|( class="(?!sheet-rolltemplate).*?")|(box-sizing: border-box;)\s*|(data-.+?(".*?)")|(font-size: 13px;)\s*/gi,''); // 제거 **여기 더 건드리지 말 것! jstest 파일에서 수정!
-        htmlContent = htmlContent.replace(/(<div)((><br>)|(\s+?style="">))(<\/div>)/gi,'');
-
-        if (fontTog) { // font size 사용하지않음 체크
-        } else { 
-          fontSize = document.getElementById('font-size').value;
-          htmlContent = htmlContent.replace(/(padding-right: 5px;)/gi,'padding-right: 5px; font-size:'+fontSize+'px;');
-        }
-        document.getElementById("logdata").value=htmlContent;
-        alert("준비가 완료되었습니다. 'HTML 코드 복사하기' 버튼을 누르세요.")
-      });
-      
-      //복사
-      var clipboard = new ClipboardJS('#copy');
-      clipboard.on('success', function(e) {
-        alert("로그를 복사했습니다. HTML 모드에서 붙여넣습니다.");
-      });
-
-    </script>
+    <script src="editor.js"></script>
   </body>
 </html>

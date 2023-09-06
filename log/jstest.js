@@ -66,7 +66,6 @@ function inputHTML () {
   log = log.replace(/(\r|\n)\s*/gi,''); // 개행 제거
   log = log.replace(/(<span class="by">)\s+?/gi,'<span class="by">');
   log = log.replace(/<span class=&quot;basicdiceroll&quot;>(.+?)<\/span>/gi,'$1');
-  log = log.replace(/((data-messageid=")|(data-playerid=")).+?"/gi,''); // data-messageid/playerid 삭제
   log = log.replace(/(<img class="sheet-brdright").+?\>/gi,''); // 인세인 엑박 삭제
   if (document.getElementById("ck-colourised").checked===true) {
     log = log.replace(/( style="background-color:).+?;"/gi,''); // roll20-colourised 삭제
@@ -79,8 +78,8 @@ function inputHTML () {
   }
   //dice
   document.getElementById("log-content").innerHTML = log;
-
-  addID();
+  logModify();
+  
   nameExColor();
   let lines=0;
   try {
@@ -100,7 +99,23 @@ function inputHTML () {
   }, 500+lines*3);
   
 }
+function logModify () {
+  var log = document.getElementById("log-content");
+  if (document.getElementById("ck-colourised").checked===true) { // roll20-colourised 삭제
+    log.querySelectorAll(".roll20-colourised").forEach((message)=>{
+      message.classList.remove("roll20-colourised");
+      message.removeAttribute("style");
+    })
+  }
 
+  log.querySelector(".content").removeAttribute("style");
+  log.querySelectorAll(".message").forEach((message)=>{
+    message.removeAttribute("data-messageid");
+    message.removeAttribute("data-playerid"); // data-messageid/playerid 삭제
+  })
+
+  addID();
+}
 function modifying() {
   let imgMod = document.querySelectorAll("#log-content a>img");
   for (var m of imgMod) {
