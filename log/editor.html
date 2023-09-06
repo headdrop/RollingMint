@@ -42,7 +42,7 @@
         var fontTog = document.getElementById("font-size-tog").checked;
         var fontSize = document.getElementById("font-size").value;
         htmlContent = htmlContent.replace(/( id=".+?")|( class="(?!sheet-rolltemplate).*?")|(box-sizing: border-box;)\s*|(data-.+?(".*?)")|(font-size: 13px;)\s*/gi,''); // 제거 **여기 더 건드리지 말 것! jstest 파일에서 수정!
-        htmlContent = htmlContent.replace(/(<div)((><br>)|(style="">))(<\/div>)/gi,'');
+        htmlContent = htmlContent.replace(/(<div)((><br>)|(\s+?style="">))(<\/div>)/gi,'');
 
         if (fontTog) { // font size 사용하지않음 체크
         } else { 

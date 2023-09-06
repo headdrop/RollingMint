@@ -68,6 +68,10 @@ function inputHTML () {
   log = log.replace(/<span class=&quot;basicdiceroll&quot;>(.+?)<\/span>/gi,'$1');
   log = log.replace(/((data-messageid=")|(data-playerid=")).+?"/gi,''); // data-messageid/playerid 삭제
   log = log.replace(/(<img class="sheet-brdright").+?\>/gi,''); // 인세인 엑박 삭제
+  if (document.getElementById("ck-colourised").checked===true) {
+    log = log.replace(/( style="background-color:).+?;"/gi,''); // roll20-colourised 삭제
+  }
+  log = log.replace(/roll20-colourised/gi,'');
   log = log.replace(/(\(#.+?)</gi,'$1)<'); // 롤꾸 안깨지게 정리 (괄호 없이 남은 거 정리)
   log = log.replace(/\[(.+?)\]\(#" (style.+?\))/gi,'<a $2">$1</a>'); // 잘린 a 붙이기
   for (key of Object.keys(diceinput)) {
@@ -75,7 +79,7 @@ function inputHTML () {
   }
   //dice
   document.getElementById("log-content").innerHTML = log;
-  logModify();
+
   addID();
   nameExColor();
   let lines=0;
@@ -96,16 +100,7 @@ function inputHTML () {
   }, 500+lines*3);
   
 }
-function logModify () {
-  var log = document.getElementById("log-content");
-  if (document.getElementById("ck-colourised").checked===true) { // roll20-colourised 삭제
-    log.querySelectorAll(".roll20-colourised").forEach((message,key)=>{
-      message.classList.remove("roll20-colourised");
-      message.removeAttribute("style");
-    })
-  }
 
-}
 function modifying() {
   let imgMod = document.querySelectorAll("#log-content a>img");
   for (var m of imgMod) {
