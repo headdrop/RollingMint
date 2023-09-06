@@ -67,6 +67,10 @@ function inputHTML () {
   log = log.replace(/(<span class="by">)\s+?/gi,'<span class="by">');
   log = log.replace(/<span class=&quot;basicdiceroll&quot;>(.+?)<\/span>/gi,'$1');
   log = log.replace(/(<img class="sheet-brdright").+?\>/gi,''); // 인세인 엑박 삭제
+  if (document.getElementById("ck-colourised").checked===true) {
+    log = log.replace(/( style="background-color:).+?;"/gi,''); // roll20-colourised 삭제
+  }
+  log = log.replace(/roll20-colourised/gi,'');
   log = log.replace(/(\(#.+?)</gi,'$1)<'); // 롤꾸 안깨지게 정리 (괄호 없이 남은 거 정리)
   log = log.replace(/\[(.+?)\]\(#" (style.+?\))/gi,'<a $2">$1</a>'); // 잘린 a 붙이기
   for (key of Object.keys(diceinput)) {
