@@ -148,6 +148,12 @@
   font-size: 1.6rem;
 }
 
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .setting > label {
   font-family: "NEXON Lv1 Gothic OTF";
 }
@@ -157,6 +163,7 @@
   background-color: #888888;
   display: flex;
   flex-wrap: wrap;
+  max-width: 870px;
 }
 .sheet .title {
   font-family: "NEXON Lv1 Gothic OTF";
@@ -410,6 +417,12 @@
   font-weight: bold;
 }
 
+@media (max-width: 870px) {
+  .skills .content {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-columns: 1fr 1fr;
+  }
+}
 #cthulhu_mythos > input[type=checkbox] {
   opacity: 0;
 }
@@ -446,8 +459,9 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
 .skill_icon.grip {
   right: 100%;
 }
+
 .skills .skill_icon.remove {
-  left: calc(100% + 0.5rem);
+  left: calc(100% + 0.2rem);
 }
 
 .weapons .skill_icon.remove {
