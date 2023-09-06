@@ -1,0 +1,10 @@
+[{
+  "version":"v4.2",
+  "date":"2023-09-06",
+  "context":"* 'This message is hidden' 깨짐 수정\n* 로그 처리 방법 변경\n* 깨지면 이메일 혹은 오픈채팅으로 문의주세요."
+},
+{
+  "version":"test",
+  "date":"2023-09-06",
+  "context":"가나다"
+}]
