@@ -165,7 +165,7 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
 }
 //-----
 .skills {
-  width:100%;
+  flex-basis:100%;
 }
 .skills .option{
   display: flex;

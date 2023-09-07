@@ -310,7 +310,7 @@
 }
 
 .skills {
-  width: 100%;
+  flex-basis: 100%;
 }
 
 .skills .option {
