@@ -216,6 +216,7 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
   grid-template-columns: repeat(3, 25rem);
   grid-template-rows: repeat(18, 1fr);
   grid-auto-flow: column;
+  grid-auto-columns:minmax(5rem, 25rem);
   gap: 1px;
   column-gap:3rem;
   justify-items: start;
@@ -265,13 +266,55 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
     font-weight:bold;
   }
 }
-@media (max-width: 870px) {
+@media (min-width: 561px) and (max-width: 870px) {
   .skills .content {
+    padding-right:2rem;
     grid-template-columns: 1fr 1fr;
-    grid-auto-columns: 1fr 1fr;
+    grid-template-rows: repeat(26, 1fr);
+    @for $i from 1 to 19 {
+      &>div:nth-child(#{$i}) {
+        grid-row-start:$i;
+        grid-column: 1 / 1;
+      }
+      &>div:nth-child(#{$i + 18}) {
+        grid-row-start:$i;
+        grid-column: 2 / 2;
+      }
+      &>div:nth-child(#{$i + 36}) {
+        grid-row-start:$i + 18;
+        grid-column: 1 / 1;
+      }
+      &>div:nth-child(#{$i + 18 + 36}) {
+        grid-row-start:$i + 18;
+        grid-column: 2 / 2;
+      }
+    }
+    @for $i from 19 to 32 {
+      &>div:nth-child(#{$i*2 - 1}) {
+        grid-row-start:$i;
+        grid-column: 1 / 1;
+      }
+      &>div:nth-child(#{$i*2 }) {
+        grid-row-start:$i;
+        grid-column: 2/ 2;
+      }
+    }
+    &>button:last-child {
+      grid-column: 1 / 3;
+      width:100%;
+      margin-top:0.5rem;
+    }
   }
-  
 }
+@media (max-width: 560px) {
+  .skills .content {
+    display:flex;
+    flex-direction: column;
+    padding-right:2rem;
+  }
+}
+
+
 #cthulhu_mythos>input[type="checkbox"] {opacity:0}
 #otherskill1>.skill_icon.remove, #weapon1>.skill_icon.remove {display:none;}
 input.sp, input.sp-add {
