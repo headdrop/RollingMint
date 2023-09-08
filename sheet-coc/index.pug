@@ -57,8 +57,8 @@ html(lang='ko')
         .sheet_box.info
           .title 탐사자 정보
           .content
-            #name 이름
-              input(type='text', placeholder='이름')
+            #name(data-title='이름')
+              input(type='text', placeholder='이름' )
             #player PL 
               input(type='text', placeholder='플레이어')
             #occupation 직업
@@ -531,7 +531,7 @@ html(lang='ko')
               div 피해
               div db
               div 사거리
-              div 공격횟수
+              div 공격 횟수
               div 탄약
               div 고장
             .table_item#weapon1

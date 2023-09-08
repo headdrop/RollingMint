@@ -6,6 +6,7 @@
 $coc-sheet-bg:#888888;
 $coc-box-bg:#c4beb6;
 $coc-input-bg:rgba(255,255,255,0.5);
+$coc-input-bg-1:rgba(255,255,255,0.2);
 $coc-sheet-title-bg:linear-gradient(black, #262626);
 
 @import '../checkbox';
@@ -20,12 +21,18 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
 .setting>label {
   font-family: 'NEXON Lv1 Gothic OTF';
 }
+input, textarea {font-size:1.6rem;border:0;}
+textarea, input:not([type]), input[type=text] {
+  &:active, &:focus {
+    box-shadow: none;
+  }
+}
 .sheet {
   text-align: center;
   background-color:$coc-sheet-bg;
   display:flex;
   flex-wrap:wrap;
-  max-width:870px;
+  max-width:960px;
   .title {
     font-family: 'NEXON Lv1 Gothic OTF';
     font-size:2rem;
@@ -41,7 +48,7 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
   font-size: 1.6rem;
   div:not(.option)>input:not(._name,[type="checkbox"]),textarea {
     background-color: $coc-input-bg;
-    border:0;
+    // border:0;
   }
   textarea {
     width:100%;
@@ -69,7 +76,19 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
     &>div {
       display:grid;
       grid-template-columns: 3em 1fr;
+      grid-template-rows:1;
       margin-top:0.4rem;
+      
+      &::before{
+        content:attr(data-title);
+        display:inline-block;
+        width:3rem;
+      }
+      input {
+        // grid-column:1/3;
+        // grid-row-start:1;
+        background-color:transparent;
+      }
     }
   }
 }
@@ -213,13 +232,14 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
 }
 .skills .content {
   display: grid;
-  grid-template-columns: repeat(3, 25rem);
+  margin:0 1rem;
+  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(18, 1fr);
   grid-auto-flow: column;
   grid-auto-columns:minmax(5rem, 25rem);
   gap: 1px;
   column-gap:3rem;
-  justify-items: start;
+  justify-items: stretch;
   justify-content: center;
   >div {
     display: flex;
@@ -261,64 +281,17 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
     width:2em;
     height:100%;
     text-align:center;
+    font-size:1.4rem;
   }
   .value {
     font-weight:bold;
   }
 }
-@media (min-width: 561px) and (max-width: 870px) {
-  .skills .content {
-    padding-right:2rem;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(26, 1fr);
-    @for $i from 1 to 19 {
-      &>div:nth-child(#{$i}) {
-        grid-row-start:$i;
-        grid-column: 1 / 1;
-      }
-      &>div:nth-child(#{$i + 18}) {
-        grid-row-start:$i;
-        grid-column: 2 / 2;
-      }
-      &>div:nth-child(#{$i + 36}) {
-        grid-row-start:$i + 18;
-        grid-column: 1 / 1;
-      }
-      &>div:nth-child(#{$i + 18 + 36}) {
-        grid-row-start:$i + 18;
-        grid-column: 2 / 2;
-      }
-    }
-    @for $i from 19 to 32 {
-      &>div:nth-child(#{$i*2 - 1}) {
-        grid-row-start:$i;
-        grid-column: 1 / 1;
-      }
-      &>div:nth-child(#{$i*2 }) {
-        grid-row-start:$i;
-        grid-column: 2/ 2;
-      }
-    }
-    &>button:last-child {
-      grid-column: 1 / 3;
-      width:100%;
-      margin-top:0.5rem;
-    }
-  }
-}
-@media (max-width: 560px) {
-  .skills .content {
-    display:flex;
-    flex-direction: column;
-    padding-right:2rem;
-  }
-}
-
 
 #cthulhu_mythos>input[type="checkbox"] {opacity:0}
 #otherskill1>.skill_icon.remove, #weapon1>.skill_icon.remove {display:none;}
 input.sp, input.sp-add {
-  background-color: rgba(255,255,255,0.2)!important;
+  background-color: $coc-input-bg-1!important;
   transition: background-color 0.2s ease;
   &:hover,&:focus,&:active, &:not(:placeholder-shown) {
     background-color:$coc-input-bg!important;
@@ -338,10 +311,10 @@ input.sp, input.sp-add {
   }
 }
 .skills .skill_icon.remove {
-  left: calc(100% + 0.2rem);
+  left: calc(100% + 0.1rem);
 }
 .weapons .skill_icon.remove {
-  right:1rem;
+  right:-2rem;
 }
 
 .halfvalue, .fifthvalue {
@@ -353,12 +326,17 @@ input.sp, input.sp-add {
 .weapons {
   flex-basis: 100%;
   .content{
-    width:calc(100% - 2rem);
+    width:calc(100% - 1.5rem);
     >div{
       display: grid;
-      grid-template-columns: 2fr 1fr repeat(6,4em);
+      position:relative;
+      grid-template-columns: 4fr 3fr 6rem repeat(5, 4.8rem);
       font-size: 1.6rem;
       margin-top:0.4rem;
+      align-items: center;
+    }
+    .table_title>div:nth-child(5),.table_title>div:nth-child(6),.table_title>div:nth-child(7),.table_title>div:nth-child(8) {
+      font-size: 0.8em;
     }
   }
 }
@@ -401,7 +379,7 @@ input.sp, input.sp-add {
   }
   &:checked {
     &::before {
-      box-shadow: 0 0 1px 1px rgba(255,255,255,0.2);
+      box-shadow: 0 0 1px 1px $coc-input-bg-1;
       background:transparent;
      }
     &::after {
@@ -421,6 +399,60 @@ input.sp, input.sp-add {
     height:5em;
   }
 }
+
+// 미디어쿼리
+@media (min-width: 561px) and (max-width: 870px) {
+  .skills .content {
+    // padding-right:2rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(26, 1fr);
+    @for $i from 1 to 19 {
+      &>div:nth-child(#{$i}) {
+        grid-row-start:$i;
+        grid-column: 1 / 1;
+      }
+      &>div:nth-child(#{$i + 18}) {
+        grid-row-start:$i;
+        grid-column: 2 / 2;
+      }
+      &>div:nth-child(#{$i + 36}) {
+        grid-row-start:$i + 18;
+        grid-column: 1 / 1;
+      }
+      &>div:nth-child(#{$i + 18 + 36}) {
+        grid-row-start:$i + 18;
+        grid-column: 2 / 2;
+      }
+    }
+    @for $i from 19 to 32 {
+      &>div:nth-child(#{$i*2 - 1}) {
+        grid-row-start:$i;
+        grid-column: 1 / 1;
+      }
+      &>div:nth-child(#{$i*2 }) {
+        grid-row-start:$i;
+        grid-column: 2/ 2;
+      }
+    }
+    &>button:last-child {
+      grid-column: 1 / 3;
+      width:100%;
+      margin-top:0.5rem;
+    }
+  }
+}
+@media (max-width: 560px) {
+  .skills .content {
+    display:flex;
+    flex-direction: column;
+    // padding-right:2rem;
+  }
+  .backstory, .money {
+    flex-basis:100%;
+  }
+}
+
+
 // 세팅
 #saveslots {
   display:flex;
