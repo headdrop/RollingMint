@@ -9,6 +9,7 @@ $coc-input-bg:rgba(255,255,255,0.5);
 $coc-input-bg-1:rgba(255,255,255,0.2);
 $coc-sheet-title-bg:linear-gradient(black, #262626);
 $tz:cubic-bezier(0.075, 0.82, 0.165, 1);
+$coc-shadow:rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset, $coc-box-bg 0 2px 0 0;
 
 @import '../checkbox';
 #wrapper {
@@ -133,6 +134,10 @@ textarea, input {
       font-size:2rem;
       font-weight:bold;
       text-align:center;
+      &:focus, &:active {
+        box-shadow:$coc-shadow;
+        background:transparent;
+      }
     }
     .halfvalue, .fifthvalue {
       height:2rem;
@@ -319,7 +324,7 @@ input.sp, input.sp-add {
 .skills .content>div[id] {
   &:has(input[class^=sp]:not(:placeholder-shown)) {
     background: $coc-box-bg;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset, $coc-box-bg 0 2px 0 0;
+    box-shadow: $coc-shadow;
   }
 }
 .skill_icon {
