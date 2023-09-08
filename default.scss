@@ -184,10 +184,10 @@ b {
 }
 
 textarea,
-input[type=text] {
+input {
   outline: none;
   resize: none;
-  border: 1px solid $btnReset;
+  border:0;
   border-radius: 2px;
 
   &:active,

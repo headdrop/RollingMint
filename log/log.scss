@@ -373,7 +373,7 @@ div.notice {
   justify-content: center;
   align-items: center;
   position: absolute;
-  left:- $wh +0.25rem;
+  left:- $wh + 0.25rem;
   top: calc(1rem - 7px);
   width: $wh;
   height: $wh;
@@ -472,7 +472,8 @@ h3 {
     height:10em;
     white-space: pre-wrap;
     resize:vertical;
-    outline: none;
+    border:1px solid $btnReset;
+
   }
   a, a:visited {
     color:$btnColor;

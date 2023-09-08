@@ -498,7 +498,7 @@ h3 {
   height: 10em;
   white-space: pre-wrap;
   resize: vertical;
-  outline: none;
+  border: 1px solid #a3afb8;
 }
 .item a, .item a:visited {
   color: #3a9488;
