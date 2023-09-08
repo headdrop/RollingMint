@@ -146,9 +146,6 @@
 }
 #wrapper {
   font-size: 1.6rem;
-}
-
-#wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -163,6 +160,9 @@ input, textarea {
   border: 0;
 }
 
+textarea, input {
+  color: #262626;
+}
 textarea:active, textarea:focus, input:active, input:focus {
   box-shadow: none;
 }
@@ -263,16 +263,27 @@ textarea:active, textarea:focus, input:active, input:focus {
   flex-wrap: wrap;
   height: 6rem;
 }
+.attr .content > div > span:first-child {
+  font-size: 0.9em;
+  color: #262626;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
 .attr .content > div > .value {
   width: 2.4em;
   height: 2em;
   font-size: 2rem;
   font-weight: bold;
   text-align: center;
+  background-image: linear-gradient(to top, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.5) 100%);
+  background-size: 100% 0%;
+  transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.5s;
+  background-repeat: no-repeat;
+  background-position: right;
 }
 .attr .content > div > .value:focus, .attr .content > div > .value:active {
   box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset, #c4beb6 0 2px 0 0;
-  background: transparent;
+  background-size: 100% 100%;
 }
 .attr .content > div .halfvalue, .attr .content > div .fifthvalue {
   height: 2rem;
