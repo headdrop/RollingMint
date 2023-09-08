@@ -163,13 +163,13 @@ input, textarea {
   border: 0;
 }
 
-textarea:active, textarea:focus, input:not([type]):active, input:not([type]):focus, input[type=text]:active, input[type=text]:focus {
+textarea:active, textarea:focus, input:active, input:focus {
   box-shadow: none;
 }
 
 .sheet {
   text-align: center;
-  background-color: #888888;
+  background: #888888;
   display: flex;
   flex-wrap: wrap;
   max-width: 960px;
@@ -185,11 +185,11 @@ textarea:active, textarea:focus, input:not([type]):active, input:not([type]):foc
 .sheet_box {
   flex-grow: 1;
   flex-basis: 45%;
-  background-color: #c4beb6;
+  background: #c4beb6;
   font-size: 1.6rem;
 }
-.sheet_box div:not(.option) > input:not(._name, [type=checkbox]), .sheet_box textarea {
-  background-color: rgba(255, 255, 255, 0.5);
+.sheet_box input, .sheet_box textarea {
+  background: rgba(255, 255, 255, 0.5);
 }
 .sheet_box textarea {
   width: 100%;
@@ -207,28 +207,44 @@ textarea:active, textarea:focus, input:not([type]):active, input:not([type]):foc
 }
 
 .content {
-  padding: 0 1rem 1rem 1rem;
+  padding: 0.5rem 1rem 1rem 1rem;
 }
 
 .table_title {
   font-weight: bold;
 }
 
+.info .content {
+  display: flex;
+  flex-flow: column;
+  gap: 0.5rem;
+}
 .info .content > div {
   display: grid;
+  box-sizing: content-box;
   grid-template-columns: 3em 1fr;
-  grid-template-rows: 1;
-  margin-top: 0.4rem;
+  align-items: center;
+  background-image: linear-gradient(to top, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 99%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  background-position: bottom right;
+  background-size: calc(100% - 3em) 0%;
+  background-repeat: no-repeat;
+  transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.5s;
 }
 .info .content > div::before {
   content: attr(data-title);
   display: inline-block;
-  width: 3rem;
+  font-size: 0.9em;
+  color: #262626;
+  font-weight: 600;
+}
+.info .content > div:has(input:focus, input:active) {
+  box-shadow: 0 2px 0 0 rgba(255, 255, 255, 0.5);
+  background-size: calc(100% - 3em) 100%;
 }
 .info .content > div input {
-  background-color: transparent;
+  background: transparent;
 }
-
 .attr .content {
   display: grid;
   grid-template-columns: repeat(3, 7rem);
@@ -289,7 +305,7 @@ textarea:active, textarea:focus, input:not([type]):active, input:not([type]):foc
   font-size: 1.6rem;
 }
 .stats .content > div input:not([class]) {
-  background-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.5);
   border-radius: 0.2rem;
   text-align: center;
 }
@@ -297,7 +313,7 @@ textarea:active, textarea:focus, input:not([type]):active, input:not([type]):foc
   font-size: 1.2rem;
 }
 .stats .content .max {
-  background-color: transparent;
+  background: transparent;
 }
 .stats .content .max::before {
   content: "/";
@@ -358,7 +374,7 @@ textarea:active, textarea:focus, input:not([type]):active, input:not([type]):foc
   bottom: calc(100% + 0.4rem);
   transform: translate(-50%, 0%);
   padding: 0.2rem 1rem;
-  background-color: #333;
+  background: #333;
   color: #fff;
   border-radius: 4px;
   font-size: 14px;
@@ -436,6 +452,9 @@ textarea:active, textarea:focus, input:not([type]):active, input:not([type]):foc
 .skills .content .value {
   font-weight: bold;
 }
+.skills .content .sp, .skills .content .sp-add, .skills .content .value {
+  border-radius: 0;
+}
 
 #cthulhu_mythos > input[type=checkbox] {
   opacity: 0;
@@ -446,23 +465,23 @@ textarea:active, textarea:focus, input:not([type]):active, input:not([type]):foc
 }
 
 input.sp, input.sp-add {
-  background-color: rgba(255, 255, 255, 0.2) !important;
+  background: rgba(255, 255, 255, 0.2) !important;
   transition: background-color 0.2s ease;
 }
 input.sp:not(:-moz-placeholder-shown), input.sp-add:not(:-moz-placeholder-shown) {
-  background-color: rgba(255, 255, 255, 0.5) !important;
+  background: rgba(255, 255, 255, 0.5) !important;
 }
 input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown), input.sp-add:hover, input.sp-add:focus, input.sp-add:active, input.sp-add:not(:placeholder-shown) {
-  background-color: rgba(255, 255, 255, 0.5) !important;
+  background: rgba(255, 255, 255, 0.5) !important;
 }
 
 .skills .content > div[id]:has(input[class^=sp]:not(:-moz-placeholder-shown)) {
-  background-color: #c4beb6;
+  background: #c4beb6;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset, #c4beb6 0 2px 0 0;
 }
 
 .skills .content > div[id]:has(input[class^=sp]:not(:placeholder-shown)) {
-  background-color: #c4beb6;
+  background: #c4beb6;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset, #c4beb6 0 2px 0 0;
 }
 
@@ -519,6 +538,7 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
      -moz-appearance: none;
           appearance: none;
   position: relative;
+  background: transparent;
 }
 .skills input[type=checkbox]::before {
   content: "";
@@ -540,6 +560,9 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
   height: 1.6rem;
   transform: scale(1.2);
   transition: all 0.3s ease-in-out;
+}
+.skills input[type=checkbox]:checked {
+  background: rgba(255, 255, 255, 0.2);
 }
 .skills input[type=checkbox]:checked::before {
   box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.2);
@@ -992,11 +1015,11 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
   transition: all 0.3s ease-in-out;
 }
 .saveslot:hover {
-  background-color: #333;
+  background: #333;
   color: white;
 }
 .saveslot:focus, .saveslot:has(input:checked) {
-  background-color: #333;
+  background: #333;
   color: white;
 }
 .saveslot > input {

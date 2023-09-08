@@ -4,8 +4,8 @@ html(lang='ko')
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
 
-    link(rel='stylesheet' href='cocsheetstyle.css')
     link(rel='stylesheet' href='../default.css')
+    link(rel='stylesheet' href='cocsheetstyle.css')
     meta(property='og:type' content='website')
     meta(property='og:url' content='https://headdrop.github.io/RollingMint/')
     meta(property='og:title' content='Rolling Mint')
@@ -58,19 +58,19 @@ html(lang='ko')
           .title 탐사자 정보
           .content
             #name(data-title='이름')
-              input(type='text', placeholder='이름' )
-            #player PL 
-              input(type='text', placeholder='플레이어')
-            #occupation 직업
-              input(type='text', placeholder='직업')
-            #age 나이
-              input(type='text', placeholder='나이')
-            #sex 성별
-              input(type='text', placeholder='성별')
-            #residence 거주지
-              input(type='text', placeholder='거주지')
-            #birthplace 출생지
-              input(type='text', placeholder='출생지')
+              input(type='text')
+            #player(data-title='PL ')
+              input(type='text')
+            #occupation(data-title='직업')
+              input(type='text')
+            #age(data-title='나이')
+              input(type='text')
+            #sex(data-title='성별')
+              input(type='text')
+            #residence(data-title='거주지')
+              input(type='text')
+            #birthplace(data-title='출생지')
+              input(type='text')
         .sheet_box.attr
           .title 특성치
           .content
