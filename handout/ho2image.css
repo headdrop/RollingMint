@@ -225,9 +225,11 @@ input:checked + .tabCon {
 }
 #insaneHO + .tabCon input[type=text] {
   display: inline-block;
+  border: 1px solid #a3afb8;
 }
 #insaneHO + .tabCon textarea {
   resize: none;
+  border: 1px solid #a3afb8;
 }
 #insaneHO + .tabCon .controls {
   grid-row: 1/span 2;
