@@ -237,14 +237,16 @@ textarea:active, textarea:focus, input:active, input:focus {
   font-size: 0.9em;
   color: #262626;
   font-weight: 600;
+  text-align: center;
 }
-.info .content > div:has(input:focus, input:active) {
+.info .content > div:has(:focus, :active) {
   box-shadow: 0 2px 0 0 rgba(255, 255, 255, 0.5);
   background-size: calc(100% - 3em) 100%;
 }
 .info .content > div input {
   background: transparent;
 }
+
 .attr .content {
   display: grid;
   grid-template-columns: repeat(3, 7rem);
@@ -267,19 +269,22 @@ textarea:active, textarea:focus, input:active, input:focus {
   font-size: 0.9em;
   color: #262626;
   font-weight: 600;
+  text-align: center;
   margin-bottom: 0.2rem;
 }
 .attr .content > div > .value {
-  width: 2.4em;
-  height: 2em;
-  font-size: 2rem;
-  font-weight: bold;
   text-align: center;
+  border: 0;
   background-image: linear-gradient(to top, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.5) 100%);
   background-size: 100% 0%;
   transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.5s;
   background-repeat: no-repeat;
   background-position: right;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 2.4em;
+  height: 2em;
+  font-size: 2rem;
+  font-weight: bold;
 }
 .attr .content > div > .value:focus, .attr .content > div > .value:active {
   box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset, #c4beb6 0 2px 0 0;
@@ -300,14 +305,23 @@ textarea:active, textarea:focus, input:active, input:focus {
   text-align: left;
 }
 .stats .content > div {
-  display: flex;
+  display: inline-flex;
   margin-top: 0.5rem;
   align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.5s;
+}
+.stats .content > div:has(input:focus, input:active) {
+  box-shadow: 0 2px 0 0 rgba(255, 255, 255, 0.5);
 }
 .stats .content > div .sub_title {
   display: inline-block;
   width: 2.5em;
   flex-shrink: 0;
+  font-size: 0.9em;
+  color: #262626;
+  font-weight: 600;
+  text-align: center;
 }
 .stats .content > div input:not([type]), .stats .content > div span.input {
   width: 2em;
@@ -320,9 +334,39 @@ textarea:active, textarea:focus, input:active, input:focus {
   font-size: 1.6rem;
 }
 .stats .content > div input:not([class]) {
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 0.2rem;
   text-align: center;
+  border: 0;
+  background-image: linear-gradient(to top, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.5) 100%);
+  background-size: 100% 0%;
+  transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.5s;
+  background-repeat: no-repeat;
+  background-position: right;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  text-align: center;
+}
+.stats .content > div input:not([class]):focus, .stats .content > div input:not([class]):active {
+  box-shadow: none;
+  background-size: 100% 100%;
+}
+.stats .content #current_mental_condition {
+  background: transparent;
+  border-radius: 0;
+  background-image: linear-gradient(to top, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 99%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  background-position: bottom right;
+  background-size: 100% 0%;
+  background-repeat: no-repeat;
+  transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.5s;
+  margin-top: 0.5rem;
+  width: 100%;
+  padding-left: 2.5em;
+  font-size: 1.4rem;
+}
+.stats .content #current_mental_condition:focus, .stats .content #current_mental_condition :active {
+  box-shadow: 0 2px 0 0 rgba(255, 255, 255, 0.5);
+  background-size: 100% 100%;
 }
 .stats .content .desc {
   font-size: 1.2rem;
@@ -355,6 +399,34 @@ textarea:active, textarea:focus, input:active, input:focus {
 #luck input {
   flex-basis: 4em;
   flex-shrink: 1;
+}
+
+.battle .content > div {
+  display: grid;
+  box-sizing: content-box;
+  grid-template-columns: 5em 1fr;
+  align-items: center;
+  background-image: linear-gradient(to top, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 99%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  background-position: bottom right;
+  background-size: calc(100% - 3em) 0%;
+  background-repeat: no-repeat;
+  transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.5s;
+}
+.battle .content > div::before {
+  content: attr(data-title);
+  display: inline-block;
+  font-size: 0.9em;
+  color: #262626;
+  font-weight: 600;
+  text-align: center;
+}
+.battle .content > div:has(:focus, :active) {
+  box-shadow: 0 2px 0 0 rgba(255, 255, 255, 0.5);
+  background-size: calc(100% - 3em) 100%;
+}
+.battle .content > div input {
+  background: transparent;
 }
 
 .skills {
@@ -1004,6 +1076,9 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
   }
 }
 @media (max-width: 560px) {
+  .sheet {
+    flex-direction: column;
+  }
   .skills .content {
     display: flex;
     flex-direction: column;

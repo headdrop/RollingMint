@@ -15,6 +15,47 @@ $coc-shadow:rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0
   font-size:0.9em;
   color:#262626;
   font-weight:600;
+  text-align:center;
+}
+@mixin input-box($shadow:$coc-shadow) {
+  text-align: center;
+  border:0;
+  background-image:linear-gradient(to top, $coc-input-bg 0%, $coc-input-bg 100%);
+  background-size:100% 0%;
+  transition: all $tz 0.5s;
+  background-repeat: no-repeat;
+  background-position: right;
+  &:focus, &:active {
+    box-shadow:$shadow;
+    background-size:100% 100%;
+  }
+
+}
+@mixin has-input-line {
+  background-image:linear-gradient(to top, $coc-input-bg-1 0%, $coc-input-bg-1 99%);
+  border-bottom:1px solid $coc-input-bg;
+  background-position: bottom right;
+  background-size: calc(100% - 3em) 0%;
+  background-repeat: no-repeat;
+  transition:all $tz 0.5s;
+  &:has(:focus,:active) {
+    box-shadow:0 2px 0 0 $coc-input-bg;
+    background-size:calc(100% - 3em) 100%;
+  }
+}
+@mixin input-line {
+  background:transparent;
+  border-radius:0;
+  background-image:linear-gradient(to top, $coc-input-bg-1 0%, $coc-input-bg-1 99%);
+  border-bottom:1px solid $coc-input-bg;
+  background-position: bottom right;
+  background-size: 100% 0%;
+  background-repeat: no-repeat;
+  transition:all $tz 0.5s;
+  &:focus,:active {
+    box-shadow:0 2px 0 0 $coc-input-bg;
+    background-size:100% 100%;
+  }
 }
 
 @import '../checkbox';
@@ -88,28 +129,14 @@ textarea, input {
       box-sizing:content-box;
       grid-template-columns: 3em 1fr;
       align-items: center;
-      background-image:linear-gradient(to top, $coc-input-bg-1 0%, $coc-input-bg-1 99%);
-      border-bottom:1px solid $coc-input-bg;
-      background-position: bottom right;
-      background-size: calc(100% - 3em) 0%;
-      background-repeat: no-repeat;
-      transition:all $tz 0.5s;
       &::before{
         content:attr(data-title);
         display:inline-block;
         @include subtitle;
       }
-      &:has(input:focus,input:active) {
-        box-shadow:0 2px 0 0 $coc-input-bg;
-        background-size:calc(100% - 3em) 100%;
-      }
-    
-      
-      
+      @include has-input-line;
       input {
         background:transparent;
-        &:focus, &:active {
-        }
       }
     }
   }
@@ -120,7 +147,6 @@ textarea, input {
   grid-template-rows: 1fr 1fr 1fr;
   grid-auto-flow: column;
   justify-content: center;
-
   gap: 0.2rem 0.6rem;
   >div {
     display: flex;
@@ -136,21 +162,12 @@ textarea, input {
       margin-bottom:0.2rem;
     }
     >.value {
+      @include input-box;
+      background-color: $coc-input-bg;
       width:2.4em;
       height:2em;
       font-size:2rem;
       font-weight:bold;
-      text-align:center;
-      
-      background-image:linear-gradient(to top, $coc-input-bg 0%, $coc-input-bg 100%);
-      background-size:100% 0%;
-      transition: all $tz 0.5s;
-      background-repeat: no-repeat;
-      background-position: right;
-      &:focus, &:active {
-        box-shadow:$coc-shadow;
-        background-size:100% 100%;
-      }
     }
     .halfvalue, .fifthvalue {
       height:2rem;
@@ -165,17 +182,21 @@ textarea, input {
 }
 // ---
 .stats .content {
-  // flex-wrap:wrap;
   text-align:left;
   >div {
-    display:flex;
+    display:inline-flex;
     margin-top:0.5rem;
     align-items: center;
-    // width:100%;
+    border-bottom:1px solid $coc-input-bg;
+    transition: all $tz 0.5s;
+    &:has(input:focus,input:active) {
+      box-shadow:0 2px 0 0 $coc-input-bg;
+    }
     .sub_title {
       display:inline-block;
       width:2.5em;
       flex-shrink:0;
+      @include subtitle;
     }
     input:not([type]), span.input {
       width:2em;
@@ -188,10 +209,19 @@ textarea, input {
       font-size:1.6rem;
     }
     input:not([class]){
-      background: $coc-input-bg;
-      border-radius:0.2rem;
+      @include input-box(none);
+      background-color: $coc-input-bg-1;
+      border-bottom-right-radius:0;
+      border-bottom-left-radius:0;
       text-align:center;
     }
+  }
+  #current_mental_condition {
+    @include input-line;
+    margin-top:0.5rem;
+    width:100%;
+    padding-left:2.5em;
+    font-size:1.4rem;
   }
   .desc {
     font-size:1.2rem;
@@ -216,6 +246,25 @@ textarea, input {
     flex-basis: 4em;
     
     flex-shrink: 1;
+  }
+}
+.battle {
+  .content {
+    &>div {
+      display:grid;
+      box-sizing:content-box;
+      grid-template-columns:5em 1fr;
+      align-items: center;
+      &::before{
+        content:attr(data-title);
+        display:inline-block;
+        @include subtitle;
+      }
+      @include has-input-line;
+      input {
+        background:transparent;
+      }
+    }
   }
 }
 //-----
@@ -479,6 +528,9 @@ input.sp, input.sp-add {
   }
 }
 @media (max-width: 560px) {
+  .sheet {
+    flex-direction: column;
+  }
   .skills .content {
     display:flex;
     flex-direction: column;
