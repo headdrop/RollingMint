@@ -236,6 +236,10 @@ function calcStats() {
   }
   document.querySelector("#damage_bonus>input").value=bonus;
   document.querySelector("#build>input").value=build;
+  const dodge = document.querySelector("#dodge .value").value;
+  document.querySelector("#dodge_>div>span").textContent = dodge;
+  document.querySelector("#dodge_>div>.halfvalue").textContent=Math.floor(dodge / 2);
+  document.querySelector("#dodge_>div>.fifthvalue").textContent=Math.floor(dodge / 5);
 }
 
 function mov() {

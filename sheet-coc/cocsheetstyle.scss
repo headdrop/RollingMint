@@ -31,16 +31,19 @@ $coc-shadow:rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0
   }
 
 }
-@mixin has-input-line {
+@mixin has-input-line($insert) {
   background-image:linear-gradient(to top, $coc-input-bg-1 0%, $coc-input-bg-1 99%);
   border-bottom:1px solid $coc-input-bg;
   background-position: bottom right;
-  background-size: calc(100% - 3em) 0%;
+  background-size: calc(100% - $insert) 0%;
   background-repeat: no-repeat;
   transition:all $tz 0.5s;
-  &:has(:focus,:active) {
+  &:has(:focus), &:has(:active) {
     box-shadow:0 2px 0 0 $coc-input-bg;
-    background-size:calc(100% - 3em) 100%;
+    background-size:calc(100% - $insert) 100%;
+  }
+  &>input {
+    padding:0.1em 0.3em;
   }
 }
 @mixin input-line {
@@ -134,7 +137,7 @@ textarea, input {
         display:inline-block;
         @include subtitle;
       }
-      @include has-input-line;
+      @include has-input-line(3em);
       input {
         background:transparent;
       }
@@ -260,17 +263,19 @@ textarea, input {
         display:inline-block;
         @include subtitle;
       }
-      @include has-input-line;
-      input {
+      @include has-input-line(5em);
+      input, &>div {
         background:transparent;
+        text-align:left;
+        width:5em;
+      }
+      &>div {
+        padding:0.1em 0.3em;
       }
     }
   }
 }
 //-----
-.skills {
-  flex-basis:100%;
-}
 .skills .option{
   display: flex;
   position:relative;
@@ -410,7 +415,6 @@ input.sp, input.sp-add {
   width:2em;
 }
 .weapons {
-  flex-basis: 100%;
   .content{
     width:calc(100% - 1.5rem);
     >div{
@@ -474,9 +478,7 @@ input.sp, input.sp-add {
     }
   }
 }
-.backstory, .money {
-  flex-basis: 50%;
-}
+
 .backstory .content {
   display:grid;
   grid-template-columns: 1fr 1fr;
@@ -486,10 +488,21 @@ input.sp, input.sp-add {
   }
 }
 
+// 전체 박스 FLEX-BASIS
+.skills, .weapons {
+  flex-basis:100%;
+}
+.battle {
+  flex-basis:16rem;
+}
+.backstory, .money {
+  flex-basis: 50%;
+}
+
 // 미디어쿼리
+// 2단
 @media (min-width: 561px) and (max-width: 870px) {
   .skills .content {
-    // padding-right:2rem;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(26, 1fr);
     @for $i from 1 to 19 {
@@ -538,6 +551,33 @@ input.sp, input.sp-add {
   }
   .backstory, .money {
     flex-basis:100%;
+  }
+  
+  .weapons>.content>div {
+    grid-template-columns: repeat(10, 1fr);
+    gap:1px;
+    &.table_title{
+      background-color:$coc-input-bg-1;
+      align-items: center;
+      justify-content: center;
+      >div {
+        display:flex;
+        background-color:$coc-box-bg;
+        height:100%;
+      }
+    }
+    &>* {
+      grid-column:span 2;
+    }
+    :first-child {
+      grid-column:1 / span 5;
+    }
+    :nth-child(2) {
+      grid-column:6 / span 3;
+    }
+    :nth-child(3) {
+      grid-column:9 / span 2;
+    }
   }
 }
 
