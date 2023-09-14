@@ -4,21 +4,15 @@ var attr; // 특성치 저장
 var otherskill, otherweapon; // 추가 양식 저장
 window.onload=function() {
   setTippy(); //툴팁
-  // 시작할 때
-  attr = getAttr();
-  calcStats();
-  defaultSkill();
+  startFunc(); // 시작할 때
+  
   defaultSaveSlot();
   optionSkill(document.querySelector("[name='skill-type']:checked").value);
 
-  const _skill = document.querySelectorAll("input.value");
-  _skill.forEach((element)=>{
-    divValue(element);
-  });
-
-  // 시트의 모든 .value 바뀔때마다
+  // EVENT:: 시트의 모든 .value 바뀔때마다 
   document.querySelectorAll(".sheet .content").forEach(item=>{
-    if (item.parentNode.classList.contains("attr")) { // 특성치
+    if (item.parentNode.classList.contains("attr")) {
+      // 특성치
       // 특성치 반값, 상태 계산, 특성치 영향 초기값
       item.addEventListener("change",(e)=>{
         attr = getAttr();
@@ -27,7 +21,8 @@ window.onload=function() {
         firstSkillPoint(document.getElementById("sp_0_text").textContent);
         if(e.target.className=="value") divValue(e.target);
       });
-    } else if (item.parentNode.classList.contains("skills")) { // 기능치
+    } else if (item.parentNode.classList.contains("skills")) {
+      // 기능치
       item.addEventListener("change",(e)=>{
         if(e.target.tagName=="INPUT" && e.target.type=="text" && !e.target.classList.contains("add")) {
           clacSkillValue(e.target);
@@ -40,25 +35,25 @@ window.onload=function() {
     }
   });
 
-  // san_start 바뀔때마다
+  // EVENT:: san_start 바뀔때마다
   document.querySelector("#san_start").addEventListener("change",(e)=>{
     document.querySelector("#san span:nth-of-type(2)").textContent = Math.floor((e.target.value)/5*4);
   });
-  // otherskill, otherweapon 추가
+  // EVENT:: otherskill, otherweapon 추가
   document.getElementById("add_skill").addEventListener("click", ()=>addOther("skill"));
   document.getElementById("add_weapon").addEventListener("click", ()=>addOther("weapon"));
-  // 초기 기능점수 클릭시
+  // EVENT:: 초기 기능점수 클릭시
   document.getElementById("sp_0").addEventListener("click",()=>{
     let pmt = prompt("직업 기능 점수를 입력하세요\n(CoC7th 수호자 룰북 p.34-36, p.40-41 참고)\n예시) EDU*4 or 교육*4 or 60*4","근력*2+건강*4+크기*2");
     firstSkillPoint(pmt);
   });
+  // 계산: 이동력(mov), 현금자산
+  document.querySelector("#mov>i").addEventListener("click",mov);
+  document.querySelector(".money .title>i").addEventListener("click",calcAssets);
   // 스킬 출력 옵션 변경시
   document.querySelector("[name='skill-type']").parentElement.parentElement.addEventListener("change",(e)=>{
     optionSkill(e.target.value)
   });
-  // 계산: 이동력(mov), 현금자산
-  document.querySelector("#mov>i").addEventListener("click",mov);
-  document.querySelector(".money .title>i").addEventListener("click",calcAssets);
 
   // option 버튼 동작
   document.getElementById("slot_get").addEventListener("click",slotButton);
@@ -67,7 +62,6 @@ window.onload=function() {
   // document.getElementById("export_json").addEventListener("click",);
   document.getElementById("export_vtt").addEventListener("click",vtt);
   document.getElementById("import_button").addEventListener("click",importButton);
-
 
 // onload 함수 종료
 }
@@ -109,6 +103,19 @@ function setTippy() { // 툴팁 및 기타 디폴트 세팅
   otherweapon_.id="otherweapon";
   otherweapon=otherweapon_;
 }
+
+function startFunc () {
+  attr = getAttr();
+  calcStats();
+  defaultSkill();
+  const _skill = document.querySelectorAll("input.value");
+  _skill.forEach((element)=>{
+    divValue(element);
+  });
+  
+  
+}
+
 
 function defaultSaveSlot() {
   for (i=1;i<=5;i++) {
@@ -800,12 +807,14 @@ function slot () {
 
 function load (jj) {
   const tg = {
-    "A" : ["name","player","occupation","age","sex","residence","birthplace","str","con","siz","dex","app","int","pow","edu","mov","hp","mp","san","luck","build","damage_bonus","spending_level","cash"],
+    "A" : ["str","con","siz","dex","app","int","pow","edu","name","player","occupation","age","sex","residence","birthplace","mov","hp","mp","san","luck","build","damage_bonus","spending_level","cash"],
     "A_address" : ">input:not([id])",
     "B": ["personal_description","ideaology_beliefs","significant_people","meaningful_locations","teasured_posessions","traits","injuries_scars","phobias_manias","tomes_spells_artifacts","encounters_with_strange_entities","assets"],
     "B_address" : ">textarea",
-    "C" : ["san_start","gear_and_posessions"]
+    "C" : ["san_start","gear_and_posessions","current_mental_condition","majorwoundcurrent"],
+    "D" : ["dying","temp_insane","indef_insane","major-wound-toggle"],
   }
+  resetSheet(tg);
 
   if (jj.schema_version==3 && jj.type=='character') {
     var arr = [];
@@ -822,8 +831,15 @@ function load (jj) {
         document.querySelector(`#${item.name+tg.B_address}`).value=item.current;
       } else if (tg.C.indexOf(item.name)!==-1) {
         document.querySelector(`#${item.name}`).value=item.current;
+      } else if (tg.D.indexOf(item.name)!==-1) {
+        item.current = (item.current=="1") ? true : false;
+        document.querySelector(`#${item.name}`).checked=item.current;
+      } else if ((item.name.indexOf("_checkbox")!==-1) && (item.name.startsWith("otherskill")===false)) {
+        // 체크박스
+        let val = (item.current=="on") ? true : false;
+        let nm = item.name.slice(0,-9);
+        document.querySelector(`#${nm} input[type='checkbox']`).checked=val;
       } else if (item.name.startsWith("weapon")) { // weapons
-        
         const weaponNum = item.name.split("_")[0];
         const sub = item.name.split("_")[1];
         if(document.querySelector(`#${weaponNum}`)===null) {
@@ -838,13 +854,32 @@ function load (jj) {
 
     if (jj.rolling_mint==undefined) { 
       skills.forEach((item)=>{
-        if (item.name.startsWith("otherskill")!==-1) { // otherskill
+        if (item.name.startsWith("otherskill")) {
+          // otherskill
           const itemId = item.name.split("_")[0];
-          const sub = item.name.split("_")[1]===undefined ? `.value`:`._name`;
-          document.querySelector(`#${itemId} input${sub}`).value=item.current;
+          // 없으면 생성
+          if(document.querySelector(`#${itemId}`)===null) {
+            addOther("skill");
+          }
+          const sub = item.name.split("_")[1];
+          if (sub===undefined) {
+            document.querySelector(`#${itemId} input.value`).value=item.current;
+          } else if (sub==="name") {
+            document.querySelector(`#${itemId} input._name`).value=item.current;
+          } else if (sub==="checkbox") {
+            if(item.current=="on") {
+              document.querySelector(`#${itemId} input[type='checkbox']`).checked=true;
+            } else {
+              document.querySelector(`#${itemId} input[type='checkbox']`).checked=false;
+            }
+            
+          }
         } else {
-          console.log(item.name);
-          document.querySelector(`#${item.name} .value`).value=item.current;
+          try {
+            document.querySelector(`#${item.name} .value`).value=item.current;
+          } catch (err) {
+            console.log(item.name);
+          }
         }
       });
     } else {
@@ -880,7 +915,6 @@ function importButton () {
   const reader = new FileReader();
   reader.onload = function (e) {
     const data = JSON.parse(e.target.result);
-    console.log(data);
     load(data);
     if (document.querySelector("[name='skill-type']").value==1) {
       document.querySelectorAll(".skills>.content>div[id]>input .sp, .skills>.content>div[id]>input .sp-add").forEach((item)=>{clacSkillValue(item)});
@@ -888,5 +922,42 @@ function importButton () {
   }
   reader.readAsText(file);
   optionSkill(document.querySelector("[name='skill-type']:checked").value);
+}
+function resetSheet (tg) {
+  tg.A.forEach((item,ind)=>{
+    if (0 <= ind && ind < 8) {
+      document.querySelector(`#${item}${tg.A_address}`).value=50;
+    } else {
+      document.querySelector(`#${item}${tg.A_address}`).value=null;
+    }
+  });
+  tg.B.forEach((item)=>{
+    document.querySelector(`#${item}${tg.B_address}`).value=null
+  });
+  tg.C.forEach((item)=>{
+    document.querySelector(`#${item}`).value=null;
+  });
+
+  // 체크박스 초기화
+  document.querySelectorAll("input[type='checkbox']").forEach((item)=>{
+    item.checked=false;
+  });
+  // 추가스킬, 추가무기란 제거
+  document.querySelectorAll(".skills .content>div[id^=otherskill], .weapons [id^=otherweapon]").forEach((item,ind)=>{
+    if(ind>1) item.remove();      
+  });
+  // 스킬 초기화
+  document.querySelectorAll(".skills>.content>div[id]>input:not([type='checkbox'])").forEach((itemInput)=>{
+    try {
+    if (itemInput.classList.contains("value")) {
+      itemInput.value = itemInput.attributes.default.value;
+    } else {
+      itemInput.value = null;
+    }
+    } catch (err) {console.log(err)}
+  });
+
+  
+  startFunc();
 }
 // DESIGN FUNCTIONS

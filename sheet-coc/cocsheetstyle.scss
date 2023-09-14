@@ -7,13 +7,14 @@ $coc-sheet-bg:#888888;
 $coc-box-bg:#c4beb6;
 $coc-input-bg:rgba(255,255,255,0.5);
 $coc-input-bg-1:rgba(255,255,255,0.2);
-$coc-sheet-title-bg:linear-gradient(black, #262626);
+$coc-title-bg-gd:linear-gradient(black, #262626);
+$coc-title-bg:#262626;
 $tz:cubic-bezier(0.075, 0.82, 0.165, 1);
 $coc-shadow:rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset, $coc-box-bg 0 2px 0 0;
 
 @mixin subtitle {
   font-size:0.9em;
-  color:#262626;
+  color:$coc-title-bg-gd;
   font-weight:600;
   text-align:center;
 }
@@ -73,7 +74,7 @@ $coc-shadow:rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0
 }
 input, textarea {font-size:1.6rem;border:0;}
 textarea, input {
-  color:#262626;
+  color:$coc-title-bg-gd;
   &:active, &:focus {
     box-shadow: none;
   }
@@ -88,7 +89,7 @@ textarea, input {
     font-family: 'NEXON Lv1 Gothic OTF';
     font-size:2rem;
     color:white;
-    background:$coc-sheet-title-bg;
+    background:$coc-title-bg-gd;
     padding: 0.4rem 0;
   }
 }
@@ -97,7 +98,6 @@ textarea, input {
   flex-basis: 45%;
   background: $coc-box-bg;
   font-size: 1.6rem;
-  // div:not(.option)>input:not(._name,[type="checkbox"]),textarea {
   input,textarea {
     background: $coc-input-bg;
   }
@@ -108,7 +108,7 @@ textarea, input {
   .option {
     gap:1rem;
     font-size:1.4rem;
-    background: #262626;
+    background: $coc-title-bg;
     color: floralwhite;
     padding: 1rem 10%;
     >span {
@@ -267,7 +267,7 @@ textarea, input {
       input, &>div {
         background:transparent;
         text-align:left;
-        width:5em;
+        width: 3em;
       }
       &>div {
         padding:0.1em 0.3em;
@@ -421,6 +421,7 @@ input.sp, input.sp-add {
       display: grid;
       position:relative;
       grid-template-columns: 4fr 3fr 6rem repeat(5, 4.8rem);
+      gap:1px;
       font-size: 1.6rem;
       margin-top:0.4rem;
       align-items: center;
@@ -489,17 +490,32 @@ input.sp, input.sp-add {
 }
 
 // 전체 박스 FLEX-BASIS
-.skills, .weapons {
-  flex-basis:100%;
+.info, .attr, .stats {
+  flex-basis: 33%;
+}
+.skills {
+  flex-basis: 100%;
 }
 .battle {
   flex-basis:16rem;
+  order:2;
+}
+.weapons {
+  flex-basis:calc(100% - 16rem);
+  order:2;
 }
 .backstory, .money {
   flex-basis: 50%;
+  order:3;
+}
+// 2단 전체 레이아웃
+@media (min-width: 561px) and (max-width: 870px) {
+  .battle {
+    order:unset;
+  }
 }
 
-// 미디어쿼리
+// 기타 미디어쿼리
 // 2단
 @media (min-width: 561px) and (max-width: 870px) {
   .skills .content {
@@ -540,6 +556,7 @@ input.sp, input.sp-add {
     }
   }
 }
+// 1단
 @media (max-width: 560px) {
   .sheet {
     flex-direction: column;
@@ -554,29 +571,28 @@ input.sp, input.sp-add {
   }
   
   .weapons>.content>div {
-    grid-template-columns: repeat(10, 1fr);
-    gap:1px;
+    grid-template-columns: repeat(6, 1fr);
     &.table_title{
-      background-color:$coc-input-bg-1;
+      
+    >div {
+      display:flex;
+      height:100%;
       align-items: center;
       justify-content: center;
-      >div {
-        display:flex;
-        background-color:$coc-box-bg;
-        height:100%;
+      background-image:linear-gradient(to top, rgba($coc-title-bg,0.2) 0%, rgba($coc-title-bg,0.2) 100%);
+      background-size:calc(100% - 2rem) 70%;
+      background-repeat: no-repeat;
+      background-position: center;
       }
     }
     &>* {
-      grid-column:span 2;
+      grid-column:span 1;
     }
     :first-child {
-      grid-column:1 / span 5;
+      grid-column:1 / span 3;
     }
     :nth-child(2) {
-      grid-column:6 / span 3;
-    }
-    :nth-child(3) {
-      grid-column:9 / span 2;
+      grid-column:4 / span 3;
     }
   }
 }
