@@ -122,6 +122,9 @@ textarea, input {
 .table_title {
   font-weight:bold;
 }
+.subtitle {
+  @include subtitle;
+}
 .info {
   .content {
     display:flex;
@@ -195,11 +198,10 @@ textarea, input {
     &:has(input:focus,input:active) {
       box-shadow:0 2px 0 0 $coc-input-bg;
     }
-    .sub_title {
+    .subtitle {
       display:inline-block;
       width:2.5em;
       flex-shrink:0;
-      @include subtitle;
     }
     input:not([type]), span.input {
       width:2em;
@@ -483,9 +485,60 @@ input.sp, input.sp-add {
 .backstory .content {
   display:grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.4rem;
+  gap: 0.8rem 0.4rem ;
+  .subtitle {
+    margin-bottom:0.2rem;
+    display:flex;
+    align-items: center;
+    &::before, &::after {
+      display:block;
+      height:0.8rem;
+      align-items: center;
+      flex-basis:0;
+      flex-shrink: 1;
+      flex-grow: 1;
+      background-repeat:no-repeat;
+      background-size: 0% 100%;
+      transition: background-size $tz 0.5s;
+    }
+  }
+  &>div{
+    &:nth-child(odd) {
+      .subtitle {
+        padding-left:0.2rem;
+        text-align:left;
+        &::after {
+          content:"";
+          margin-left:0.4rem;
+          background-image:linear-gradient(to left, rgba($coc-title-bg,0.4) 100%, rgba($coc-title-bg,0.4) 100%);
+        }
+      }
+      &:has(textarea:focus, textarea:active) .subtitle::after {
+        background-size:100% 100%;
+      }
+    }
+    &:nth-child(even) {
+      .subtitle {
+        padding-right:0.2rem;
+        text-align:right;
+        &::before {
+          content:"";
+          margin-right:0.4rem;
+          background-image:linear-gradient(to right, rgba($coc-title-bg,0.4) 100%, rgba($coc-title-bg,0.4) 100%);
+          background-position:right;
+        }
+      }
+      &:has(textarea:focus, textarea:active) .subtitle::before {
+        background-size:100% 100%;
+      }
+
+    }
+    
+  }
   textarea {
+    @include input-box;
     height:5em;
+    text-align:left;
   }
 }
 
