@@ -94,13 +94,11 @@ function setTippy() { // 툴팁 및 기타 디폴트 세팅
     content:"아이콘을 클릭하면 재력에서 소비수준, 현금, 자산이 계산됩니다.(수호자 룰북 47p) "
   });
 
-  // 기타 세팅 참조 => addOther
-  // const otherskillbase = document.getElementById("otherskill1");
+  // 추가 무기 추가 스킬 base 만들기
   const otherskill_ = document.getElementById("otherskill1").cloneNode(true);
   otherskill_.id="otherskill";
   otherskill=otherskill_;
   const otherweapon_ = document.getElementById("weapon1").cloneNode(true);
-  otherweapon_.id="otherweapon";
   otherweapon=otherweapon_;
 }
 
@@ -303,18 +301,23 @@ function calcAssets () {
 }
 
 function addOther(type_) {
-  let type;
+  let type, otheritems, otherId;
   if (type_ == "skill") {
     type = otherskill.cloneNode(true);
+    otherId = "otherskill";
   } else if (type_ == "weapon") {
     type = otherweapon.cloneNode(true);
+    otherId = "weapon";
   }
-  type.querySelector(".remove").addEventListener("click",(e)=>type.remove());
-  let otheritems = document.querySelectorAll(`[id^='other${type_}']`);
-  otheritems.forEach((item,index)=>item.id=`other${type_}`+Number(index+1));
-  let num = Number(otheritems.length)+1;
-  type.id=type.id+num;
+  type.querySelector(".remove").addEventListener("click",(e)=>{
+    type.remove();
+    otheritems = document.querySelectorAll(`[id^='${otherId}']`);
+    otheritems.forEach((item,index)=>item.id=otherId+Number(index+1));
+  });
   document.getElementById(`add_${type_}`).before(type);
+
+  otheritems = document.querySelectorAll(`[id^='${otherId}']`);
+  otheritems.forEach((item,index)=>item.id=otherId+Number(index+1));
 }
 
 
@@ -943,18 +946,24 @@ function resetSheet (tg) {
     item.checked=false;
   });
   // 추가스킬, 추가무기란 제거
-  document.querySelectorAll(".skills .content>div[id^=otherskill], .weapons [id^=otherweapon]").forEach((item,ind)=>{
-    if(ind>1) item.remove();      
+  document.querySelectorAll(".skills .content>div[id^=otherskill], .weapons [id^=weapon]").forEach((item,ind)=>{
+    if(ind>0) item.remove();
   });
   // 스킬 초기화
   document.querySelectorAll(".skills>.content>div[id]>input:not([type='checkbox'])").forEach((itemInput)=>{
-    try {
     if (itemInput.classList.contains("value")) {
-      itemInput.value = itemInput.attributes.default.value;
+      itemInput.removeAttribute("readonly");
+      try {
+        let default_ = itemInput.parentElement.querySelector(".skill_name").attributes.default.value;
+        itemInput.value = default_;
+      } catch (err) {
+        console.log(err);
+        itemInput.value = null;
+      }
     } else {
       itemInput.value = null;
     }
-    } catch (err) {console.log(err)}
+    itemInput.attributes.readonly=true;
   });
 
   

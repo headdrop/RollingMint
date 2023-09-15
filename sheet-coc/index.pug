@@ -432,7 +432,7 @@ html(lang='ko')
               span.fifthvalue
             #credit_rating(order='32')
               input(type='checkbox')
-              div.skill_name(default='') 재력
+              div.skill_name(default='00') 재력
               input.sp(placeholder=' ')
               input.sp-add(placeholder=' ')
               input(class="value" value='00')
@@ -532,18 +532,38 @@ html(lang='ko')
               div 무기
               div 기능
               div 피해
-              div db
+              div  
               div 사거리
               div 공격 횟수
               div 탄약
               div 고장
+            .table_item
+              input.name(type='text' value="비무장" disabled) 
+              select.skill(disabled)
+                option(value="@{fighting_brawl}") 근접전(격투)
+              input.damage(type='text' value="1D3" disabled)
+              select.db(disabled)
+                option(value="+@{damage_bonus}") +db
+              input.range(type='text' value="-" disabled)
+              input.attacks(type='text' value="1" disabled)
+              input.ammo(type='text' value="-" disabled)
+              input.malf(type='text' value="-" disabled)
             .table_item#weapon1
               input.name(type='text')
-              input.skill(type='text')
+              select.skill
+                option(value="@{fighting_brawl}") 근접전(격투)
+                option(value="@{firearms_handgun}") 사격(권총)
+                option(value="@{firearms_rifle}") 사격(라/산)
+                option(value="@{throw}") 투척
+                option(value="@{dodge}") 회피
+                option(value="@{otherskill1}") 추가 기능
               input.damage(type='text')
-              input.db(type='text')
-              input.attacks(type='text')
+              select.db
+                option(value="+0") +0
+                option(value="+round((@{damage_bonus})/2)") +½db
+                option(value="+@{damage_bonus}") +db
               input.range(type='text')
+              input.attacks(type='text')
               input.ammo(type='text')
               input.malf(type='text')
               span.skill_icon.remove

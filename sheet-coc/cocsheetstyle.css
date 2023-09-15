@@ -155,15 +155,12 @@
   font-family: "NEXON Lv1 Gothic OTF";
 }
 
-input, textarea {
+textarea, input, select {
+  color: #262626;
   font-size: 1.6rem;
   border: 0;
 }
-
-textarea, input {
-  color: linear-gradient(black, #262626);
-}
-textarea:active, textarea:focus, input:active, input:focus {
+textarea:active, textarea:focus, input:active, input:focus, select:active, select:focus {
   box-shadow: none;
 }
 
@@ -287,7 +284,9 @@ textarea:active, textarea:focus, input:active, input:focus {
   border: 0;
   background-image: linear-gradient(to top, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.5) 100%);
   background-size: 100% 0%;
-  transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.5s;
+  transition-property: background, box-shadow;
+  transition-duration: 0.5s;
+  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
   background-repeat: no-repeat;
   background-position: right;
   background-color: rgba(255, 255, 255, 0.5);
@@ -312,7 +311,9 @@ textarea:active, textarea:focus, input:active, input:focus {
 }
 
 .stats .content {
-  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 .stats .content > div {
   display: inline-flex;
@@ -344,7 +345,9 @@ textarea:active, textarea:focus, input:active, input:focus {
   border: 0;
   background-image: linear-gradient(to top, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.5) 100%);
   background-size: 100% 0%;
-  transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.5s;
+  transition-property: background, box-shadow;
+  transition-duration: 0.5s;
+  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
   background-repeat: no-repeat;
   background-position: right;
   background-color: rgba(255, 255, 255, 0.2);
@@ -394,17 +397,11 @@ textarea:active, textarea:focus, input:active, input:focus {
   display: inline;
 }
 
-#mp, #luck {
-  width: 50%;
-  display: inline-flex;
-}
-
 #luck {
   justify-content: flex-end;
 }
 #luck input {
-  flex-basis: 4em;
-  flex-shrink: 1;
+  width: 4em;
 }
 
 .battle .content > div {
@@ -582,49 +579,6 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
   box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset, #c4beb6 0 2px 0 0;
 }
 
-.skill_icon {
-  cursor: pointer;
-  position: absolute;
-}
-.skill_icon.grip {
-  right: 100%;
-}
-
-.skills .skill_icon.remove {
-  left: calc(100% + 0.1rem);
-}
-
-.weapons .skill_icon.remove {
-  right: -2rem;
-}
-
-.halfvalue, .fifthvalue {
-  font-size: 0.5em;
-  padding-left: 2px;
-  text-align: center;
-  width: 2em;
-}
-
-.weapons .content {
-  width: calc(100% - 1.5rem);
-}
-.weapons .content > div {
-  display: grid;
-  position: relative;
-  grid-template-columns: 4fr 3fr 6rem repeat(5, 4.8rem);
-  gap: 1px;
-  font-size: 1.6rem;
-  margin-top: 0.4rem;
-  align-items: center;
-}
-.weapons .content .table_title > div:nth-child(5), .weapons .content .table_title > div:nth-child(6), .weapons .content .table_title > div:nth-child(7), .weapons .content .table_title > div:nth-child(8) {
-  font-size: 0.8em;
-}
-
-.table_item > input {
-  width: 100%;
-}
-
 .skills input[type=checkbox] {
   height: 1.6rem;
   width: 1.6rem;
@@ -665,6 +619,68 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
 }
 .skills input[type=checkbox]:checked::after {
   opacity: 1;
+}
+
+.skill_icon {
+  cursor: pointer;
+  position: absolute;
+}
+.skill_icon.grip {
+  right: 100%;
+}
+
+.skills .skill_icon.remove {
+  left: calc(100% + 0.1rem);
+}
+
+.weapons .skill_icon.remove {
+  right: -2rem;
+}
+
+.halfvalue, .fifthvalue {
+  font-size: 0.5em;
+  padding-left: 2px;
+  text-align: center;
+  width: 2em;
+}
+
+.weapons .content {
+  width: calc(100% - 1.5rem);
+}
+.weapons .content > div {
+  display: grid;
+  position: relative;
+  grid-template-columns: 5fr 7em 2fr 4em 2fr repeat(3, minmax(2em, 1fr));
+  gap: 1px;
+  font-size: 1.6rem;
+  margin-top: 0.4rem;
+  align-items: center;
+}
+.weapons .content .table_title > div:nth-child(5), .weapons .content .table_title > div:nth-child(6), .weapons .content .table_title > div:nth-child(7), .weapons .content .table_title > div:nth-child(8) {
+  font-size: 0.8em;
+  line-height: 1;
+  text-wrap: balance;
+}
+
+.table_item {
+  transition: box-shadow cubic-bezier(0.075, 0.82, 0.165, 1) 0.5s;
+}
+.table_item select:disabled {
+  opacity: 1;
+}
+.table_item > input, .table_item > select {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: background cubic-bezier(0.075, 0.82, 0.165, 1) 0.5s;
+}
+.table_item > input:active, .table_item > input:focus, .table_item > select:active, .table_item > select:focus {
+  background: rgba(255, 255, 255, 0.5);
+}
+.table_item:has(input:focus, input:active, select:focus, select:active) {
+  box-shadow: 0 2px 0 0 rgba(255, 255, 255, 0.5);
+}
+.table_item > :nth-child(5), .table_item > :nth-child(6), .table_item > :nth-child(7), .table_item > :nth-child(8) {
+  text-align: center;
 }
 
 .backstory .content {
@@ -718,7 +734,9 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
   border: 0;
   background-image: linear-gradient(to top, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.5) 100%);
   background-size: 100% 0%;
-  transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.5s;
+  transition-property: background, box-shadow;
+  transition-duration: 0.5s;
+  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
   background-repeat: no-repeat;
   background-position: right;
   height: 5em;
@@ -727,6 +745,53 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
 .backstory .content textarea:focus, .backstory .content textarea:active {
   box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset, #c4beb6 0 2px 0 0;
   background-size: 100% 100%;
+}
+
+.money textarea {
+  text-align: center;
+  border: 0;
+  background-image: linear-gradient(to top, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.5) 100%);
+  background-size: 100% 0%;
+  transition-property: background, box-shadow;
+  transition-duration: 0.5s;
+  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  background-repeat: no-repeat;
+  background-position: right;
+  text-align: left;
+  margin-top: 0.5rem;
+  resize: vertical;
+}
+.money textarea:focus, .money textarea:active {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset, #c4beb6 0 2px 0 0;
+  background-size: 100% 100%;
+}
+
+#spending_level, #cash {
+  display: grid;
+  grid-template-columns: 4em 1fr;
+  align-items: center;
+  margin-bottom: 0.4rem;
+  background-image: linear-gradient(to top, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 99%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  background-position: bottom right;
+  background-size: calc(100% - 4em) 0%;
+  background-repeat: no-repeat;
+  transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.5s;
+}
+#spending_level:has(:focus), #spending_level:has(:active), #cash:has(:focus), #cash:has(:active) {
+  box-shadow: 0 2px 0 0 rgba(255, 255, 255, 0.5);
+  background-size: calc(100% - 4em) 100%;
+}
+#spending_level > input, #cash > input {
+  padding: 0.1em 0.3em;
+}
+#spending_level input, #cash input {
+  background: transparent;
+  border-radius: 0;
+}
+
+#assets {
+  margin-top: 0.5rem;
 }
 
 .info, .attr, .stats {
