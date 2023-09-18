@@ -794,7 +794,12 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
   margin-top: 0.5rem;
 }
 
-.info, .attr, .stats {
+.attr {
+  flex-basis: 25rem;
+  flex-grow: 0;
+}
+
+.info, .stats {
   flex-basis: 33%;
 }
 

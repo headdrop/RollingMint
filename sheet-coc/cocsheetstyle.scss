@@ -590,7 +590,11 @@ input.sp, input.sp-add {
 }
 
 // 전체 박스 FLEX-BASIS
-.info, .attr, .stats {
+.attr {
+  flex-basis:25rem;
+  flex-grow:0;
+}
+.info, .stats {
   flex-basis: 33%;
 }
 .skills {
