@@ -24,7 +24,7 @@ window.onload=function() {
     } else if (item.parentNode.classList.contains("skills")) {
       // 기능치
       item.addEventListener("change",(e)=>{
-        if(e.target.tagName=="INPUT" && e.target.type=="text" && !e.target.classList.contains("add")) {
+        if(e.target.tagName=="INPUT" && e.target.type=="text") {
           clacSkillValue(e.target);
           divValue(e.target);
         }
@@ -92,6 +92,12 @@ function setTippy() { // 툴팁 및 기타 디폴트 세팅
   });
   tippy(document.querySelectorAll(".money .title")[1],{
     content:"아이콘을 클릭하면 재력에서 소비수준, 현금, 자산이 계산됩니다.(수호자 룰북 47p) "
+  });
+
+  
+  // 기본값 더하기 계산을 위한 defaut 값 Event 작업
+  document.querySelector("#otherskill1 .skill_name>span>input").addEventListener("change",(e)=>{
+    e.target.parentElement.parentElement.setAttribute("default",e.target.value);
   });
 
   // 추가 무기 추가 스킬 base 만들기
@@ -187,20 +193,22 @@ function calcSkillPoint() {
 }
 
 function clacSkillValue(target){ // 기능치 값 더하기
+  var div, v0;
   if(target.className=="sp"|target.className=="sp-add") {
-    const div = target.parentNode;
-    let v0;
-    try {
-      v0 = Number(div.querySelector(".skill_name").attributes.default.value);
-    } catch {
-      v0 = Number(div.querySelector(".skill_name>span>input").value);
-    }
-    const v1 = Number(div.querySelector(".sp").value);
-    const v2 = Number(div.querySelector(".sp-add").value);
-    div.querySelector(".value").value = v0 + v1 + v2;
-    divValue(div.querySelector(".value"));
-    calcStats();
+    div = target.parentElement;
+  } else if (target.className=="add") {
+    div = target.parentElement.parentElement.parentElement;
   }
+  try {
+    v0 = Number(div.querySelector(".skill_name").attributes.default.value);
+  } catch {v0=0}
+ 
+  const v1 = Number(div.querySelector(".sp").value);
+  const v2 = Number(div.querySelector(".sp-add").value);
+  div.querySelector(".value").value = v0 + v1 + v2;
+  divValue(div.querySelector(".value"));
+  calcStats();
+
   console.log(": calcSKILLValued");
 }
 // 특성치에 영향받는 기능치 초기값 + 계산
@@ -304,6 +312,9 @@ function addOther(type_) {
   let type, otheritems, otherId;
   if (type_ == "skill") {
     type = otherskill.cloneNode(true);
+    type.querySelector(".skill_name>span>input").addEventListener("change",(e)=>{
+      e.target.parentElement.parentElement.setAttribute("default",e.target.value);
+    });
     otherId = "otherskill";
   } else if (type_ == "weapon") {
     type = otherweapon.cloneNode(true);
@@ -320,9 +331,7 @@ function addOther(type_) {
   otheritems.forEach((item,index)=>item.id=otherId+Number(index+1));
 }
 
-
 function optionSkill(x) {
-  console.log(x);
   if (x==1) {
     document.querySelector(".skill_point").classList.remove("hide");
     document.querySelectorAll(".skills .content input.value").forEach((item)=>{
@@ -881,6 +890,7 @@ function load (jj) {
           try {
             document.querySelector(`#${item.name} .value`).value=item.current;
           } catch (err) {
+            // id 없는 item
             console.log(item.name);
           }
         }
