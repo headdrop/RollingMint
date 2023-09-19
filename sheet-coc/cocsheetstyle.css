@@ -1264,30 +1264,79 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
     grid-column: 4/span 3;
   }
 }
+.setting {
+  background: #efeff1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.setting button {
+  border: 0;
+  padding: 0.5rem 1rem;
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: 0.2s ease-out;
+  transition-property: background, color, box-shadow, border-radius;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  background: #5e81ac;
+  color: #151e29;
+  border-radius: 0.4rem;
+}
+.setting button:hover, .setting button:focus, .setting button:active {
+  background: transparent;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px, #5e81ac 0 -2px 0 0 inset;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+#save {
+  padding: 1rem 2rem;
+}
+
 #saveslots {
   display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
 }
 
 .saveslot {
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  padding: 1rem;
-  border: 1px solid #333;
+  position: relative;
+  padding: 0.4rem 0.2rem;
   border-radius: 0.4rem;
-  margin: 0.4rem;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  transition: background-size 0.3s ease-in-out;
+  background: linear-gradient(to right, rgba(94, 129, 172, 0.58) 0%, rgba(94, 129, 172, 0.58) 100%);
+  background-color: #fff;
+  background-size: 0% 100%;
+  background-position: center left;
+  background-repeat: no-repeat;
+  padding-left: 1rem;
+  font-size: 1.6rem;
 }
-.saveslot:hover {
-  background: #333;
-  color: white;
+.saveslot span {
+  font-family: "NEXON Lv1 Gothic OTF";
+  transition: transform 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+  color: #151e29;
+  font-weight: 300;
 }
-.saveslot:focus, .saveslot:has(input:checked) {
-  background: #333;
-  color: white;
+.saveslot:hover, .saveslot:focus, .saveslot:has(input:checked) {
+  background-size: 100% 100%;
+}
+.saveslot:hover::before, .saveslot:focus::before, .saveslot:has(input:checked)::before {
+  content: "\f138";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  left: -1.5em;
+  color: #5e81ac;
+}
+.saveslot:hover span, .saveslot:focus span, .saveslot:has(input:checked) span {
+  transform: skew(-10deg);
 }
 .saveslot > input {
   display: none;

@@ -702,34 +702,107 @@ input.sp, input.sp-add {
 }
 
 
+
 // 세팅
+.setting {
+  background:$lightBg;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items: center;
+  
+  // 버튼
+  button {
+    
+    border:0;
+    padding: 0.5rem 1rem;
+    font-size:1.6rem;
+    cursor:pointer;
+    transition: 0.2s ease-out;
+    transition-property: background, color, box-shadow, border-radius;
+    
+    box-shadow:$btnShadow;
+    background: $--c4;
+    
+    color:$--c4-t;
+    border-radius: 0.4rem;
+    &:hover, &:focus, &:active {
+      background: transparent;
+      box-shadow:$btnShadow, $--c4 0 -2px 0 0 inset;
+      border-bottom-left-radius:0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}
+.setting_item {
+}
+#save {
+  padding: 1rem 2rem;
+
+}
 #saveslots {
   display:flex;
+  flex-direction: column;
+  gap:0.2rem;
+
 }
 .saveslot {
   flex:1;
   display:flex;
   flex-direction:column;
-  align-items:center;
+  // align-items:center;
   justify-content:center;
-  padding:1rem;
-  border:1px solid #333;
+  position: relative;
+  padding:0.4rem 0.2rem;
   border-radius: 0.4rem;
-  margin:0.4rem;
   cursor:pointer;
-  transition: all 0.3s ease-in-out;
-  &:hover {
-    background: #333;
-    color:white;
+  transition: background-size 0.3s ease-in-out;
+
+  background:linear-gradient(to right, $--c4-s 0%, $--c4-s 100%);
+  background-color:#fff;
+  background-size: 0% 100%;
+  background-position: center left;
+  background-repeat: no-repeat;
+  padding-left:1rem;
+  font-size:1.6rem;
+  
+  span {
+    font-family: "NEXON Lv1 Gothic OTF";
+    transition: transform 0.3s $tz;
+    color:$--c4-t;
+    font-weight:300;
   }
-  &:focus, &:has(input:checked) {
-    background: #333;
-    color:white;
+  &:hover,&:focus, &:has(input:checked) {
+    background-size:100% 100%;
+    &::before{
+      content:"\f138";
+      font-family:"Font Awesome 6 Free";
+      font-weight:900;
+      position:absolute;
+      left:-1.5em;
+      color:$--c4;
+    }
+    span {
+      transform: skew(-10deg);
+    }
   }
   >input {display:none}
 }
-
-
+@mixin has-input-line($insert) {
+  background-image:linear-gradient(to top, $coc-input-bg-1 0%, $coc-input-bg-1 99%);
+  border-bottom:1px solid $coc-input-bg;
+  background-position: bottom right;
+  background-size: calc(100% - $insert) 0%;
+  background-repeat: no-repeat;
+  transition:all $tz 0.5s;
+  &:has(:focus), &:has(:active) {
+    box-shadow:0 2px 0 0 $coc-input-bg;
+    background-size:calc(100% - $insert) 100%;
+  }
+  &>input {
+    padding:0.1em 0.3em;
+  }
+}
 
 
 .hide {
