@@ -60,7 +60,7 @@ window.onload=function() {
   document.getElementById("slot_set").addEventListener("click",slotButton);
   document.getElementById("slot_remove").addEventListener("click",slotButton);
   // document.getElementById("export_json").addEventListener("click",);
-  document.getElementById("export_vtt").addEventListener("click",vtt);
+  // document.getElementById("export_vtt").addEventListener("click",vtt);
   document.getElementById("import_button").addEventListener("click",importButton);
 
 // onload 함수 종료
@@ -354,6 +354,9 @@ function optionSkill(x) {
 
 
 function vtt () {
+  
+  if (document.querySelector("#name input").value=="") alert("캐릭터 이름을 입력하세요.")
+  else {
   const random = (length = 8) => {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let str = '';
@@ -364,7 +367,6 @@ function vtt () {
   };
   // 랜덤 함수 끝
 
-  console.log("vtt");
   var xx;
   const idFirst = "-"+random(5);
   
@@ -384,6 +386,12 @@ function vtt () {
       "controlledby": "",
       "inplayerjournals": "",
       "attribs": [
+        {
+          "name": "showskills",
+          "current": "2", // 1920s
+          "max": "",
+          "id": "-Na9T7x9bPNEYP1ejP1b"
+        },
         {
           "name": "str_txt",
           "current": "근력",
@@ -690,7 +698,8 @@ function vtt () {
             "max": "",
             "id": "-Na9T7xYIHUHQW28_xTe"
         }
-      ]
+      ],
+      "abilities": []
     }
   }
   const skill = document.querySelectorAll(".skills .content>div[id]");
@@ -704,6 +713,8 @@ function vtt () {
     #spending_level>input, #cash>input, #assets>textarea
     `);
   const xcpt = document.querySelectorAll("#san_start, #gear_and_posessions"); // input or textarea 의 id를 가지고 있는 것
+  const skillcheck = document.querySelectorAll(".skills div[id]>input[type='checkbox']:checked");
+  const etccheck = document.querySelectorAll("#dying:checked,#temp_insane:checked,#indef_insane:checked,#major-wound-toggle:checked");
   // -----
   xx.character.bio = xx.character.bio+"\n이 캐릭터시트는 Rolling Mint 에서 작성되었습니다.";
   xx.character.attribs.name = xx.character.name;
@@ -749,8 +760,24 @@ function vtt () {
       "id" : idFirst+random(14)
     });
   });
+  skillcheck.forEach(function (item) {
+    xx.character.attribs.push({
+      "name": item.parentElement.id+"_checkbox",
+      "current" : "on",
+      "max" : "",
+      "id" : idFirst+random(14)
+    });
+  });
+  etccheck.forEach(function (item) {
+    xx.character.attribs.push({
+      "name": item.id,
+      "current" : "1",
+      "max" : "",
+      "id" : idFirst+random(14)
+    });
+  });
   return xx;
-}
+}}
 
 // SAVE FUNCTIONS
 function slotButton (e) {
@@ -758,13 +785,13 @@ function slotButton (e) {
     const type = e.target.id.replace("slot_","");
     const num = document.querySelector("[name='saveslot']:checked").value;
     console.log(num+"번 슬롯에 "+type+" 합니다.");
-    const slot_ = slot();
     switch (type) {
       case "get" :
         const data = JSON.parse(localStorage.getItem(num));
         load(data);
       break;
       case "set" :
+        const slot_ = slot();
         localStorage.setItem(num,JSON.stringify(slot_));
         document.querySelector("[name='saveslot']:checked").nextSibling.textContent = `[${num}]-${slot_.character.name}`;
       break;
@@ -814,6 +841,10 @@ function slot () {
   }
 
   return ss;
+}
+
+function saveJson () {
+  
 }
 
 
