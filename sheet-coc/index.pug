@@ -39,13 +39,9 @@ html(lang='ko')
               input(name='saveslot' type='radio' value=5)
               span [5]-캐릭터명
           span 
-          button#slot_get 불러오기
           button#slot_set 저장
+          button#slot_get 불러오기
           button#slot_remove 삭제
-        #export.setting_item
-          button#export_json JSON 파일로 내보내기
-          button#export_vtt Roll20 VTT로 내보내기
-          button#export_ccf 코코포리아 API로 복사
         #import.setting_item
           input#import_file(type='file' accept='.json')
           button#import_button 불러오기
@@ -53,6 +49,10 @@ html(lang='ko')
             p VTT에서 export 한 JSON 파일
             p rolling mint (이 사이트)에서 내보내기 한 JSON 파일
             p 코코포리아 API형식의 텍스트를 .JSON 확장자로 저장한 파일
+        #export.setting_item
+          button#export_json JSON 파일로 내보내기
+          button#export_vtt Roll20 VTT로 내보내기
+          button#export_ccf 코코포리아 API로 복사
           
       <div style="overflow: hidden; margin-bottom:5rem; width:100%">
         <svg preserveAspectRatio="none" viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" style="fill: #efeff1; width: 125%; height: 80px;">
