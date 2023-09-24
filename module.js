@@ -1,17 +1,3 @@
-fetch("https://headdrop.github.io/RollingMint/footer.html")
-// fetch("../footer.html") // 테스트용
-      .then(response => {
-      return response.text()
-      })
-      .then(data => {
-        document.querySelector("footer").innerHTML = data;
-        return document.getElementById("version").innerText;
-      })
-      .then(version => {
-        if (document.getElementById("version-log")!=null) {
-          document.getElementById("version-log").innerText = version;
-        }
-      });
 fetch("https://headdrop.github.io/RollingMint/menu.html")
 // fetch("../menu.html") // 테스트용
       .then(response => {
@@ -38,6 +24,7 @@ if (document.URL.indexOf("log")!==-1) {
   })
   .then(data=>{
     document.getElementById("notice-version").innerText = data[0].version;
+    document.getElementById("version-log").innerText = data[0].version;
     document.getElementById("notice-context").innerText = data[0].context;
   })
 }
