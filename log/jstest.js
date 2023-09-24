@@ -67,10 +67,6 @@ function inputHTML () {
   log = log.replace(/(<span class="by">)\s+?/gi,'<span class="by">');
   log = log.replace(/<span class=&quot;basicdiceroll&quot;>(.+?)<\/span>/gi,'$1');
   log = log.replace(/(<img class="sheet-brdright").+?\>/gi,''); // 인세인 엑박 삭제
-  if (document.getElementById("ck-colourised").checked===true) {
-    log = log.replace(/( style="background-color:).+?;"/gi,''); // roll20-colourised 삭제
-  }
-  log = log.replace(/roll20-colourised/gi,'');
   log = log.replace(/(\(#.+?)</gi,'$1)<'); // 롤꾸 안깨지게 정리 (괄호 없이 남은 거 정리)
   log = log.replace(/\[(.+?)\]\(#" (style.+?\))/gi,'<a $2">$1</a>'); // 잘린 a 붙이기
   for (key of Object.keys(diceinput)) {
@@ -113,6 +109,23 @@ function logModify () {
     message.removeAttribute("data-messageid");
     message.removeAttribute("data-playerid"); // data-messageid/playerid 삭제
   })
+  
+  // flyout 일괄삭제
+  document.querySelectorAll("#log-content .flyout").forEach(function(item){
+    item.remove();
+  });
+  // message is hidden 삭제
+  document.querySelectorAll("#log-content .hidden-message").forEach(function(item){
+    if (item.querySelector(".avatar")) {
+      let by = item.querySelectorAll(".spacer,.avatar,.tstamp,.by");
+      console.log(by);
+      item.nextSibling.prepend(by[3]);
+      item.nextSibling.prepend(by[2]);
+      item.nextSibling.prepend(by[1]);
+      item.nextSibling.prepend(by[0]);
+    }
+    item.remove();
+  });
 
   addID();
 }
@@ -129,14 +142,10 @@ function modifying() {
   }
   let bgMod = document.querySelectorAll("#log-content [style]");
   for (var bg of bgMod) {
-    if(bg.style.boxShadow&&bg.parentNode.classList.contains("message")) {
+    if(bg.style.boxShadow!=''&&bg.parentNode.classList.contains("message")) {
       bg.parentNode.style.overflow = "hidden";
     }
   }
-  // flyout 일괄삭제
-  document.querySelectorAll("#log-content .flyout").forEach(function(item){
-    item.remove();
-  })
 }
 
 function selectRange(obj) {
