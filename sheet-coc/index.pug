@@ -43,16 +43,15 @@ html(lang='ko')
           button#slot_get 불러오기
           button#slot_remove 삭제
         #import.setting_item
-          input#import_file(type='file' accept='.json')
-          button#import_button 불러오기
           .desc
             p VTT에서 export 한 JSON 파일
             p rolling mint (이 사이트)에서 내보내기 한 JSON 파일
             p 코코포리아 API형식의 텍스트를 .JSON 확장자로 저장한 파일
+          input#import_file(type='file' accept='.json')
+          button#import_button 불러오기
         #export.setting_item
-          button#export_json JSON 파일로 내보내기
           button#export_vtt Roll20 VTT로 내보내기
-          button#export_ccf 코코포리아 API로 복사
+          button#export_ccf(title='구현 예정입니다' disabled) 코코포리아 API로 복사
           
       <div style="overflow: hidden; margin-bottom:5rem; width:100%">
         <svg preserveAspectRatio="none" viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" style="fill: #efeff1; width: 125%; height: 80px;">
@@ -564,7 +563,6 @@ html(lang='ko')
                 option(value="@{firearms_rifle}") 사격(라/산)
                 option(value="@{throw}") 투척
                 option(value="@{dodge}") 회피
-                option(value="@{otherskill1}") 추가 기능
               input.damage(type='text')
               select.db
                 option(value="+0") +0

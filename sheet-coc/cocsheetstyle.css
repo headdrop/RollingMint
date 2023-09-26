@@ -601,7 +601,7 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
 }
 .skills input[type=checkbox]::after {
   opacity: 0;
-  content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='#5e81ac' viewBox='0 0 16 16'%3E%3Cpath d='M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z'/%3E%3C/svg%3E");
+  content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='#80a4be' viewBox='0 0 16 16'%3E%3Cpath d='M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z'/%3E%3C/svg%3E");
   position: absolute;
   top: 0;
   left: 0;
@@ -1280,13 +1280,13 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
   transition: 0.2s ease-out;
   transition-property: background, color, box-shadow, border-radius;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-  background: #5e81ac;
-  color: #151e29;
+  background: #80a4be;
+  color: #273c4b;
   border-radius: 0.4rem;
 }
 .setting button:hover, .setting button:focus, .setting button:active {
   background: transparent;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px, #5e81ac 0 -2px 0 0 inset;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px, #80a4be 0 -2px 0 0 inset;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -1311,7 +1311,7 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
   border-radius: 0.4rem;
   cursor: pointer;
   transition: background-size 0.3s ease-in-out;
-  background: linear-gradient(to right, rgba(94, 129, 172, 0.58) 0%, rgba(94, 129, 172, 0.58) 100%);
+  background: linear-gradient(to right, rgba(128, 164, 190, 0.58) 0%, rgba(128, 164, 190, 0.58) 100%);
   background-color: #fff;
   background-size: 0% 100%;
   background-position: center left;
@@ -1322,7 +1322,7 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
 .saveslot span {
   font-family: "NEXON Lv1 Gothic OTF";
   transition: transform 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
-  color: #151e29;
+  color: #273c4b;
   font-weight: 300;
 }
 .saveslot:hover, .saveslot:focus, .saveslot:has(input:checked) {
@@ -1334,7 +1334,7 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
   font-weight: 900;
   position: absolute;
   left: -1.5em;
-  color: #5e81ac;
+  color: #80a4be;
 }
 .saveslot:hover span, .saveslot:focus span, .saveslot:has(input:checked) span {
   transform: skew(-10deg);

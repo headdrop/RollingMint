@@ -24,7 +24,7 @@ window.onload=function() {
     } else if (item.parentNode.classList.contains("skills")) {
       // 기능치
       item.addEventListener("change",(e)=>{
-        if(e.target.tagName=="INPUT" && e.target.type=="text") {
+        if(e.target.tagName=="INPUT" && e.target.type=="text" && !(e.target.classList.contains("_name"))) {
           clacSkillValue(e.target);
           divValue(e.target);
         }
@@ -59,8 +59,7 @@ window.onload=function() {
   document.getElementById("slot_get").addEventListener("click",slotButton);
   document.getElementById("slot_set").addEventListener("click",slotButton);
   document.getElementById("slot_remove").addEventListener("click",slotButton);
-  // document.getElementById("export_json").addEventListener("click",);
-  // document.getElementById("export_vtt").addEventListener("click",vtt);
+  document.getElementById("export_vtt").addEventListener("click",exportButton);
   document.getElementById("import_button").addEventListener("click",importButton);
 
 // onload 함수 종료
@@ -315,7 +314,12 @@ function addOther(type_) {
     type.querySelector(".skill_name>span>input").addEventListener("change",(e)=>{
       e.target.parentElement.parentElement.setAttribute("default",e.target.value);
     });
+    // EVENT:: otherskill 이름 변경시
+    type.querySelector(".skill_name input._name").addEventListener("change",(e)=>{
+      weaponSkillChange();
+    });
     otherId = "otherskill";
+
   } else if (type_ == "weapon") {
     type = otherweapon.cloneNode(true);
     otherId = "weapon";
@@ -324,11 +328,31 @@ function addOther(type_) {
     type.remove();
     otheritems = document.querySelectorAll(`[id^='${otherId}']`);
     otheritems.forEach((item,index)=>item.id=otherId+Number(index+1));
+    weaponSkillChange();
   });
   document.getElementById(`add_${type_}`).before(type);
 
   otheritems = document.querySelectorAll(`[id^='${otherId}']`);
   otheritems.forEach((item,index)=>item.id=otherId+Number(index+1));
+
+  weaponSkillChange();
+}
+
+function weaponSkillChange() {
+  const OPT = document.createElement("option");
+  const weaponSkillList = document.querySelectorAll(`[id^='weapon'] .skill`);
+  weaponSkillList.forEach(element => element.length=5);
+
+  let optList=[];
+  document.querySelectorAll(`[id^='otherskill']`).forEach((item)=>{
+    var opt = OPT.cloneNode(false);
+    opt.value=`@{${item.id}}`;
+    opt.textContent = item.querySelector(".skill_name>input._name").value;
+    optList.push(opt);
+  });
+  weaponSkillList.forEach((element)=>{
+    optList.forEach((op)=>element.appendChild(op.cloneNode(true)));
+  });
 }
 
 function optionSkill(x) {
@@ -353,7 +377,7 @@ function optionSkill(x) {
 
 
 
-function vtt () {
+function sheetToVTT () {
   
   if (document.querySelector("#name input").value=="") alert("캐릭터 이름을 입력하세요.")
   else {
@@ -743,6 +767,14 @@ function vtt () {
         "id" : idFirst+random(14)
       });
     });
+    item.querySelectorAll("select").forEach((wp) => {
+      xx.character.attribs.push({
+        "name" : item.id +"_"+ wp.className,
+        "current" : wp.value,
+        "max" : "",
+        "id" : idFirst+random(14)
+      });
+    });
   });
   etc.forEach(function (item) {
     xx.character.attribs.push({
@@ -806,7 +838,7 @@ function slotButton (e) {
 }
 function slot () {
   var ss;
-  ss = vtt();
+  ss = sheetToVTT();
   ss.rolling_mint = {};
   ss.rolling_mint.job_point = document.getElementById("sp_0_text").textContent;
   ss.rolling_mint.skill_type=document.querySelector("[name='skill-type']").value;
@@ -967,6 +999,11 @@ function importButton () {
   reader.readAsText(file);
   optionSkill(document.querySelector("[name='skill-type']:checked").value);
 }
+function exportButton () {
+  const fileName = "RollingMint-"+document.querySelector("#name input").value+".json";
+  const content = JSON.stringify(sheetToVTT());
+  saveToFile_Chrome(fileName,content);
+}
 function resetSheet (tg) {
   tg.A.forEach((item,ind)=>{
     if (0 <= ind && ind < 8) {
@@ -1007,7 +1044,22 @@ function resetSheet (tg) {
     itemInput.attributes.readonly=true;
   });
 
-  
   startFunc();
 }
+
+// 다운로드
+function saveToFile_Chrome(fileName, content) {
+  var blob = new Blob([content], { type: 'text/JSON' });
+  objURL = window.URL.createObjectURL(blob);
+  // 이전에 생성된 메모리 해제
+  if (window.__Xr_objURL_forCreatingFile__) {
+      window.URL.revokeObjectURL(window.__Xr_objURL_forCreatingFile__);
+  }
+  window.__Xr_objURL_forCreatingFile__ = objURL;
+  var a = document.createElement('a');
+  a.download = fileName;
+  a.href = objURL;
+  a.click();
+}
+
 // DESIGN FUNCTIONS
