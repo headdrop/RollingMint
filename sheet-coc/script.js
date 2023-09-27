@@ -115,8 +115,6 @@ function startFunc () {
   _skill.forEach((element)=>{
     divValue(element);
   });
-  
-  
 }
 
 
@@ -975,6 +973,7 @@ function load (jj) {
           }
           document.querySelector(`#${item.name} .sp`).value=item.sp;
           document.querySelector(`#${item.name} .sp-add`).value=item["sp-add"];
+          document.querySelector(`#${item.name} .value`).value=Number(item.sp)+Number(item["sp-add"])+Number(item.default);
         } else {
           document.querySelector(`#${item.name} .value`).value=skills[item.name].current;
         }
@@ -1028,14 +1027,14 @@ function resetSheet (tg) {
     if(ind>0) item.remove();
   });
   // 스킬 초기화
-  document.querySelectorAll(".skills>.content>div[id]>input:not([type='checkbox'])").forEach((itemInput)=>{
+  document.querySelectorAll(".skills>.content>div[id]>input").forEach((itemInput)=>{
     if (itemInput.classList.contains("value")) {
       itemInput.removeAttribute("readonly");
       try {
         let default_ = itemInput.parentElement.querySelector(".skill_name").attributes.default.value;
         itemInput.value = default_;
       } catch (err) {
-        console.log(err);
+        console.log("추가 기능");
         itemInput.value = null;
       }
     } else {
