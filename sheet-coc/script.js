@@ -56,12 +56,16 @@ window.onload=function() {
   });
 
   // option 버튼 동작
+  document.getElementById("howToggle").addEventListener("click",()=>{document.querySelectorAll(".how-to-use").forEach(item=>item.classList.toggle("hide"))});
   document.getElementById("slot_get").addEventListener("click",slotButton);
   document.getElementById("slot_set").addEventListener("click",slotButton);
   document.getElementById("slot_remove").addEventListener("click",slotButton);
   document.getElementById("export_vtt").addEventListener("click",exportButton);
   document.getElementById("import_button").addEventListener("click",importButton);
-
+  // 폰트 사이즈 조절
+  document.querySelector("#design .reset").addEventListener("click",fontSzReset);
+  document.querySelector("#design .plus").addEventListener("click",fontSzPlus);
+  document.querySelector("#design .minus").addEventListener("click",fontSzMinus);
 // onload 함수 종료
 }
 
@@ -1062,3 +1066,30 @@ function saveToFile_Chrome(fileName, content) {
 }
 
 // DESIGN FUNCTIONS
+function fontSzReset() {
+  document.getElementById("fontSize").sheet.cssRules[0].style.fontSize = "10px";
+  document.querySelector(".sheet").classList.remove("font-large");
+  document.querySelector(".sheet").classList.remove("font-too-large");
+}
+function fontSzPlus() {
+  const sz = Number(getComputedStyle(document.querySelector("html")).fontSize.replace("px",""));
+  document.getElementById("fontSize").sheet.cssRules[0].style.fontSize = sz+1+"px";
+  if (sz+1>11) {
+    document.querySelector(".sheet").classList.add("font-large");
+  }
+  if (sz+1>17) {
+    document.querySelector(".sheet").classList.remove("font-large");
+    document.querySelector(".sheet").classList.add("font-too-large");
+  }
+}
+function fontSzMinus() {
+  const sz = Number(getComputedStyle(document.querySelector("html")).fontSize.replace("px",""));
+  document.getElementById("fontSize").sheet.cssRules[0].style.fontSize = sz-1+"px";
+  if (sz-1<=11) {
+    document.querySelector(".sheet").classList.remove("font-large");
+    document.querySelector(".sheet").classList.remove("font-too-large");
+  }
+  if (sz-1<=17) {
+    document.querySelector(".sheet").classList.remove("font-too-large");
+  }
+}

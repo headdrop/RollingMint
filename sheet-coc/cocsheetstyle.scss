@@ -88,6 +88,8 @@ textarea, input, select {
   display:flex;
   flex-wrap:wrap;
   max-width:960px;
+  margin-bottom:3rem;
+  box-shadow:$itemShadow;
   .title {
     font-family: 'NEXON Lv1 Gothic OTF';
     font-size:2rem;
@@ -244,12 +246,23 @@ textarea, input, select {
     }
   }
 }
-#majorwoundcurrent{width:9em;display:none}
-#major-wound-toggle:checked~#majorwoundcurrent {display:inline}
-// #mp, #luck {
-//   // width:50%;
-//   display:inline-flex;
-// }
+#hp {
+  width:100%;
+  display:flex;
+  justify-content: space-between;
+}
+#majorwoundcurrent{
+  opacity:0;
+  margin-left:1.5rem;
+  width:0;
+  flex-basis:5em;
+  flex-grow:1;
+  flex-shrink:2;
+}
+#major-wound-toggle:checked~#majorwoundcurrent {opacity: 1;}
+#san {
+  width:100%;
+}
 #luck {
   justify-content: flex-end;
   input {
@@ -478,6 +491,35 @@ input.sp, input.sp-add {
   text-align:center;
   width:2em;
 }
+// 추가버튼
+@mixin neumorphism($distance, $blur, $intensity, $inset: false, $color) {
+  box-shadow: $distance $distance $blur mix(darken($color,6%), transparent, $intensity) if($inset, inset, null),
+    -#{$distance} -#{$distance} $blur mix(lighten($color,8%), transparent, $intensity) if($inset, inset, null);
+}
+button#add_skill, button#add_weapon {
+  padding-top:0.2rem;
+  outline:none;
+  border: none;
+  background:$coc-box-bg;
+  border-radius:0.6rem;
+  color:darken($coc-box-bg, 40%);
+  font-size:1.6rem;
+  cursor: pointer;
+  font-family:'NEXON Lv1 Gothic OTF';
+  @include neumorphism(3px, 8px, 80%, false, $coc-box-bg);
+  &:hover, &:focus, &:active {
+    @include neumorphism(3px, 8px, 80%, true, $coc-box-bg);
+  }
+}
+button#add_skill {
+  width:calc(100% - 1rem);
+  margin-right:1rem;
+}
+button#add_weapon {
+  width:100%;
+  height: 1.6em;
+  margin-top:0.5rem;
+}
 
 // 무기
 .weapons {
@@ -629,15 +671,12 @@ input.sp, input.sp-add {
   order:3;
 }
 // 2단 전체 레이아웃
-@media (min-width: 561px) and (max-width: 870px) {
+@media (min-width: 561px) and (max-width: 870px) { //
   .battle {
     order:unset;
   }
 }
-
-// 기타 미디어쿼리
-// 2단
-@media (min-width: 561px) and (max-width: 870px) {
+@mixin 단2 {
   .skills .content {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(26, 1fr);
@@ -675,9 +714,9 @@ input.sp, input.sp-add {
       margin-top:0.5rem;
     }
   }
+
 }
-// 1단
-@media (max-width: 560px) {
+@mixin 단1 {
   .sheet {
     flex-direction: column;
   }
@@ -715,10 +754,49 @@ input.sp, input.sp-add {
       grid-column:4 / span 3;
     }
   }
+
 }
 
+// 기타 미디어쿼리
+// 2단
+@media (min-width: 561px) and (max-width: 870px) {
+  @include 단2;
+}
+// 1단
+@media (max-width: 560px) {
+  @include 단1;
+}
+.sheet.font-large {
+  .battle{order:unset}
+  @include 단2;
+}
+.sheet.font-too-large{
+  .battle{order:unset}
+  @include 단1;
+}
+// top (top>h1, h2 은 나중에 공통으로 뺄 것)
+.top {
+  &>h1 {
 
+  }
+  &>h2 {
+    font-family:'NEXON Lv1 Gothic OTF';
+    color:$--c4-t;
+  }
+}
+.top {
+  background-color:$lightBg;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items: center;
+  .notice {
 
+  }
+  .notice>p{
+
+  }
+}
 // 세팅
 .setting {
   background:$lightBg;
@@ -750,17 +828,74 @@ input.sp, input.sp-add {
     }
   }
 }
+// colorset //
+$red : #cc5c52;
+
+// -------- //
+
+#howToggle {
+  border:none;
+  outline:none;
+  background:$--c4-t;
+  font-family: 'NEXON Lv1 Gothic OTF';
+  font-size:2rem;
+  color:$lightBg;
+  border-radius: 0.4rem;
+  padding: 0.5rem 1rem;
+  box-shadow:$btnShadow;
+  cursor:pointer;
+  z-index:11;
+  transition: 0.2s ease-out;
+  transition-property: background, color, box-shadow, border-radius;
+  &:hover, &:focus, &:active {
+    background: transparent;
+    color:$--c4-t;
+    box-shadow:$btnShadow, $--c4 0 -2px 0 0 inset;
+    border-bottom-left-radius:0;
+    border-bottom-right-radius: 0;
+  }
+}
+.how-to-use {
+  p {
+    margin-block: 0.6em;
+    word-wrap: break-word;
+    word-break: keep-all;
+    &:has(i.fa-circle-exclamation) {
+      color:$red;
+    }
+  }
+  
+  position: relative;
+  max-width:600px;
+  padding: 0 1rem;
+  border-radius:1rem;
+  margin-top:1.2rem;
+  background-color:#fff;
+  color:$textgray;
+  &::before{
+    content:
+    url("data:image/svg+xml,%3Csvg width='16' height='6' fill='%23ffffff' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 6s1.796-.013 4.67-3.615C5.851.9 6.93.006 8 0c1.07-.006 2.148.887 3.343 2.385C14.233 6.005 16 6 16 6H0z'/%3E%3C/svg%3E");
+    position:absolute;
+    bottom:100%;
+    left:calc(50% - 8px);
+  }
+
+}
 .setting_item {
+  margin-top:3rem;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content: center;
+  gap:1rem;
 }
 #save {
   padding: 1rem 2rem;
-
 }
 #saveslots {
   display:flex;
   flex-direction: column;
   gap:0.2rem;
-
+  flex-basis:100%;
 }
 .saveslot {
   flex:1;
@@ -804,6 +939,64 @@ input.sp, input.sp-add {
   }
   >input {display:none}
 }
+
+// 디자인 메뉴
+.design-box {
+  display:flex;
+  width:100%;
+  max-width:960px;
+  justify-content: space-between;
+  .how-to-use{
+    display:flex;
+    justify-content: space-between;
+    flex-direction:row;
+    gap: 0.8em;
+    margin-top:0;
+    margin-bottom:1rem;
+    background-color:$lightBg;
+    font-size:1.4rem;
+    &::before{
+      content:
+      url("data:image/svg+xml,%3Csvg width='16' height='6' fill='%23efeff1' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 6s1.796-.013 4.67-3.615C5.851.9 6.93.006 8 0c1.07-.006 2.148.887 3.343 2.385C14.233 6.005 16 6 16 6H0z'/%3E%3C/svg%3E");
+      bottom:-6px;
+      transform:rotate(180deg);
+      left:1rem;
+    }
+    &:nth-child(2)::before{
+      right:1rem;
+    }
+  }
+}
+#design {
+  width:100%;
+  max-width:960px;
+  display:flex;
+  justify-content: space-between;
+  
+  button {
+    background:transparent;
+    box-shadow:none;
+    color:$--c4;
+    font-size:1.6rem;
+    padding:0.5rem 1rem;
+    border:none;
+    outline:0;
+    cursor: pointer;
+
+    &[class^='color-theme'] {
+      width:2.6rem;
+      margin-left:0.2rem;
+      padding: 0.5rem 0.9rem; 
+    }
+
+    &:hover, &:focus, &:active {
+      background:transparent;
+      box-shadow:none;
+      color:$--c4-t;
+    }
+  }
+}
+
 @mixin has-input-line($insert) {
   background-image:linear-gradient(to top, $coc-input-bg-1 0%, $coc-input-bg-1 99%);
   border-bottom:1px solid $coc-input-bg;
@@ -822,5 +1015,5 @@ input.sp, input.sp-add {
 
 
 .hide {
-  display:none;
+  display:none!important;
 }

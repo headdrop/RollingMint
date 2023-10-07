@@ -1,6 +1,6 @@
 html(lang='ko')
   head
-    title Rolling Mint : CoC 캐릭터 시트
+    title Rolling Mint : Roll20 CoC 캐릭터 시트
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
 
@@ -15,11 +15,20 @@ html(lang='ko')
     meta(property='og:locale' content='ko_KR')
     link(rel='icon' type='image/svg+xml' href='../source/favicon.svg')
     link(rel='icon' type='image/png' href='../source/favicon.png')
-
     script(src='script.js')
+    <style id='fontSize'>
+    |  :root {
+    //- |    font-size: 26px;
+    |  }
+    </style>
   body
     #wrapper
       nav#float-menu
+      .top
+        h1 Rolling Mint
+        h2 Roll20 CoC 캐릭터 시트
+        p Roll20 기반 Call of Cthulhu 7th 시트를 작성, 백업, 저장, Roll20으로 불러올 수 있습니다.
+        button#howToggle <i class="fa-solid fa-book"></i> 설명
       .setting
         #save.setting_item
           #saveslots
@@ -38,21 +47,29 @@ html(lang='ko')
             label.saveslot
               input(name='saveslot' type='radio' value=5)
               span [5]-캐릭터명
-          span 
           button#slot_set 저장
           button#slot_get 불러오기
           button#slot_remove 삭제
-        #import.setting_item
-          .desc
-            p VTT에서 export 한 JSON 파일
-            p rolling mint (이 사이트)에서 내보내기 한 JSON 파일
-            p 코코포리아 API형식의 텍스트를 .JSON 확장자로 저장한 파일
+        .how-to-use.hide
+          p 저장: 선택한 슬롯에 저장합니다.
+          p 불러오기: 선택한 슬롯을 현재 페이지에 불러옵니다.
+          p 삭제: 선택한 슬롯의 데이터를 삭제합니다.
+          p <i class="fa-solid fa-circle-exclamation"></i> 데이터는 브라우저에 저장되므로 브라우저를 초기화하면 데이터가 삭제됩니다.<br>다른 브라우저 간에는 데이터를 공유할 수 없습니다. 데이터를 공유하려면 아래 내보내기를 이용하세요.
+        .setting_item
           input#import_file(type='file' accept='.json')
           button#import_button 불러오기
-        #export.setting_item
+        .how-to-use.hide
+          p 'Roll20 VTT 내보내기' 혹은 'Roll20 VTT-export'로 다운받은 JSON 파일을 현재 시트에 불러옵니다.
+          p <i class="fa-solid fa-circle-exclamation"></i> 불러오기를 클릭하면 <b>편집중이던 내용</b>을 덮어씁니다.
+          p
+            a(href='https://justas-d.github.io/roll20-enhancement-suite/') Roll20 VTT?
+            | 　　Roll20 사용을 도와주는 비공식 브라우저 확장프로그램<br><i class="fa-solid fa-arrow-up"></i> 클릭하면 다운로드 페이지로 이동합니다.
+        .setting_item
           button#export_vtt Roll20 VTT로 내보내기
           button#export_ccf(title='구현 예정입니다' disabled) 코코포리아 API로 복사
-          
+        .how-to-use.hide
+          p Roll20 VTT로 내보내기: 시트의 데이터를 Roll20 VTT 형식으로 내보냅니다.<br>Roll20 VTT로 내보낸 파일을 Roll20에 업로드하면 시트를 불러올 수 있습니다.
+          p 코코포리아 API로 복사 : 현재 준비중
       <div style="overflow: hidden; margin-bottom:5rem; width:100%">
         <svg preserveAspectRatio="none" viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" style="fill: #efeff1; width: 125%; height: 80px;">
           <path d="M0 0v46.29c47.79 22.2 103.59 32.17 158 28 70.36-5.37 136.33-33.31 206.8-37.5 73.84-4.36 147.54 16.88 218.2 35.26 69.27 18 138.3 24.88 209.4 13.08 36.15-6 69.85-17.84 104.45-29.34C989.49 25 1113-14.29 1200 52.47V0z" opacity=".25"></path>
@@ -60,6 +77,25 @@ html(lang='ko')
           <path d="M0 0v5.63C149.93 59 314.09 71.32 475.83 42.57c43-7.64 84.23-20.12 127.61-26.46 59-8.63 112.48 12.24 165.56 35.4C827.93 77.22 886 95.24 951.2 90c86.53-7 172.46-45.71 248.8-84.81V0z"></path>
         </svg>
       </div>
+      .design-box
+        .how-to-use.hide
+          p <i class="fa-solid fa-rotate-right"></i> 글꼴 크기 리셋
+          p <i class="fa-solid fa-plus"></i> 글꼴 크기 증가
+          p <i class="fa-solid fa-minus"></i> 글꼴 크기 감소
+        .how-to-use.hide
+          p 색상 테마 (준비중)
+      #design
+        div
+          button.reset(title='글꼴크기 버튼 리셋')
+            <i class="fa-solid fa-rotate-right"></i>
+          button.plus(title='글꼴크기 버튼 +') 
+            <i class="fa-solid fa-plus"></i>
+          button.minus(title='글꼴크기 버튼 -') 
+            <i class="fa-solid fa-minus"></i>
+        div
+          button.color-theme-0 <i class="fa-solid fa-1"></i>
+          button.color-theme-1 <i class="fa-solid fa-2"></i>
+          button.color-theme-2 <i class="fa-solid fa-3"></i>
       .sheet
         .sheet_box.info
           .title 탐사자 정보
@@ -531,7 +567,7 @@ html(lang='ko')
               span.fifthvalue
               span.skill_icon.remove
                 <i class="fa-solid fa-trash-can"></i>
-            button#add_skill <i class="fa-solid fa-circle-plus"></i>
+            button#add_skill <i class="fa-solid fa-circle-plus"></i> 기능 추가
         .sheet_box.weapons
           .title 무기
           .content
@@ -574,7 +610,7 @@ html(lang='ko')
               input.malf(type='text')
               span.skill_icon.remove
                 <i class="fa-solid fa-trash-can"></i>
-            button#add_weapon <i class="fa-solid fa-circle-plus"></i>
+            button#add_weapon <i class="fa-solid fa-circle-plus"></i> 무기 추가
         .sheet_box.backstory 
           .title 백스토리
           .content
