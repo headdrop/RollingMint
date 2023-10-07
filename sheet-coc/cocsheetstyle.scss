@@ -2,40 +2,109 @@
 * {font-family:'Pretendard',sans-serif}
 *:focus {outline:none}
 
+
 //색상
 $coc-sheet-bg:#888888;
 $coc-box-bg:#c4beb6;
 $coc-input-bg:rgba(255,255,255,0.5);
-$coc-sheet-title-bg:linear-gradient(black, #262626);
+$coc-input-bg-1:rgba(255,255,255,0.2);
+$coc-title-bg-gd:linear-gradient(black, #262626);
+$coc-title-bg:#262626;
+$tz:cubic-bezier(0.075, 0.82, 0.165, 1);
+$coc-shadow:rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset, $coc-box-bg 0 2px 0 0;
+
+@mixin subtitle {
+  font-size:0.9em;
+  color:$coc-title-bg-gd;
+  font-weight:600;
+  text-align:center;
+}
+@mixin input-box($shadow:$coc-shadow) {
+  text-align: center;
+  border:0;
+  background-image:linear-gradient(to top, $coc-input-bg 0%, $coc-input-bg 100%);
+  background-size:100% 0%;
+  transition-property: background, box-shadow;
+  transition-duration: 0.5s;
+  transition-timing-function: $tz;
+  background-repeat: no-repeat;
+  background-position: right;
+  &:focus, &:active {
+    box-shadow:$shadow;
+    background-size:100% 100%;
+  }
+
+}
+@mixin has-input-line($insert) {
+  background-image:linear-gradient(to top, $coc-input-bg-1 0%, $coc-input-bg-1 99%);
+  border-bottom:1px solid $coc-input-bg;
+  background-position: bottom right;
+  background-size: calc(100% - $insert) 0%;
+  background-repeat: no-repeat;
+  transition:all $tz 0.5s;
+  &:has(:focus), &:has(:active) {
+    box-shadow:0 2px 0 0 $coc-input-bg;
+    background-size:calc(100% - $insert) 100%;
+  }
+  &>input {
+    padding:0.1em 0.3em;
+  }
+}
+@mixin input-line {
+  background:transparent;
+  border-radius:0;
+  background-image:linear-gradient(to top, $coc-input-bg-1 0%, $coc-input-bg-1 99%);
+  border-bottom:1px solid $coc-input-bg;
+  background-position: bottom right;
+  background-size: 100% 0%;
+  background-repeat: no-repeat;
+  transition:all $tz 0.5s;
+  &:focus,:active {
+    box-shadow:0 2px 0 0 $coc-input-bg;
+    background-size:100% 100%;
+  }
+}
 
 @import '../checkbox';
 #wrapper {
   font-size:1.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .setting>label {
   font-family: 'NEXON Lv1 Gothic OTF';
 }
+textarea, input, select {
+  color:$coc-title-bg;
+  font-size:1.6rem;border:0;
+  &:active, &:focus {
+    box-shadow: none;
+  }
+}
 .sheet {
   text-align: center;
-  background-color:$coc-sheet-bg;
+  background:$coc-sheet-bg;
   display:flex;
   flex-wrap:wrap;
+  max-width:960px;
+  margin-bottom:3rem;
+  box-shadow:$itemShadow;
   .title {
     font-family: 'NEXON Lv1 Gothic OTF';
     font-size:2rem;
     color:white;
-    background:$coc-sheet-title-bg;
+    background:$coc-title-bg-gd;
     padding: 0.4rem 0;
   }
 }
 .sheet_box{
   flex-grow:1;
   flex-basis: 45%;
-  background-color: $coc-box-bg;
+  background: $coc-box-bg;
   font-size: 1.6rem;
-  div:not(.option)>input:not(._name,[type="checkbox"]),textarea {
-    background-color: $coc-input-bg;
-    border:0;
+  input,textarea {
+    background: $coc-input-bg;
   }
   textarea {
     width:100%;
@@ -44,7 +113,7 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
   .option {
     gap:1rem;
     font-size:1.4rem;
-    background: #262626;
+    background: $coc-title-bg;
     color: floralwhite;
     padding: 1rem 10%;
     >span {
@@ -53,17 +122,33 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
   }
 }
 .content {
-  padding:0 1rem 1rem 1rem;
+  padding:0.5rem 1rem 1rem 1rem;
 }
 .table_title {
   font-weight:bold;
 }
+.subtitle {
+  @include subtitle;
+}
 .info {
   .content {
+    display:flex;
+    flex-flow:column;
+    gap:0.5rem;
     &>div {
       display:grid;
+      box-sizing:content-box;
       grid-template-columns: 3em 1fr;
-      margin-top:0.4rem;
+      align-items: center;
+      &::before{
+        content:attr(data-title);
+        display:inline-block;
+        @include subtitle;
+      }
+      @include has-input-line(3em);
+      input {
+        background:transparent;
+      }
     }
   }
 }
@@ -73,7 +158,6 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
   grid-template-rows: 1fr 1fr 1fr;
   grid-auto-flow: column;
   justify-content: center;
-
   gap: 0.2rem 0.6rem;
   >div {
     display: flex;
@@ -84,12 +168,17 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
     align-content: center;
     flex-wrap: wrap;
     height:6rem;
+    >span:first-child{
+      @include subtitle;
+      margin-bottom:0.2rem;
+    }
     >.value {
+      @include input-box;
+      background-color: $coc-input-bg;
       width:2.4em;
       height:2em;
       font-size:2rem;
       font-weight:bold;
-      text-align:center;
     }
     .halfvalue, .fifthvalue {
       height:2rem;
@@ -104,14 +193,19 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
 }
 // ---
 .stats .content {
-  // flex-wrap:wrap;
-  text-align:left;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   >div {
-    display:flex;
+    display:inline-flex;
     margin-top:0.5rem;
     align-items: center;
-    // width:100%;
-    .sub_title {
+    border-bottom:1px solid $coc-input-bg;
+    transition: all $tz 0.5s;
+    &:has(input:focus,input:active) {
+      box-shadow:0 2px 0 0 $coc-input-bg;
+    }
+    .subtitle {
       display:inline-block;
       width:2.5em;
       flex-shrink:0;
@@ -127,40 +221,79 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
       font-size:1.6rem;
     }
     input:not([class]){
-      background-color: $coc-input-bg;
-      border-radius:0.2rem;
+      @include input-box(none);
+      background-color: $coc-input-bg-1;
+      border-bottom-right-radius:0;
+      border-bottom-left-radius:0;
       text-align:center;
     }
+  }
+  #current_mental_condition {
+    @include input-line;
+    margin-top:0.5rem;
+    width:100%;
+    padding-left:2.5em;
+    font-size:1.4rem;
   }
   .desc {
     font-size:1.2rem;
   }
   .max {
-    background-color:transparent;
+    background:transparent;
     &::before{
       content:"/";
       display:inline-block;
     }
   }
 }
-#majorwoundcurrent{width:9em;display:none}
-#major-wound-toggle:checked~#majorwoundcurrent {display:inline}
-#mp, #luck {
-  width:50%;
-  display:inline-flex;
+#hp {
+  width:100%;
+  display:flex;
+  justify-content: space-between;
+}
+#majorwoundcurrent{
+  opacity:0;
+  margin-left:1.5rem;
+  width:0;
+  flex-basis:5em;
+  flex-grow:1;
+  flex-shrink:2;
+}
+#major-wound-toggle:checked~#majorwoundcurrent {opacity: 1;}
+#san {
+  width:100%;
 }
 #luck {
   justify-content: flex-end;
   input {
-    flex-basis: 4em;
-    
-    flex-shrink: 1;
+    width:4em;
+  }
+}
+.battle {
+  .content {
+    &>div {
+      display:grid;
+      box-sizing:content-box;
+      grid-template-columns:5em 1fr;
+      align-items: center;
+      &::before{
+        content:attr(data-title);
+        display:inline-block;
+        @include subtitle;
+      }
+      @include has-input-line(5em);
+      input, &>div {
+        background:transparent;
+        text-align:left;
+        width: 3em;
+      }
+      &>div {
+        padding:0.1em 0.3em;
+      }
+    }
   }
 }
 //-----
-.skills {
-  width:100%;
-}
 .skills .option{
   display: flex;
   position:relative;
@@ -188,7 +321,7 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
   bottom:calc(100% + 0.4rem);
   transform: translate(-50%,0%);
   padding:0.2rem 1rem;
-  background-color: #333;
+  background: #333;
   color: #fff;
   border-radius: 4px;
   font-size: 14px;
@@ -207,12 +340,14 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
 }
 .skills .content {
   display: grid;
-  grid-template-columns: repeat(3, 25rem);
+  margin:0 1rem;
+  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(18, 1fr);
   grid-auto-flow: column;
+  grid-auto-columns:minmax(5rem, 25rem);
   gap: 1px;
   column-gap:3rem;
-  justify-items: start;
+  justify-items: stretch;
   justify-content: center;
   >div {
     display: flex;
@@ -224,7 +359,6 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
     align-content: flex-start;
     justify-content: center;
   }
-
   .skill_name{
     width:calc(100% - 7.6em);
     display:inline-block;
@@ -255,62 +389,28 @@ $coc-sheet-title-bg:linear-gradient(black, #262626);
     width:2em;
     height:100%;
     text-align:center;
+    font-size:1.4rem;
   }
   .value {
     font-weight:bold;
   }
+  .sp, .sp-add, .value {border-radius:0}
 }
+
 #cthulhu_mythos>input[type="checkbox"] {opacity:0}
 #otherskill1>.skill_icon.remove, #weapon1>.skill_icon.remove {display:none;}
 input.sp, input.sp-add {
-  background-color: rgba(255,255,255,0.2)!important;
+  background: $coc-input-bg-1!important;
   transition: background-color 0.2s ease;
   &:hover,&:focus,&:active, &:not(:placeholder-shown) {
-    background-color:$coc-input-bg!important;
+    background:$coc-input-bg!important;
   }
 }
 .skills .content>div[id] {
   &:has(input[class^=sp]:not(:placeholder-shown)) {
-    background-color: $coc-box-bg;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset, $coc-box-bg 0 2px 0 0;
+    background: $coc-box-bg;
+    box-shadow: $coc-shadow;
   }
-}
-.skill_icon {
-  cursor: pointer;
-  position:absolute;
-  &.grip {
-    right:100%;
-  }
-  &.remove {
-  }
-}
-.skills .skill_icon.remove {
-  left: calc(100% + 0.5rem);
-}
-.weapons .skill_icon.remove {
-  right:1rem;
-}
-
-.halfvalue, .fifthvalue {
-  font-size:0.5em;
-  padding-left:2px;
-  text-align:center;
-  width:2em;
-}
-.weapons {
-  flex-basis: 100%;
-  .content{
-    width:calc(100% - 2rem);
-    >div{
-      display: grid;
-      grid-template-columns: 2fr 1fr repeat(6,4em);
-      font-size: 1.6rem;
-      margin-top:0.4rem;
-    }
-  }
-}
-.table_item>input {
-  width:100%;
 }
 //- 체크박스
 .skills input[type=checkbox] {
@@ -320,11 +420,27 @@ input.sp, input.sp-add {
   border:0;
   appearance: none;
   position:relative;
-  //transform:scale(0.6);
-  // left:0.6rem;
+  background:transparent;
+  border-radius: 0.4rem;
+
+  @function get-color($color) {
+    @if $color != '' {
+      @return if(
+        str-index('#{$color}', '#'),
+        '%23#{str-slice('#{$color}', 2, 7)}',
+        '%23#{$color}'
+      );
+    }
+    @return 'none';
+  }
+
   @function svgIcon($color) {
-    $icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23#{$color}' viewBox='0 0 16 16'%3E%3Cpath d='M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z'/%3E%3C/svg%3E";
+    $strcolor : get-color($color);
+    $icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='#{$strcolor}' viewBox='0 0 16 16'%3E%3Cpath d='M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z'/%3E%3C/svg%3E";
     @return url($icon);
+  }
+  &::before, &::after {
+    transition: all 0.3s $tz;
   }
   &::before {
     content:"";
@@ -334,70 +450,570 @@ input.sp, input.sp-add {
     background:rgba(255,255,255,0.1);
     border:none;
     border-radius: 0.4rem;
-    transition: all 0.3s ease-in-out;
   }
   &::after {
     opacity:0;
-    content: svgIcon(ffffff);
+    content: svgIcon($coc-title-bg);
     position:absolute;
     top:0;left:0;
     width:$siz;
     height:$siz;
     transform:scale(1.2);
-    transition: all 0.3s ease-in-out;
   }
   &:checked {
     &::before {
-      box-shadow: 0 0 1px 1px rgba(255,255,255,0.2);
-      background:transparent;
+      border-radius: 0.4rem;
+      background:$coc-input-bg-1;
+      // box-shadow: 0 0 1px 1px $coc-input-bg-1;
      }
     &::after {
       opacity:1;
-      
     }
   }
 }
-.backstory, .money {
-  flex-basis: 50%;
+.skill_icon {
+  cursor: pointer;
+  position:absolute;
+  &.grip {
+    right:100%;
+  }
 }
+.skills .skill_icon.remove {
+  left: calc(100% + 0.1rem);
+}
+.weapons .skill_icon.remove {
+  right:-2rem;
+}
+
+.halfvalue, .fifthvalue {
+  font-size:0.5em;
+  padding-left:2px;
+  text-align:center;
+  width:2em;
+}
+// 추가버튼
+@mixin neumorphism($distance, $blur, $intensity, $inset: false, $color) {
+  box-shadow: $distance $distance $blur mix(darken($color,6%), transparent, $intensity) if($inset, inset, null),
+    -#{$distance} -#{$distance} $blur mix(lighten($color,8%), transparent, $intensity) if($inset, inset, null);
+}
+button#add_skill, button#add_weapon {
+  padding-top:0.2rem;
+  outline:none;
+  border: none;
+  background:$coc-box-bg;
+  border-radius:0.6rem;
+  color:darken($coc-box-bg, 40%);
+  font-size:1.6rem;
+  cursor: pointer;
+  font-family:'NEXON Lv1 Gothic OTF';
+  @include neumorphism(3px, 8px, 80%, false, $coc-box-bg);
+  &:hover, &:focus, &:active {
+    @include neumorphism(3px, 8px, 80%, true, $coc-box-bg);
+  }
+}
+button#add_skill {
+  width:calc(100% - 1rem);
+  margin-right:1rem;
+}
+button#add_weapon {
+  width:100%;
+  height: 1.6em;
+  margin-top:0.5rem;
+}
+
+// 무기
+.weapons {
+  .content{
+    width:calc(100% - 1.5rem);
+    >div{
+      display: grid;
+      position:relative;
+      grid-template-columns: 5fr 7em 2fr 4em 2fr repeat(3, minmax(2em,1fr));
+      gap:1px;
+      font-size: 1.6rem;
+      margin-top:0.4rem;
+      align-items: center;
+    }
+    .table_title>div {
+      &:nth-child(5),&:nth-child(6),&:nth-child(7),&:nth-child(8) {
+        font-size: 0.8em;
+        line-height:1;
+        text-wrap: balance;
+      }
+    }
+  }
+}
+.table_item{
+  select:disabled {
+    opacity:1;
+  }
+  transition:box-shadow $tz .5s;
+  >input,>select {
+    width:100%;
+    background:$coc-input-bg-1;
+    transition:background $tz .5s;
+    &:active, &:focus {
+      background:$coc-input-bg;
+    }
+  }
+  &:has(input:focus,input:active,select:focus,select:active) {
+    box-shadow:0 2px 0 0 $coc-input-bg;
+  }
+  >:nth-child(5),>:nth-child(6),>:nth-child(7),>:nth-child(8) {
+    text-align:center;
+  }
+}
+
+
 .backstory .content {
   display:grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.4rem;
+  gap: 0.8rem 0.4rem ;
+  .subtitle {
+    margin-bottom:0.2rem;
+    display:flex;
+    align-items: center;
+    &::before, &::after {
+      display:block;
+      height:0.8rem;
+      align-items: center;
+      flex-basis:0;
+      flex-shrink: 1;
+      flex-grow: 1;
+      background-repeat:no-repeat;
+      background-size: 0% 100%;
+      transition: background-size $tz 0.5s;
+    }
+  }
+  &>div{
+    &:nth-child(odd) {
+      .subtitle {
+        padding-left:0.2rem;
+        text-align:left;
+        &::after {
+          content:"";
+          margin-left:0.4rem;
+          background-image:linear-gradient(to left, rgba($coc-title-bg,0.4) 100%, rgba($coc-title-bg,0.4) 100%);
+        }
+      }
+      &:has(textarea:focus, textarea:active) .subtitle::after {
+        background-size:100% 100%;
+      }
+    }
+    &:nth-child(even) {
+      .subtitle {
+        padding-right:0.2rem;
+        text-align:right;
+        &::before {
+          content:"";
+          margin-right:0.4rem;
+          background-image:linear-gradient(to right, rgba($coc-title-bg,0.4) 100%, rgba($coc-title-bg,0.4) 100%);
+          background-position:right;
+        }
+      }
+      &:has(textarea:focus, textarea:active) .subtitle::before {
+        background-size:100% 100%;
+      }
+
+    }
+    
+  }
   textarea {
+    @include input-box;
     height:5em;
+    text-align:left;
+  }
+}
+
+// 현금과 자산
+.money textarea {
+  @include input-box;
+  text-align:left;
+  margin-top:0.5rem;
+  resize: vertical;
+}
+#spending_level, #cash {
+  display:grid;
+  grid-template-columns: 4em 1fr;
+  align-items: center;
+  margin-bottom: 0.4rem;
+  @include has-input-line(4em);
+  input {
+    background:transparent;
+    border-radius: 0;
+  }
+}
+#assets  {
+  margin-top:0.5rem;
+}
+
+// 전체 박스 FLEX-BASIS
+.attr {
+  flex-basis:25rem;
+  flex-grow:0;
+}
+.info, .stats {
+  flex-basis: 33%;
+}
+.skills {
+  flex-basis: 100%;
+}
+.battle {
+  flex-basis:16rem;
+  order:2;
+}
+.weapons {
+  flex-basis:calc(100% - 16rem);
+  order:2;
+}
+.backstory, .money {
+  flex-basis: 50%;
+  order:3;
+}
+// 2단 전체 레이아웃
+@media (min-width: 561px) and (max-width: 870px) { //
+  .battle {
+    order:unset;
+  }
+}
+@mixin 단2 {
+  .skills .content {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(26, 1fr);
+    @for $i from 1 to 19 {
+      &>div:nth-child(#{$i}) {
+        grid-row-start:$i;
+        grid-column: 1 / 1;
+      }
+      &>div:nth-child(#{$i + 18}) {
+        grid-row-start:$i;
+        grid-column: 2 / 2;
+      }
+      &>div:nth-child(#{$i + 36}) {
+        grid-row-start:$i + 18;
+        grid-column: 1 / 1;
+      }
+      &>div:nth-child(#{$i + 18 + 36}) {
+        grid-row-start:$i + 18;
+        grid-column: 2 / 2;
+      }
+    }
+    @for $i from 19 to 32 {
+      &>div:nth-child(#{$i*2 - 1}) {
+        grid-row-start:$i;
+        grid-column: 1 / 1;
+      }
+      &>div:nth-child(#{$i*2 }) {
+        grid-row-start:$i;
+        grid-column: 2/ 2;
+      }
+    }
+    &>button:last-child {
+      grid-column: 1 / 3;
+      width:100%;
+      margin-top:0.5rem;
+    }
+  }
+
+}
+@mixin 단1 {
+  .sheet {
+    flex-direction: column;
+  }
+  .skills .content {
+    display:flex;
+    flex-direction: column;
+    // padding-right:2rem;
+  }
+  .backstory, .money {
+    flex-basis:100%;
+  }
+  
+  .weapons>.content>div {
+    grid-template-columns: repeat(6, 1fr);
+    &.table_title{
+      
+    >div {
+      display:flex;
+      height:100%;
+      align-items: center;
+      justify-content: center;
+      background-image:linear-gradient(to top, rgba($coc-title-bg,0.2) 0%, rgba($coc-title-bg,0.2) 100%);
+      background-size:calc(100% - 2rem) 70%;
+      background-repeat: no-repeat;
+      background-position: center;
+      }
+    }
+    &>* {
+      grid-column:span 1;
+    }
+    :first-child {
+      grid-column:1 / span 3;
+    }
+    :nth-child(2) {
+      grid-column:4 / span 3;
+    }
+  }
+
+}
+
+// 기타 미디어쿼리
+// 2단
+@media (min-width: 561px) and (max-width: 870px) {
+  @include 단2;
+}
+// 1단
+@media (max-width: 560px) {
+  @include 단1;
+}
+.sheet.font-large {
+  .battle{order:unset}
+  @include 단2;
+}
+.sheet.font-too-large{
+  .battle{order:unset}
+  @include 단1;
+}
+// top (top>h1, h2 은 나중에 공통으로 뺄 것)
+.top {
+  &>h1 {
+
+  }
+  &>h2 {
+    font-family:'NEXON Lv1 Gothic OTF';
+    color:$--c4-t;
+  }
+}
+.top {
+  background-color:$lightBg;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items: center;
+  .notice {
+
+  }
+  .notice>p{
+
   }
 }
 // 세팅
+.setting {
+  background:$lightBg;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items: center;
+  
+  // 버튼
+  button {
+    font-family: "NEXON Lv1 Gothic OTF";
+    border:0;
+    padding: 0.5rem 1rem;
+    font-size:1.6rem;
+    cursor:pointer;
+    transition: 0.2s ease-out;
+    transition-property: background, color, box-shadow, border-radius;
+    
+    box-shadow:$btnShadow;
+    background: $--c4;
+    
+    color:$--c4-t;
+    border-radius: 0.4rem;
+    &:hover, &:focus, &:active {
+      background: transparent;
+      box-shadow:$btnShadow, $--c4 0 -2px 0 0 inset;
+      border-bottom-left-radius:0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}
+// colorset //
+$red : #cc5c52;
+
+// -------- //
+
+#howToggle {
+  border:none;
+  outline:none;
+  background:$--c4-t;
+  font-family: 'NEXON Lv1 Gothic OTF';
+  font-size:2rem;
+  color:$lightBg;
+  border-radius: 0.4rem;
+  padding: 0.5rem 1rem;
+  box-shadow:$btnShadow;
+  cursor:pointer;
+  z-index:11;
+  transition: 0.2s ease-out;
+  transition-property: background, color, box-shadow, border-radius;
+  &:hover, &:focus, &:active {
+    background: transparent;
+    color:$--c4-t;
+    box-shadow:$btnShadow, $--c4 0 -2px 0 0 inset;
+    border-bottom-left-radius:0;
+    border-bottom-right-radius: 0;
+  }
+}
+.how-to-use {
+  p {
+    margin-block: 0.6em;
+    word-wrap: break-word;
+    word-break: keep-all;
+    &:has(i.fa-circle-exclamation) {
+      color:$red;
+    }
+  }
+  
+  position: relative;
+  max-width:600px;
+  padding: 0 1rem;
+  border-radius:1rem;
+  margin-top:1.2rem;
+  background-color:#fff;
+  color:$textgray;
+  &::before{
+    content:
+    url("data:image/svg+xml,%3Csvg width='16' height='6' fill='%23ffffff' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 6s1.796-.013 4.67-3.615C5.851.9 6.93.006 8 0c1.07-.006 2.148.887 3.343 2.385C14.233 6.005 16 6 16 6H0z'/%3E%3C/svg%3E");
+    position:absolute;
+    bottom:100%;
+    left:calc(50% - 8px);
+  }
+
+}
+.setting_item {
+  margin-top:3rem;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content: center;
+  gap:1rem;
+}
+#save {
+  padding: 1rem 2rem;
+}
 #saveslots {
   display:flex;
+  flex-direction: column;
+  gap:0.2rem;
+  flex-basis:100%;
 }
 .saveslot {
   flex:1;
   display:flex;
   flex-direction:column;
-  align-items:center;
+  // align-items:center;
   justify-content:center;
-  padding:1rem;
-  border:1px solid #333;
+  position: relative;
+  padding:0.4rem 0.2rem;
   border-radius: 0.4rem;
-  margin:0.4rem;
   cursor:pointer;
-  transition: all 0.3s ease-in-out;
-  &:hover {
-    background-color: #333;
-    color:white;
+  transition: background-size 0.3s ease-in-out;
+
+  background:linear-gradient(to right, $--c4-s 0%, $--c4-s 100%);
+  background-color:#fff;
+  background-size: 0% 100%;
+  background-position: center left;
+  background-repeat: no-repeat;
+  padding-left:1rem;
+  font-size:1.6rem;
+  
+  span {
+    font-family: "NEXON Lv1 Gothic OTF";
+    transition: transform 0.3s $tz;
+    color:$--c4-t;
+    font-weight:300;
   }
-  &:focus, &:has(input:checked) {
-    background-color: #333;
-    color:white;
+  &:hover,&:focus, &:has(input:checked) {
+    background-size:100% 100%;
+    &::before{
+      content:"\f138";
+      font-family:"Font Awesome 6 Free";
+      font-weight:900;
+      position:absolute;
+      left:-1.5em;
+      color:$--c4;
+    }
+    span {
+      transform: skew(-10deg);
+    }
   }
   >input {display:none}
 }
 
+// 디자인 메뉴
+.design-box {
+  display:flex;
+  width:100%;
+  max-width:960px;
+  justify-content: space-between;
+  .how-to-use{
+    display:flex;
+    justify-content: space-between;
+    flex-direction:row;
+    gap: 0.8em;
+    margin-top:0;
+    margin-bottom:1rem;
+    background-color:$lightBg;
+    font-size:1.4rem;
+    &::before{
+      content:
+      url("data:image/svg+xml,%3Csvg width='16' height='6' fill='%23efeff1' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 6s1.796-.013 4.67-3.615C5.851.9 6.93.006 8 0c1.07-.006 2.148.887 3.343 2.385C14.233 6.005 16 6 16 6H0z'/%3E%3C/svg%3E");
+      bottom:-6px;
+      transform:rotate(180deg);
+      left:1rem;
+    }
+    &:nth-child(2)::before{
+      right:1rem;
+    }
+  }
+}
+#design {
+  width:100%;
+  max-width:960px;
+  display:flex;
+  justify-content: space-between;
+  
+  button {
+    background:transparent;
+    box-shadow:none;
+    color:$--c4;
+    font-size:1.6rem;
+    padding:0.5rem 1rem;
+    border:none;
+    outline:0;
+    cursor: pointer;
 
+    &[class^='color-theme'] {
+      width:2.6rem;
+      margin-left:0.2rem;
+      padding: 0.5rem 0.9rem; 
+    }
+
+    &:hover, &:focus, &:active {
+      background:transparent;
+      box-shadow:none;
+      color:$--c4-t;
+    }
+  }
+}
+
+@mixin has-input-line($insert) {
+  background-image:linear-gradient(to top, $coc-input-bg-1 0%, $coc-input-bg-1 99%);
+  border-bottom:1px solid $coc-input-bg;
+  background-position: bottom right;
+  background-size: calc(100% - $insert) 0%;
+  background-repeat: no-repeat;
+  transition:all $tz 0.5s;
+  &:has(:focus), &:has(:active) {
+    box-shadow:0 2px 0 0 $coc-input-bg;
+    background-size:calc(100% - $insert) 100%;
+  }
+  &>input {
+    padding:0.1em 0.3em;
+  }
+}
 
 
 .hide {
-  display:none;
+  display:none!important;
 }
