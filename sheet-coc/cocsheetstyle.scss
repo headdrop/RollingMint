@@ -1,7 +1,25 @@
+@import '../import';
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
 * {font-family:'Pretendard',sans-serif}
 *:focus {outline:none}
 
+:root {
+  --main-color: #{$blue};
+  --main-dark: #{$blueContrast};
+  --main-darken: #{darken($blueContrast,15%)};
+  --main-light: #{$blueLight};
+  --main-light-06:#{rgba($blueLight,0.6)};
+  --main-lighter: #{$blueLighter};
+  --sub-color:#{darken($blueContrast,10%)};
+  --sub-accent-light:#{$redLighter};
+  --accent-light:#{$purpleLighter};
+  --border-color:#{$gray0d};
+}
+
+.btn {
+  --btn-color:#{$blue};
+  --btn-hov-color:#{$blueContrast};
+}
 
 //색상
 $coc-sheet-bg:#888888;
@@ -65,7 +83,6 @@ $coc-shadow:rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0
   }
 }
 
-@import '../checkbox';
 #wrapper {
   font-size:1.6rem;
   display: flex;
@@ -774,17 +791,12 @@ button#add_weapon {
   .battle{order:unset}
   @include 단1;
 }
-// top (top>h1, h2 은 나중에 공통으로 뺄 것)
+// top
 .top {
-  &>h1 {
-
-  }
   &>h2 {
     font-family:'NEXON Lv1 Gothic OTF';
-    color:$--c4-t;
+    color:var(--main-darken);
   }
-}
-.top {
   background-color:$lightBg;
   width:100%;
   display:flex;
@@ -816,27 +828,23 @@ button#add_weapon {
     transition-property: background, color, box-shadow, border-radius;
     
     box-shadow:$btnShadow;
-    background: $--c4;
+    background: var(--main-color);
     
-    color:$--c4-t;
+    color:var(--main-darken);
     border-radius: 0.4rem;
     &:hover, &:focus, &:active {
       background: transparent;
-      box-shadow:$btnShadow, $--c4 0 -2px 0 0 inset;
+      box-shadow:$btnShadow, var(--main-color) 0 -2px 0 0 inset;
       border-bottom-left-radius:0;
       border-bottom-right-radius: 0;
     }
   }
 }
-// colorset //
-$red : #cc5c52;
-
-// -------- //
 
 #howToggle {
   border:none;
   outline:none;
-  background:$--c4-t;
+  background:var(--main-darken);
   font-family: 'NEXON Lv1 Gothic OTF';
   font-size:2rem;
   color:$lightBg;
@@ -849,8 +857,8 @@ $red : #cc5c52;
   transition-property: background, color, box-shadow, border-radius;
   &:hover, &:focus, &:active {
     background: transparent;
-    color:$--c4-t;
-    box-shadow:$btnShadow, $--c4 0 -2px 0 0 inset;
+    color:var(--main-darken);
+    box-shadow:$btnShadow, var(--main-color) 0 -2px 0 0 inset;
     border-bottom-left-radius:0;
     border-bottom-right-radius: 0;
   }
@@ -909,7 +917,7 @@ $red : #cc5c52;
   cursor:pointer;
   transition: background-size 0.3s ease-in-out;
 
-  background:linear-gradient(to right, $--c4-s 0%, $--c4-s 100%);
+  background:linear-gradient(to right, var(--main-color)-s 0%, var(--main-color)-s 100%);
   background-color:#fff;
   background-size: 0% 100%;
   background-position: center left;
@@ -920,7 +928,7 @@ $red : #cc5c52;
   span {
     font-family: "NEXON Lv1 Gothic OTF";
     transition: transform 0.3s $tz;
-    color:$--c4-t;
+    color:var(--main-darken);
     font-weight:300;
   }
   &:hover,&:focus, &:has(input:checked) {
@@ -931,7 +939,7 @@ $red : #cc5c52;
       font-weight:900;
       position:absolute;
       left:-1.5em;
-      color:$--c4;
+      color:var(--main-color);
     }
     span {
       transform: skew(-10deg);
@@ -976,7 +984,7 @@ $red : #cc5c52;
   button {
     background:transparent;
     box-shadow:none;
-    color:$--c4;
+    color:var(--main-color);
     font-size:1.6rem;
     padding:0.5rem 1rem;
     border:none;
@@ -992,7 +1000,7 @@ $red : #cc5c52;
     &:hover, &:focus, &:active {
       background:transparent;
       box-shadow:none;
-      color:$--c4-t;
+      color:var(--main-darken);
     }
   }
 }

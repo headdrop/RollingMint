@@ -1,14 +1,27 @@
 @charset "UTF-8";
+:root {
+  --main-color: #5b9a8b;
+  --main-dark: #3f7d6c;
+  --main-darken: #254a40;
+  --main-light: #adccc5;
+  --main-light-06:rgba(215, 207, 227, 0.6);
+  --main-lighter: #d6e6e2;
+  --sub-color:#af9fc7;
+  --sub-accent-light:#f3dcda;
+  --accent-light:#ebe7f1;
+  --border-color:#d9d7dc;
+}
+
 div.notice {
   display: block;
   text-align: center;
   font-size: 1.6rem;
-  padding: 35px 15px;
-  color: #4b4b4b;
+  margin-bottom: 2rem;
+  color: #4b4a4d;
 }
 div.notice i {
   font-size: 1.6em;
-  color: rgb(149, 225, 211);
+  color: var(--sub-color);
 }
 
 div.container {
@@ -142,4 +155,5 @@ div.sp-replacer {
 #outputbox #output {
   width: 100%;
   margin-bottom: 5px;
+  border: 1px solid var(--border-color);
 }

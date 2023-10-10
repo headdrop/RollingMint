@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
 body {
   background: #f2f4f8;
 }
@@ -16,15 +15,10 @@ body {
   position: relative;
 }
 .top h1 {
-  font-family: "Fredoka One", cursive;
-  font-size: 5rem;
-  font-weight: 400;
-  color: #011a0f;
-  text-shadow: 1px 1px 0 #C0DEC7, 3px 3px 0 #C0DEC7, 5px 5px 0 #C0DEC7, 7px 7px 0 #C0DEC7, 9px 9px 0 #C0DEC7;
   display: inline-block;
 }
 .top h1:first-child {
-  animation: bounce-top 0.9s both;
+  animation: bounce-top 1.2s both;
   z-index: -1;
 }
 @keyframes bounce-top {
@@ -90,7 +84,6 @@ nav {
   gap: 15px;
 }
 nav .card {
-  --text-color-hover: #4C5656;
   width: 220px;
   height: 321px;
   background: #fff;
@@ -106,19 +99,49 @@ nav .card {
   text-decoration: none;
 }
 nav .card--1 {
-  --bg-color: rgb(243, 129, 129);
-  --bg-color-light: #FCE0E0;
-  --box-shadow-color: rgba(243, 129, 129,0.58);
+  --bg-color: #eb9189;
+  --bg-color-light:#faf0f0;
+  --box-shadow-color: rgba(229, 173, 168, 0.58);
 }
 nav .card--2 {
-  --bg-color: rgb(252, 227, 138);
-  --bg-color-light: #FEF8E2;
-  --box-shadow-color: rgba(252, 227, 138,0.58);
+  --bg-color:#f4d98a;
+  --bg-color-light: #fefbef;
+  --box-shadow-color: rgba(250, 235, 175, 0.58);
 }
 nav .card--3 {
-  --bg-color: rgb(149, 225, 211);
-  --bg-color-light: #E4F7F4;
-  --box-shadow-color: rgba(149, 225, 211,0.58);
+  --bg-color: #bacb8c;
+  --bg-color-light: #f6faec;
+  --box-shadow-color: rgba(167, 179, 134, 0.58);
+}
+nav .card--4 {
+  --bg-color:#a1c2db;
+  --bg-color-light:#f0f6fa;
+  --box-shadow-color: rgba(128, 164, 190, 0.58);
+}
+nav .card h3, nav .card p {
+  color: #4b4a4d;
+  z-index: 1000;
+}
+nav .card h3 {
+  transition: 0.3s ease-out;
+  transition-property: color, box-shadow;
+  font-family: "NEXON Lv1 Gothic OTF Bold";
+  margin-top: 30px;
+  font-size: 1.7rem;
+  position: relative;
+  padding-bottom: 1px;
+  box-shadow: 0 5px 0 -1px var(--bg-color-light);
+}
+nav .card p {
+  transition: opacity 0.2s ease-out;
+  position: absolute;
+  font-size: 1.5rem;
+  opacity: 0;
+  display: block;
+  width: calc(100% - 3rem);
+  height: 8rem;
+  top: calc(100% - 11rem);
+  padding: 5px;
 }
 nav .card:hover {
   transform: translateY(-5px) scale(1.005) translateZ(0);
@@ -135,7 +158,8 @@ nav .card:hover .circle::after {
   background: var(--bg-color-light);
 }
 nav .card:hover h3 {
-  color: var(--text-color-hover);
+  color: #36373d;
+  background-size: 100% 100%;
 }
 nav .card:hover p {
   opacity: 100%;
@@ -144,27 +168,6 @@ nav .card:hover p {
 nav .card:active {
   transform: scale(1) translateZ(0);
   box-shadow: 0 15px 24px rgba(0, 0, 0, 0.11), 0 15px 24px var(--box-shadow-color);
-}
-nav .card h3, nav .card p {
-  color: #4C5656;
-  z-index: 1000;
-}
-nav .card h3 {
-  transition: color 0.3s ease-out;
-  font-family: "NEXON Lv1 Gothic OTF Bold";
-  margin-top: 30px;
-  font-size: 1.7rem;
-}
-nav .card p {
-  transition: opacity 0.2s ease-out;
-  position: absolute;
-  font-size: 1.5rem;
-  opacity: 0;
-  display: block;
-  width: calc(100% - 3rem);
-  height: 8rem;
-  top: calc(100% - 11rem);
-  padding: 5px;
 }
 nav .circle {
   width: 131px;

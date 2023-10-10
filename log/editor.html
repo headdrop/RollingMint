@@ -1,8 +1,19 @@
-<html>
+<!DOCTYPE html>
+<html lang="ko">
   <head>
-    <link rel="stylesheet" href="editor.css">
+    <link rel="stylesheet" href="log.css">
+    <link rel="stylesheet" href="../default.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css" />
     <style>
+      html {
+        background-color:#fff!important;
+        font-family: 'Pretendard';
+        font-size:10px;
+      }
+      body {
+        margin:0;
+        font-size:1.4rem;
+      }
       
       /* #editable div.message {
          font-size:unset;
@@ -10,17 +21,17 @@
     </style>
 
   </head>
-  <body>
+  <body id="editor">
     <input id="logdata">
     <div contenteditable id="editable"></div>
-    <p class="font">'설정하지 않음'에 체크하면 <b>블로그 서비스에서 설정한 기본 폰트 크기</b>로 출력됩니다.<br>미리보기의 폰트 사이즈는 13px입니다.</p>
-    <div class="font"><span>폰트 사이즈</span>설정하지 않음<input type="checkbox" id="font-size-tog" value="unset" checked><input type="number" id="font-size" pattern="\d*" disabled>px</div>
+    <p>'설정하지 않음'에 체크하면 <b>블로그 서비스에서 설정한 기본 폰트 크기</b>로 출력됩니다.<br>미리보기의 폰트 사이즈는 13px입니다.</p>
+    <div class="font"><span>폰트 사이즈</span>설정하지 않음<input class='ckbx' type="checkbox" id="font-size-tog" value="unset" checked><input type="number" id="font-size" pattern="\d*" disabled>px</div>
     <p>다음 버튼을 차례대로 누릅니다.
     <br>이 단계에서 브라우저 에러가 발생할 경우, 브라우저의 <b>시크릿 모드</b>로 이 페이지를 이용해보세요</p>
     
     <div class="box">
-      <button id="log-paste">1. 복사 준비</button>
-      <button id="copy" data-clipboard-target="#logdata">2. HTML 코드 복사하기</button>
+      <button class='btn' id="log-paste">1. 복사 준비</button>
+      <button class='btn' id="copy" data-clipboard-target="#logdata">2. HTML 코드 복사하기</button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
     <script src="editor.js"></script>

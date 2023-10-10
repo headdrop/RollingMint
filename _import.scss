@@ -1,38 +1,61 @@
 //색상 및 그림자 변수
 $btnShadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 $itemShadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
-$btnColor: #3a9488;
-$btnHovColor:  #2c695f;
-$lightColor: #C0DEC7;
-$accentLight : #F9D5D3;
-$accentLight2 : #ECA4A6;
 $btnReset: #a3afb8;
 $btnHovReset:#9c9c9c;
 $modalBg : #ECE7E0;
-$gradient : linear-gradient(to bottom, #325745 0%, #004225 100%);
 $boxBg:#D2D7DF;
 $lightBg:#efeff1;
-$footerBg:#4b4b4b;
-$c1:rgb(243, 129, 129);
-$--c1-l:#FCE0E0;
-$--c1-t:#260404;
-$--c1-s:rgba(243, 129, 129,0.58);
-$--c2: rgb(252, 227, 138);
-$--c2-l: #FEF8E2;
-$--c2-t:#2B2201;
-$--c2-s: rgba(252, 227, 138,0.58);
-$--c3: rgb(149, 225, 211);
-$--c3-l:#E4F7F4;
-$--c3-t: #09201F;
-$--c3-s:rgba($--c3,0.58);
-$--c4:#80a4be;
-$--c4-l:#dfe8ef;
-$--c4-t:darken($--c4,40%);
-$--c4-s:rgba($--c4,0.58);
 $textgray : #36373d;
+$footerBg:#4b4b4b;
+
+$gray04:#4b4a4d;
+$gray07:#727075;
+$gray09:#9b959d;
+$gray0c:#cbc9ce;
+$gray0d:#d9d7dc;
+$gray0e:#e9e9ef;
+$gray0f:#f5f5f7;
+$white:#ffffff;
+$green:#a7b386;
+$greenLight:#d3d9c2;
+$greenLighter:#e9ece1;
+$greenContrast:#5a7f24;
+$teal:#5b9a8b;
+$tealLight:#adccc5;
+$tealLighter:#d6e6e2;
+$tealContrast:#3f7d6c;
+$blue:#80a4be;
+$blueLight:#bfd1de;
+$blueLighter:#dfe8ef;
+$blueContrast:#4e7997;
+$purple:#af9fc7;
+$purpleLight:#d7cfe3;
+$purpleLighter:#ebe7f1;
+$purpleContrast:#856caa;
+$red:#cc5c52;
+$redLight:#e5ada8;
+$redLighter:#f3dcda;
+$redContrast:#bc5248;
+$orange:#de9e59;
+$orangeLight:#eeceac;
+$orangeLighter:#f7e7d5;
+$orangeContrast:#9f6221;
+$yellow:#e6c565;
+$yellowLight:#e9d9a8;
+$yellowLighter:#f7f0de;
+$yellowContrast:#ac9032;
+$brightPink:#ef6c9c;
+$brightPinkLight:#fae1ea;
+$brightYellow:#faebaf;
+$brightYellowLight:#fdf7e1;
 
 @mixin centerboth  {
   display:flex;
   justify-content: center;
   align-items: center;
+}
+
+@function brighter ($color,$percent) {
+  @return lighten(saturate($color,$percent),$percent)
 }
