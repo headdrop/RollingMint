@@ -59,8 +59,8 @@ html(lang='ko')
                 td(contenteditable='')
                 td(contenteditable='')
         p 표 안에 의식시트의 내용을 붙여넣기 할 때는 Ctrl+Shift+V (서식 없이 붙여넣기) 를 이용하세요.
-        button#addRow 의식 단계 추가
-        button#copy 표 복사하기
+        button.btn#addRow 의식 단계 추가
+        button.btn#copy 표 복사하기
       input#insaneHO(type='radio' name='tabmenu' value='핸드아웃' checked='')
       .tabCon
         .content
@@ -79,7 +79,7 @@ html(lang='ko')
             .controls
               button.btn.copy.c-front 앞면 복사
               button.btn.copy.c-back 뒷면 복사
-              button.remove X
+              button.btn.btn-red.remove X
             .ho-output.front &nbsp;
               .ho-front
                 div Handout 
@@ -106,10 +106,10 @@ html(lang='ko')
                       | 뒷면내용
                   .ho-box-2 이 비밀을 스스로 밝힐 수는 없다
                     img(src="https://imgur.com/4MJ4Ar0.png")
-        button#addHo 핸드아웃 추가
+        button.btn#addHo 핸드아웃 추가
       .bottom
-        button#down 이미지 다운로드
-        button#downHO(title="만든 핸드아웃을 png 파일으로 일괄 저장합니다") 핸드아웃 일괄 다운로드
+        button.btn#down 이미지 다운로드
+        button.btn#downHO(title="만든 핸드아웃을 png 파일으로 일괄 저장합니다") 핸드아웃 일괄 다운로드
         p 만든 핸드아웃을 png 파일으로 일괄 저장합니다.
     footer#footer
     script(src="../module.js")

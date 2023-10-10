@@ -18,7 +18,30 @@
     padding-left:20px;
     padding-right:20px;
   }
-} 
+}
+
+$gradient : linear-gradient(to bottom, #325745 0%, #004225 100%);
+$accentGradient: linear-gradient(90deg, var(--accent-light), var(--sub-accent-light));
+
+:root {
+  --main-color: #{$teal};
+  --main-dark: #{$tealContrast};
+  --main-darken: #{darken($tealContrast,15%)};
+  --main-light: #{$tealLight};
+  --main-light-06:#{rgba($tealLight,0.6)};
+  --main-lighter: #{$tealLighter};
+  --sub-color:#{darken($tealContrast,10%)};
+  --sub-accent-light:#{$redLighter};
+  --accent-light:#{$purpleLighter};
+  --border-color:#{$gray0d};
+}
+
+
+.btn {
+  --btn-color:#{$teal};
+  --btn-hov-color:#{$tealContrast};
+}
+
 
 *, ::after, ::before {
   box-sizing: border-box;
@@ -32,7 +55,7 @@ h2 {
 h3 {
   font-size: 1.8rem;
   line-height: 2.5rem;
-  color:$btnHovColor;
+  color:var(--sub-color);
 }
 
 h2, h3, .name-select { // 폰트설정
@@ -50,7 +73,7 @@ h2, h3, .item, .text {
   @include container;
   padding-top:20px;
 }
-.example, #log-content { /*폰트 사이즈 결정 참조: https://webclub.tistory.com/122 */
+.example, #log-content {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   font-size: 1.3em;
@@ -72,12 +95,6 @@ table {
 /* 그림자 */
 .nice-select {
   box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
-}
-input[type=checkbox].ckbx, input[type=radio] {
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
-}
-.btn {
-  box-shadow: $btnShadow;
 }
 .item, .modal-content {
   box-shadow: $itemShadow;
@@ -138,27 +155,13 @@ i {
 }
 
 // top
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 .top {
   background-color: #fff;
   overflow: hidden;
   flex-direction: column;
-  padding: 0px 20px;
-  @include centerboth;
   >div.box {
     position:relative;
     margin-bottom: 20px;
-  }
-  h1 {
-    font-family: 'Fredoka One', cursive;
-    font-size:5rem;
-    color:#011a0f;
-    text-shadow:
-    1px 1px 0 $lightColor,
-    3px 3px 0 $lightColor,
-    5px 5px 0 $lightColor,
-    7px 7px 0 $lightColor,
-    9px 9px 0 $lightColor;
   }
   .text {
     max-width: 500px;
@@ -170,7 +173,7 @@ i {
     margin-top:12px;
     font-size: 1.8rem;
     font-weight:bold;
-    color:$btnHovColor;
+    color:var(--main-color);
   }
   p:last-of-type {
     display: flex;
@@ -186,7 +189,7 @@ div.notice {
     font-family: "NEXON Lv1 Gothic OTF";
     &:first-child {
       display:inline-block;
-      background:$btnHovColor;
+      background:var(--main-dark);
       position:relative;
       padding:0.2rem 0.5rem 0 1rem;
       border-top-left-radius: 0.4rem;
@@ -453,9 +456,12 @@ h3 {
       margin-left:-20px;
       top:100%;
       height: 5px;
-      background:$lightColor;
+      background:$accentGradient;
     }
   }
+.item:has(:active,:focus,:hover) h2::after{
+  background-size:800%;
+}
   h2+p {
     margin-top:20px;
   }
@@ -472,8 +478,7 @@ h3 {
     height:10em;
     white-space: pre-wrap;
     resize:vertical;
-    border:1px solid $btnReset;
-
+    border:1px solid var(--border-color);
   }
   a, a:visited {
     color:$btnColor;
@@ -481,7 +486,7 @@ h3 {
     transition: 0.2s color ease-in-out;
   }
   a:hover, a:focus {
-    color:$accentLight2;
+    color:var(--accent-light);
   }
   .btn-full {
     width:calc(100% - 10px);
@@ -513,7 +518,7 @@ h3 {
   width:100%;
   min-width:300px;
   margin-bottom: 20px;
-  border : 1px solid $btnReset;
+  border : 1px solid var(--border-color);
   padding:5px;
   img {
     width: 100%;
@@ -633,12 +638,12 @@ h3 {
     position:absolute;
     left:-25px;
     top:2px;
-    padding:1px;
+    padding:0px;
     color:white;
     background-color:$btnReset;
     border-radius: 2px;
     &:hover, &:focus{
-      color:#D91E36!important;
+      color:$red!important;
       background-color: transparent!important;
     }
     i {font-size:20px!important;}
@@ -649,28 +654,26 @@ h3 {
   }
   .message[style="overflow: hidden;"] .delete-message-btn {
     left:0px;
-
   }
 }
 
 button.reset {
+  --btn-color: #{$btnReset};
+  --btn-hov: #{$gray0c};
+  --btn-light: #{lighten($btnReset,15%)};
+  --btn-lighter: #{$gray0e};
   padding: 0 8px;
-  height: 3.1rem;
-  background-color:$btnReset;
+  height: 3.4rem;
   i { margin-top: 4px;}
   &:hover, &:focus{
     i {transform: rotate(720deg)}
-    background-color:$btnHovReset;
-  }
-  &:focus {
-    box-shadow: 0 0 0 3px rgba($btnReset, 0.6), $btnShadow;
   }
 }
 hr {
   border: 0;
-  height: 1px;
+  height: 2px;
   margin-top: 20px;
-  background-image: linear-gradient(to right, rgba($btnColor, 0), rgba($btnColor, 0.75), rgba($btnColor, 0));
+  background-image: linear-gradient(to right, transparent, var(--accent-light), transparent);
 }
 
 /* checkbox + radio */
@@ -703,7 +706,7 @@ li {
     background-position: left;
     background-size: 0% 100%;
     background-repeat: no-repeat;
-    background-image: linear-gradient(90deg, $accentLight, $accentLight2);
+    background-image: $accentGradient;
   }
   input:checked + label {
     color: #000;
@@ -745,147 +748,6 @@ li:hover + tooltip {
 @keyframes slide-down {
   0% { opacity: 0; transform: scaleY(0);}   
 100% { opacity: 1; transform: scaleY(1);}
-}
-
-@supports (-webkit-appearance: none) or (-moz-appearance: none) {
-  input[type=checkbox].ckbx,
-  input[type=radio] {
-      --active: #3a9488;
-      --active-inner: #F0F1F9;
-      --focus: 3px rgba(0,66,37, 0.3);
-      --border: #2c695f;
-      --border-hover: var(--active);
-      --background: #fff;
-      --disabled: #f6f8ff;
-      --disabled-inner: #e1e6f9;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance:none;
-
-      height: 21px;
-      outline: none;
-      display: inline-block;
-      vertical-align: top;
-      position: relative;
-      margin:0;
-      cursor: pointer;
-      border: 1px solid var(--bc, var(--border));
-      background: var(--b, var(--background));
-      transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
-  }
-  input[type=checkbox].ckbx:after,
-  input[type=radio]:after {
-      content: "";
-      display: block;
-      left: 0;
-      top: 0;
-      position: absolute;
-      transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);
-  }
-  input[type=checkbox].ckbx:checked,
-  input[type=radio]:checked {
-      --b: var(--active);
-      --bc: var(--active);
-      --d-o: 0.3s;
-      --d-t: 0.6s;
-      --d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2);
-      }
-  input[type=checkbox].ckbx:disabled,
-  input[type=radio]:disabled {
-      --b: var(--disabled);
-      cursor: not-allowed;
-      opacity: 0.9;
-      }
-      input[type=checkbox].ckbx:disabled:checked,
-  input[type=radio]:disabled:checked {
-      --b: var(--disabled-inner);
-      --bc: var(--border);
-      }
-      input[type=checkbox].ckbx:disabled + label,
-  input[type=radio]:disabled + label {
-      cursor: not-allowed;
-      }
-      input[type=checkbox].ckbx:hover:not(:checked):not(:disabled),
-  input[type=radio]:hover:not(:checked):not(:disabled) {
-      --bc: var(--border-hover);
-      }
-      input[type=checkbox].ckbx:focus,
-  input[type=radio]:focus {
-      box-shadow: 0 0 0 var(--focus);
-      }
-      input[type=checkbox].ckbx:not(.switch),
-  input[type=radio]:not(.switch) {
-      width: 21px;
-      }
-      input[type=checkbox].ckbx:not(.switch):after,
-  input[type=radio]:not(.switch):after {
-      opacity: var(--o, 0);
-      }
-      input[type=checkbox].ckbx:not(.switch):checked,
-  input[type=radio]:not(.switch):checked {
-      --o: 1;
-      }
-      input[type=checkbox].ckbx + label,
-  input[type=radio] + label {
-        font-size: 1.4rem;
-      line-height: 21px;
-      display: inline-block;
-      vertical-align: top;
-      cursor: pointer;
-      margin-left: 4px;
-      }
-  
-  input[type=checkbox].ckbx:not(.switch) {
-      border-radius: 7px;
-      }
-  input[type=checkbox].ckbx:not(.switch):after {
-      width: 5px;
-      height: 9px;
-      border: 2px solid var(--active-inner);
-      border-top: 0;
-      border-left: 0;
-      left: 7px;
-      top: 4px;
-      transform: rotate(var(--r, 20deg));
-      }
-  input[type=checkbox].ckbx:not(.switch):checked {
-      --r: 43deg;
-  }
-  input[type=checkbox].ckbx.switch {
-      width: 38px;
-      border-radius: 11px;
-  }
-  input[type=checkbox].ckbx.switch:after {
-      left: 2px;
-      top: 2px;
-      border-radius: 50%;
-      width: 15px;
-      height: 15px;
-      background: var(--ab, var(--border));
-      transform: translateX(var(--x, 0));
-  }
-  input[type=checkbox].ckbx.switch:checked {
-      --ab: var(--active-inner);
-      --x: 17px;
-      }
-  input[type=checkbox].ckbx.switch:disabled:not(:checked):after {
-      opacity: 0.6;
-  }
-  
-  input[type=radio] {
-      border-radius: 50%;
-  }
-  input[type=radio]:after {
-      width: 19px;
-      height: 19px;
-      border-radius: 50%;
-      background: var(--active-inner);
-      opacity: 0;
-      transform: scale(var(--s, 0.7));
-  }
-  input[type=radio]:checked {
-      --s: 0.5;
-  }
 }
 
 /* nice-select */
@@ -1081,13 +943,6 @@ li:hover + tooltip {
   }
 }
 
-
-
-#modal-reset {
-  background-color:#D91E36;
-  
-}
-
 @import url(https://cdn.jsdelivr.net/gh/loadingio/loading.css@v2.0.0/dist/loading.min.css);
 #ld4 {
   position: relative;
@@ -1263,4 +1118,96 @@ embed {
       flex:auto;
     }
   }
+}
+
+//---- EDITOR
+#editor {
+--main-color:#{$purple};
+--main-dark:#{$purpleContrast};
+--main-light-06:#{rgba($purpleLight,0.6)};
+.font {
+  height:2.5rem;
+  padding-right: 5px;
+  display:inline-flex;
+  align-items:center;
+  margin-bottom: 0.5em;
+  border-radius: 4px;
+  border-bottom:var(--accent-light) solid 1px;
+  box-sizing:border-box;
+  overflow:hidden;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+
+  &>span {
+    display:inline-block;
+    font-family: 'NEXON Lv1 Gothic OTF';
+    font-size:1.3rem;
+    padding: 4px 6px;
+    margin-right:5px;
+    background:var(--accent-light);
+    font-weight:bold;
+  }
+}
+.font input {
+  &[type="checkbox"] {
+    margin-left:0.4rem!important;
+    margin-right: 2rem!important;
+  }
+  &[type="number"] {
+    outline: none;
+    border:none;
+    border-bottom:1px solid var(--main-light-06);
+    width: 3rem;
+    height: 2rem;
+    &:active, &:hover, &:focus {
+      outline:none;
+    }
+  }
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#editable {
+  font-family: unset;
+  width: 100%;
+  height: 100px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  border:var(--border-color) 1px solid;
+  outline:none;
+  box-sizing: border-box;
+  padding: 5px;
+  cursor:text;
+  resize: vertical;
+  margin-bottom:2rem;
+  &:focus, &:active {
+    box-shadow: 0 0 0 3px inset var(--main-light-06);
+  }
+
+  &:empty::before{
+    content: "복사한 내용을 여기에 Ctrl+V를 눌러 붙여넣습니다.\A로그 양이 많으면 로딩까지 시간이 걸립니다.\A이 화면에 로그가 나타날 때까지 기다려주세요.";
+    font-family: 'NEXON Lv1 Gothic OTF';
+    color:#666;
+    white-space: pre-line;
+    display: block; /* For Firefox */
+  }
+}
+
+.box {
+  display: flex;
+  gap:10px;
+  justify-content: space-between;
+}
+
+#logdata {
+  position: absolute;
+  top: -1000vh;
+  opacity: 0;
+  cursor: default;
+  border:none;
+  padding:0!important;
+  resize:none;
+}
 }

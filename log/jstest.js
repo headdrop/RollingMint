@@ -561,15 +561,16 @@ function checkPreview() {
     for (messageItem of logList) {
       const deleteButton = DIV.cloneNode(true);
       messageItem.appendChild(deleteButton);
-    }
-
-    $(".delete-message-btn").click(function(e) {
+      deleteButton.addEventListener("click",function(e) {
         const w = confirm('해당 줄을 삭제합니다. 이 작업은 취소할 수 없습니다.\n정말로 삭제하나요?');
-        if (w) {
-          e.target.parentElement.parentElement.remove();
-        } else {
-        }
-      });
+          if (w && e.target.nodeName=="I") {
+            e.target.parentElement.parentElement.remove();
+          } else if (w && e.target.nodeName=="DIV") {
+            e.target.parentElement.remove();
+          } else {
+      }});
+    }
+    
   } else {
     document.getElementById("log-content").style.maxHeight="200px";
     $(".delete-message-btn").remove();

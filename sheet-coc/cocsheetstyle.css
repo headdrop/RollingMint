@@ -8,142 +8,24 @@
   outline: none;
 }
 
-@supports (-webkit-appearance: none) or (-moz-appearance: none) {
-  input[type=checkbox].ckbx,
-  input[type=radio].ckbx {
-    --active: #3a9488;
-    --active-inner: #F0F1F9;
-    --focus: 3px rgba(0,66,37, 0.3);
-    --border: #2c695f;
-    --border-hover: var(--active);
-    --background: #fff;
-    --disabled: #f6f8ff;
-    --disabled-inner: #e1e6f9;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    height: 21px;
-    outline: none;
-    display: inline-block;
-    vertical-align: top;
-    position: relative;
-    margin: 0;
-    cursor: pointer;
-    border: 1px solid var(--bc, var(--border));
-    background: var(--b, var(--background));
-    transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
-  }
-  input[type=checkbox].ckbx:after,
-  input[type=radio].ckbx:after {
-    content: "";
-    display: block;
-    left: 0;
-    top: 0;
-    position: absolute;
-    transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);
-  }
-  input[type=checkbox].ckbx:checked,
-  input[type=radio].ckbx:checked {
-    --b: var(--active);
-    --bc: var(--active);
-    --d-o: 0.3s;
-    --d-t: 0.6s;
-    --d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2);
-  }
-  input[type=checkbox].ckbx:disabled,
-  input[type=radio].ckbx:disabled {
-    --b: var(--disabled);
-    cursor: not-allowed;
-    opacity: 0.9;
-  }
-  input[type=checkbox].ckbx:disabled:checked,
-  input[type=radio].ckbx:disabled:checked {
-    --b: var(--disabled-inner);
-    --bc: var(--border);
-  }
-  input[type=checkbox].ckbx:disabled + label,
-  input[type=radio].ckbx:disabled + label {
-    cursor: not-allowed;
-  }
-  input[type=checkbox].ckbx:hover:not(:checked):not(:disabled),
-  input[type=radio].ckbx:hover:not(:checked):not(:disabled) {
-    --bc: var(--border-hover);
-  }
-  input[type=checkbox].ckbx:focus,
-  input[type=radio].ckbx:focus {
-    box-shadow: 0 0 0 var(--focus);
-  }
-  input[type=checkbox].ckbx:not(.switch),
-  input[type=radio].ckbx:not(.switch) {
-    width: 21px;
-  }
-  input[type=checkbox].ckbx:not(.switch):after,
-  input[type=radio].ckbx:not(.switch):after {
-    opacity: var(--o, 0);
-  }
-  input[type=checkbox].ckbx:not(.switch):checked,
-  input[type=radio].ckbx:not(.switch):checked {
-    --o: 1;
-  }
-  input[type=checkbox].ckbx + label,
-  input[type=radio].ckbx + label {
-    font-size: 1.4rem;
-    line-height: 21px;
-    display: inline-block;
-    vertical-align: top;
-    cursor: pointer;
-    margin-left: 4px;
-  }
-  input[type=checkbox].ckbx:not(.switch) {
-    border-radius: 7px;
-  }
-  input[type=checkbox].ckbx:not(.switch):after {
-    width: 5px;
-    height: 9px;
-    border: 2px solid var(--active-inner);
-    border-top: 0;
-    border-left: 0;
-    left: 7px;
-    top: 4px;
-    transform: rotate(var(--r, 20deg));
-  }
-  input[type=checkbox].ckbx:not(.switch):checked {
-    --r: 43deg;
-  }
-  input[type=checkbox].ckbx.switch {
-    width: 38px;
-    border-radius: 11px;
-  }
-  input[type=checkbox].ckbx.switch:after {
-    left: 2px;
-    top: 2px;
-    border-radius: 50%;
-    width: 15px;
-    height: 15px;
-    background: var(--ab, var(--border));
-    transform: translateX(var(--x, 0));
-  }
-  input[type=checkbox].ckbx.switch:checked {
-    --ab: var(--active-inner);
-    --x: 17px;
-  }
-  input[type=checkbox].ckbx.switch:disabled:not(:checked):after {
-    opacity: 0.6;
-  }
-  input[type=radio].ckbx {
-    border-radius: 50%;
-  }
-  input[type=radio].ckbx:after {
-    width: 19px;
-    height: 19px;
-    border-radius: 50%;
-    background: var(--active-inner);
-    opacity: 0;
-    transform: scale(var(--s, 0.7));
-  }
-  input[type=radio].ckbx:checked {
-    --s: 0.5;
-  }
+:root {
+  --main-color: #80a4be;
+  --main-dark: #4e7997;
+  --main-darken: #345165;
+  --main-light: #bfd1de;
+  --main-light-06:rgba(191, 209, 222, 0.6);
+  --main-lighter: #dfe8ef;
+  --sub-color:#3d5e75;
+  --sub-accent-light:#f3dcda;
+  --accent-light:#ebe7f1;
+  --border-color:#d9d7dc;
 }
+
+.btn {
+  --btn-color:#80a4be;
+  --btn-hov-color:#4e7997;
+}
+
 #wrapper {
   font-size: 1.6rem;
   display: flex;
@@ -1747,17 +1629,16 @@ button#add_weapon {
   grid-column: 4/span 3;
 }
 
-.top > h2 {
-  font-family: "NEXON Lv1 Gothic OTF";
-  color: #273c4b;
-}
-
 .top {
   background-color: #efeff1;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.top > h2 {
+  font-family: "NEXON Lv1 Gothic OTF";
+  color: var(--main-darken);
 }
 .setting {
   background: #efeff1;
@@ -1775,13 +1656,13 @@ button#add_weapon {
   transition: 0.2s ease-out;
   transition-property: background, color, box-shadow, border-radius;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-  background: #80a4be;
-  color: #273c4b;
+  background: var(--main-color);
+  color: var(--main-darken);
   border-radius: 0.4rem;
 }
 .setting button:hover, .setting button:focus, .setting button:active {
   background: transparent;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px, #80a4be 0 -2px 0 0 inset;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px, var(--main-color) 0 -2px 0 0 inset;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -1789,7 +1670,7 @@ button#add_weapon {
 #howToggle {
   border: none;
   outline: none;
-  background: #273c4b;
+  background: var(--main-darken);
   font-family: "NEXON Lv1 Gothic OTF";
   font-size: 2rem;
   color: #efeff1;
@@ -1803,8 +1684,8 @@ button#add_weapon {
 }
 #howToggle:hover, #howToggle:focus, #howToggle:active {
   background: transparent;
-  color: #273c4b;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px, #80a4be 0 -2px 0 0 inset;
+  color: var(--main-darken);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px, var(--main-color) 0 -2px 0 0 inset;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -1862,7 +1743,7 @@ button#add_weapon {
   border-radius: 0.4rem;
   cursor: pointer;
   transition: background-size 0.3s ease-in-out;
-  background: linear-gradient(to right, rgba(128, 164, 190, 0.58) 0%, rgba(128, 164, 190, 0.58) 100%);
+  background: linear-gradient(to right, var(--main-color) -s 0%, var(--main-color) -s 100%);
   background-color: #fff;
   background-size: 0% 100%;
   background-position: center left;
@@ -1873,7 +1754,7 @@ button#add_weapon {
 .saveslot span {
   font-family: "NEXON Lv1 Gothic OTF";
   transition: transform 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
-  color: #273c4b;
+  color: var(--main-darken);
   font-weight: 300;
 }
 .saveslot:hover, .saveslot:focus, .saveslot:has(input:checked) {
@@ -1885,7 +1766,7 @@ button#add_weapon {
   font-weight: 900;
   position: absolute;
   left: -1.5em;
-  color: #80a4be;
+  color: var(--main-color);
 }
 .saveslot:hover span, .saveslot:focus span, .saveslot:has(input:checked) span {
   transform: skew(-10deg);
@@ -1929,7 +1810,7 @@ button#add_weapon {
 #design button {
   background: transparent;
   box-shadow: none;
-  color: #80a4be;
+  color: var(--main-color);
   font-size: 1.6rem;
   padding: 0.5rem 1rem;
   border: none;
@@ -1944,7 +1825,7 @@ button#add_weapon {
 #design button:hover, #design button:focus, #design button:active {
   background: transparent;
   box-shadow: none;
-  color: #273c4b;
+  color: var(--main-darken);
 }
 
 .hide {

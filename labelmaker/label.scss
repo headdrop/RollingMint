@@ -1,16 +1,27 @@
 @import '../import';
 
 $boxBg:#D2D7DF;
-
+:root {
+  --main-color: #{$teal};
+  --main-dark: #{$tealContrast};
+  --main-darken: #{darken($tealContrast,15%)};
+  --main-light: #{$tealLight};
+  --main-light-06:#{rgba($purpleLight,0.6)};
+  --main-lighter: #{$tealLighter};
+  --sub-color:#{$purple};
+  --sub-accent-light:#{$redLighter};
+  --accent-light:#{$purpleLighter};
+  --border-color:#{$gray0d};
+}
 div.notice {
   display:block;
   text-align:center;
   font-size:1.6rem;
-  padding: 35px 15px;
-  color:$footerBg;
+  margin-bottom:2rem;
+  color:$gray04;
   i{
     font-size:1.6em;
-    color:$--c3;
+    color:var(--sub-color);
   }
 }
 div.container {
@@ -141,5 +152,6 @@ div.sp-replacer {
   #output {
     width:100%;
     margin-bottom:5px;
+    border:1px solid var(--border-color);
   }
 }
