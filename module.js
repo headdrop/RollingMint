@@ -1,5 +1,5 @@
 // fetch("https://headdrop.github.io/RollingMint/menu.html")
-fetch("/menu.html") // 테스트용
+fetch("../menu.html") // 테스트용
   .then(response => {
     return response.text()
   })
@@ -16,7 +16,7 @@ fetch("/menu.html") // 테스트용
       }
     })
   });
-fetch("/footer.html")
+fetch("https://headdrop.github.io/RollingMint/footer.html")
   .then(response => {
     return response.text();
   })
