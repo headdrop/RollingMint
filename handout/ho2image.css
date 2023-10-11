@@ -244,20 +244,26 @@ input:checked + .tabCon {
   border: none;
 }
 #insaneHO + .tabCon table {
-  display: block;
   border-collapse: collapse;
   border-spacing: 0;
   margin-bottom: 0;
+}
+#insaneHO + .tabCon table > tbody > tr {
+  display: flex;
+  align-items: stretch;
 }
 #insaneHO + .tabCon table td {
   padding: 3px;
   box-sizing: border-box !important;
   vertical-align: middle;
+  flex-grow: 1;
 }
 #insaneHO + .tabCon table td:first-child {
   border-right: solid 1px black;
   text-align: center;
-  width: 40px;
+  width: 45px;
+  flex-basis: calc(2em + 10px);
+  flex-shrink: 0;
 }
 #insaneHO + .tabCon .ho-front, #insaneHO + .tabCon .ho-back {
   display: inline-block;
@@ -275,8 +281,8 @@ input:checked + .tabCon {
 #insaneHO + .tabCon .ho-front > div:first-child {
   text-align: center;
   font-family: "IM Fell DW Pica", "Times New Roman";
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: 24px;
+  font-weight: 900;
 }
 #insaneHO + .tabCon .ho-front .ho-border {
   border: solid 3px black;
@@ -318,8 +324,8 @@ input:checked + .tabCon {
   text-align: center;
   color: white;
   font-family: "IM Fell DW Pica", "Times New Roman";
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: 24px;
+  font-weight: 900;
 }
 #insaneHO + .tabCon .ho-back .ho-border {
   border: solid 3px white;

@@ -248,17 +248,22 @@ input:checked+.tabCon {
     border:none;
   }
   table {
-    display:block;
+    >tbody>tr{
+      display:flex;
+      align-items: stretch;
+    }
     border-collapse: collapse;
     border-spacing:0;
     margin-bottom:0;
-    td{ padding : 3px; box-sizing:border-box!important;vertical-align:middle;}
+    td{ padding : 3px; box-sizing:border-box!important;vertical-align:middle;
+      flex-grow:1;}
     td:first-child {
       border-right:solid 1px black;
       text-align:center;
-      width:40px;
+      width: 45px;
+      flex-basis: calc(2em + 10px);
+      flex-shrink: 0;
     }
-
   }
   .ho-front, .ho-back {
     display:inline-block;
@@ -276,8 +281,8 @@ input:checked+.tabCon {
     >div:first-child {
       text-align:center;
       font-family:'IM Fell DW Pica','Times New Roman';
-      font-size:2rem;
-      font-weight:bold;
+      font-size:24px;
+      font-weight:900;
     }
     .ho-border {
       border: solid 3px black;
@@ -321,8 +326,8 @@ input:checked+.tabCon {
       text-align:center;
       color: white;
       font-family:'IM Fell DW Pica','Times New Roman';
-      font-size:2rem;
-      font-weight:bold;
+      font-size:24px;
+      font-weight:900;
     }
     .ho-border {
       border: solid 3px white;
