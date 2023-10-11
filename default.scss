@@ -396,15 +396,16 @@ input[type='text'] {
 }
 // ----------------- //
 
+
+
 // - MENU ----------------- //
 @import url("source/hambuger.css");
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css');
-/* https://jonsuh.com/hamburgers */
-    
 
 nav#float-menu {
   $menu-shadow:rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
   $menu-hov-shadow:rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  --f-bg:#{$lightBg}; //#efeff1
   --siz: 40px;
   $rad: 6px;
   display:flex;
@@ -413,31 +414,28 @@ nav#float-menu {
   flex-direction: column;
   gap: 5px;
   position: fixed;
-  top: 1.5rem;
-  left: 1rem;
+  top: 15px;
+  left: 10px;
   width: var(--siz);
   z-index:2;
 
   .hamburger {
-    z-index:111;
+    z-index:999;
     --siz:50px;
     width:var(--siz);
     height:var(--siz);
     border-radius:$rad;
+    box-shadow: $menu-shadow;
     background:$gray0e;
     padding:0;
     @include centerboth;
-    // padding:13px 10px 13px 10px;
     
     &-box, &-inner, &-inner:after, &-inner:before {
       width:calc(var(--siz) - 16px);
     }
   }
 
-  &>button,
-  &>.menu-box>a {
-    box-shadow: $menu-shadow;
-  }
+@media screen and (min-width: 561px) {
   .menu-box {
     display:flex;
     align-items: center;
@@ -445,13 +443,18 @@ nav#float-menu {
     flex-direction: column;
     gap: 5px;
     transform:translateX(calc(-100% - 3rem));
-    transition: transform 0.2s ease-in-out;
+    opacity:0;
+    pointer-events: none;
+    
+    transition: transform 0.2s ease-in-out, opacity 0.01s ease-in-out 0.2s;
   }
   .hamburger.is-active+.menu-box {
     transform:translateX(0);
+    opacity:1;
+    pointer-events: auto;
+    transition-delay: 0.2s, 0s;
   }
   a {
-    --f-bg:#{$lightBg}; //#efeff1
     display: flex;
     align-items: center;
     position: relative;
@@ -465,6 +468,7 @@ nav#float-menu {
     text-decoration:none;
     outline:none;
     transition: all 0.2s ease-in-out;
+    box-shadow: $menu-shadow;
 
     i {
       color:$gray09;
@@ -499,6 +503,7 @@ nav#float-menu {
       
       background:var(--f-bg);
       border-radius: 5px;
+      pointer-events: none;
       transition: all 0.2s ease-in-out;
     }
     &:before {
@@ -507,6 +512,7 @@ nav#float-menu {
       position:absolute;
       right:-14px;
       opacity:0;
+      pointer-events: none;
       transition: opacity 0.2s ease-in-out;
     }
     &:hover, &:focus, &:active {
@@ -515,45 +521,117 @@ nav#float-menu {
       i{color:var(--main-lighter);}
       &::before {
         opacity:1;
+        pointer-events:auto;
       }
       &::after {
         opacity:1;
         padding:6px 10px 4px 10px;
         box-shadow: $menu-shadow;
+        pointer-events:auto;
       }
     }
     &:focus::after {
       background:linear-gradient(to right, var(--f-bg) 0%, var(--f-bg) calc(100% - 5px), var(--main-color) calc(100% - 5px));
     }
   }
-
-  .hamburger ~ a {
-    pointer-events: none;
-    opacity:0;
-    box-shadow:none;
-  }
-  .hamburger.is-active ~a {
-    pointer-events: unset;
-    transform:translateY(0);
-    opacity: 1;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-  }
-
-  // .hamburger-inner,
-  // .hamburger-inner:after,
-  // .hamburger-inner:before {
-  //   width: 30px;
-  //   height: 4px;
-  //   background:$lightBg;
-  // }
-}
-nav#float-menu {
   &:has(a:hover,a:focus) a:not(a:hover, a:focus) {
     filter: blur(3px);
-    // transition-delay:0.1s;
   }
 }
 
+
+@media screen and (max-width: 560px) {
+  --f-bg: #{$lightBg};
+  .menu-box {
+    display:flex;
+    flex-direction: column;
+    gap:1.2rem;
+    z-index:998;
+    position:fixed;
+    width:100vw;
+    height:calc(100vh + 15px);
+    left:0;
+    top:-15px;
+    padding-top: calc(30px + 50px + 20px);
+    padding: 120px 2rem 2rem 2rem; 
+    background:var(--f-bg);
+    transform:translateX(calc(-100% - 3rem));
+    pointer-events: none;
+    transition: transform 0.3s;
+  }
+  .hamburger.is-active+.menu-box {
+    transform:translateX(0);
+    pointer-events:auto;
+  }
+  .menu-box>a {
+    --menu-color: var(--f-bg);
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding:1rem;
+    
+    color:$gray07;
+    border-radius: $rad;
+    font-size: 2.6rem;
+
+    z-index: 1;
+
+    text-decoration:none;
+    outline:none;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    
+    &:nth-child(5), &:nth-child(6), &:nth-child(7), &:nth-child(8) {
+      &:hover, &:active, &:focus {
+        color:var(--main-color);
+      }
+    }
+    &:nth-child(1), &:nth-child(2), &:nth-child(3), &:nth-child(4) {
+      color:#fff;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+      background-color:$footerBg;
+      background-image:linear-gradient(to right, var(--menu-color) 0%, var(--menu-color) 100%);
+      background-size: calc(var(--siz) + 2rem) 100%;
+      background-position:left;
+      background-repeat:no-repeat;
+      &:hover, &:active, &:focus {
+        background-image:linear-gradient(to right, var(--menu-color) 0%, var(--menu-color) 100%);
+        transform:scale(1.11);
+        box-shadow: 0 0 10px 0px var(--menu-color);
+        background-size:100% 100%;
+      }
+    }
+    &:nth-child(1) {--menu-color: #{$red};}
+    &:nth-child(2) {--menu-color:#{darken($yellow,15%)}}
+    &:nth-child(3) {--menu-color:#{darken($green,7%)}}
+    &:nth-child(4) {--menu-color:#{$blue}}
+
+    i {
+      width:var(--siz);
+      @include centerboth;
+      flex-shrink: 0;
+    }
+    
+    &:nth-child(1), &:nth-child(2), &:nth-child(3), &:nth-child(4){
+      i{font-size:32px}
+    }
+    &:nth-child(1)>i {color:$redLighter}
+    &:nth-child(2)>i {color:$yellowLighter}
+    &:nth-child(3)>i {color:$greenLighter}
+    &:nth-child(4)>i {color:$blueLighter}
+
+    &::after {
+      content:attr(title);
+      font-family: 'NEXON Lv1 Gothic OTF';
+      font-size:2rem;
+      align-items: center;
+      margin-left:2rem;
+      font-weight:bolder;
+      left:0px;
+    }
+  }
+}
+}
 // ----------//
 
 /* modal */
@@ -578,6 +656,9 @@ nav#float-menu {
   backdrop-filter:blur(5px);
   cursor: pointer;
 }
-
-
-
+@media screen and (max-width: 560px) {
+  html:has(.hamburger.is-active) {
+    overflow:hidden;
+  }
+  
+}
