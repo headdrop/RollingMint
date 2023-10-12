@@ -470,6 +470,7 @@ nav#float-menu .hamburger.update.is-active .hamburger-box {
 }
 @media screen and (min-width: 561px) {
   nav#float-menu .update-desc {
+    opacity: 0.6;
     width: 36rem;
     position: fixed;
     top: 15px;
@@ -479,7 +480,7 @@ nav#float-menu .hamburger.update.is-active .hamburger-box {
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease-in-out;
   }
   nav#float-menu .update-desc:hover {
-    opacity: 0.4;
+    opacity: 1;
   }
   nav#float-menu .update.hamburger.is-active + .update-desc {
     transform: translateX(0);

@@ -522,8 +522,9 @@ nav#float-menu {
 
 @media screen and (min-width: 561px) {
   .update-desc {
+    opacity:0.6;
     &:hover {
-      opacity:0.4;
+      opacity:1;
     }
     width:36rem;
     position: fixed;
