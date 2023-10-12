@@ -29,6 +29,9 @@ body {
   margin: 0;
   height: calc(100vh - 60px);
 }
+body::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
 
 #wrapper {
   height: auto;
@@ -74,7 +77,7 @@ footer a {
   margin-right: 4px;
   text-decoration: none;
   color: rgba(255, 255, 255, 0.7);
-  transition: all 0.3s ease-in-out;
+  transition: color 0.3s ease-in-out;
 }
 footer svg {
   fill: rgba(255, 255, 255, 0.8);
@@ -83,7 +86,7 @@ footer svg {
 footer a:hover svg,
 footer a:active svg,
 footer a:focus svg {
-  fill: #C0DEC7;
+  fill: var(--main-color);
 }
 footer h4 {
   margin: 0;
@@ -352,6 +355,43 @@ input[type=text]:focus {
     opacity: 1;
   }
 }
+.update-desc {
+  background-color: #fff;
+  margin-bottom: 2rem;
+  border-radius: 4px;
+}
+.update-desc .desc-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  font-size: 1.4rem;
+  padding: 0.5rem 1.4rem;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+  background: var(--menu-color);
+}
+.update-desc .desc-title .desc-version:before {
+  content: "v ";
+}
+.update-desc .desc-title::before {
+  content: attr(data-title);
+  position: absolute;
+  left: 4px;
+  bottom: calc(100% - 0.6rem);
+  font-size: 2rem;
+  font-family: "NEXON Lv1 Gothic OTF Bold";
+  font-weight: 700;
+  color: var(--menu-color);
+}
+.update-desc .desc-content {
+  font-family: "NEXON Lv1 Gothic OTF";
+  color: #36373d;
+  padding: 1rem 1.4rem;
+  font-size: 1.4rem;
+  line-height: 1.4;
+}
+
 nav#float-menu {
   --f-bg:#efeff1;
   --siz: 40px;
@@ -366,7 +406,20 @@ nav#float-menu {
   width: var(--siz);
   z-index: 2;
 }
+nav#float-menu .color-1 {
+  --menu-color: #cc5c52;
+}
+nav#float-menu .color-2 {
+  --menu-color: #dbac24;
+}
+nav#float-menu .color-3 {
+  --menu-color: #97a570;
+}
+nav#float-menu .color-4 {
+  --menu-color: #80a4be;
+}
 nav#float-menu .hamburger {
+  --hamburger-color:#4b4b4b;
   z-index: 999;
   --siz:50px;
   width: var(--siz);
@@ -382,7 +435,55 @@ nav#float-menu .hamburger {
 nav#float-menu .hamburger-box, nav#float-menu .hamburger-inner, nav#float-menu .hamburger-inner:after, nav#float-menu .hamburger-inner:before {
   width: calc(var(--siz) - 16px);
 }
+nav#float-menu .hamburger .hamburger-inner, nav#float-menu .hamburger .hamburger-inner::after, nav#float-menu .hamburger .hamburger-inner::before {
+  background-color: var(--hamburger-color);
+}
+nav#float-menu .hamburger.update {
+  position: fixed;
+  right: 10px;
+  overflow: hidden;
+}
+nav#float-menu .hamburger.update i {
+  color: var(--hamburger-color);
+  font-size: 26px;
+  flex-shrink: 0;
+  transition: all 0.1s ease-in-out 0.3s;
+}
+nav#float-menu .hamburger.update i.fa-bullhorn ~ span {
+  display: inline-block;
+  height: 4px;
+  width: calc(var(--siz) - 16px);
+  position: absolute;
+  top: 10px;
+  right: 150px;
+  background-color: var(--hamburger-color);
+  transform: rotate(45deg);
+}
+nav#float-menu .hamburger.update i.fa-bullhorn ~ span:first-of-type {
+  transform: rotate(-45deg);
+}
+nav#float-menu .hamburger.update .hamburger-box {
+  transition: transform 0.55s 0.075s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+nav#float-menu .hamburger.update.is-active .hamburger-box {
+  transform: translateX(150px);
+}
 @media screen and (min-width: 561px) {
+  nav#float-menu .update-desc {
+    width: 36rem;
+    position: fixed;
+    top: 15px;
+    right: 70px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    transform: translateX(calc(100% + 80px));
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease-in-out;
+  }
+  nav#float-menu .update-desc:hover {
+    opacity: 0.4;
+  }
+  nav#float-menu .update.hamburger.is-active + .update-desc {
+    transform: translateX(0);
+  }
   nav#float-menu .menu-box {
     display: flex;
     align-items: center;
@@ -495,6 +596,22 @@ nav#float-menu .hamburger-box, nav#float-menu .hamburger-inner, nav#float-menu .
   nav#float-menu {
     --f-bg: #efeff1;
   }
+  nav#float-menu .hamburger.update {
+    display: none;
+  }
+  nav#float-menu .update-desc {
+    z-index: 999;
+    width: calc(100vw - 4rem);
+    margin: 1rem;
+    position: relative;
+    top: 52rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    transform: translateX(calc(-100% - 4rem));
+    transition: transform 0.3s;
+  }
+  nav#float-menu .hamburger.is-active:not(.update) ~ .update-desc {
+    transform: translateX(0);
+  }
   nav#float-menu .menu-box {
     display: flex;
     flex-direction: column;
@@ -517,7 +634,6 @@ nav#float-menu .hamburger-box, nav#float-menu .hamburger-inner, nav#float-menu .
     pointer-events: auto;
   }
   nav#float-menu .menu-box > a {
-    --menu-color: var(--f-bg);
     display: flex;
     align-items: center;
     position: relative;
@@ -528,7 +644,8 @@ nav#float-menu .hamburger-box, nav#float-menu .hamburger-inner, nav#float-menu .
     z-index: 1;
     text-decoration: none;
     outline: none;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition-property: background, color, transform;
   }
   nav#float-menu .menu-box > a:nth-child(5):hover, nav#float-menu .menu-box > a:nth-child(5):active, nav#float-menu .menu-box > a:nth-child(5):focus, nav#float-menu .menu-box > a:nth-child(6):hover, nav#float-menu .menu-box > a:nth-child(6):active, nav#float-menu .menu-box > a:nth-child(6):focus, nav#float-menu .menu-box > a:nth-child(7):hover, nav#float-menu .menu-box > a:nth-child(7):active, nav#float-menu .menu-box > a:nth-child(7):focus, nav#float-menu .menu-box > a:nth-child(8):hover, nav#float-menu .menu-box > a:nth-child(8):active, nav#float-menu .menu-box > a:nth-child(8):focus {
     color: var(--main-color);
@@ -547,18 +664,6 @@ nav#float-menu .hamburger-box, nav#float-menu .hamburger-inner, nav#float-menu .
     transform: scale(1.11);
     box-shadow: 0 0 10px 0px var(--menu-color);
     background-size: 100% 100%;
-  }
-  nav#float-menu .menu-box > a:nth-child(1) {
-    --menu-color: #cc5c52;
-  }
-  nav#float-menu .menu-box > a:nth-child(2) {
-    --menu-color:#dbac24;
-  }
-  nav#float-menu .menu-box > a:nth-child(3) {
-    --menu-color:#97a570;
-  }
-  nav#float-menu .menu-box > a:nth-child(4) {
-    --menu-color:#80a4be;
   }
   nav#float-menu .menu-box > a i {
     width: var(--siz);
