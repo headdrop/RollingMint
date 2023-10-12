@@ -30,13 +30,6 @@ $footerH : 60px;
 body {
   margin: 0;
   height: calc(100vh - 60px);
-  
-  &::-webkit-scrollbar{
-    // background:transparent;
-    &-track-piece {
-      background:transparent;
-    }
-  }
 }
 
 #wrapper {
@@ -772,7 +765,7 @@ nav#float-menu {
   cursor: pointer;
 }
 @media screen and (max-width: 560px) {
-  html:has(.hamburger.is-active) {
+  html:has(.hamburger.is-active:not(.update)) {
     overflow:hidden;
   }
   

@@ -29,9 +29,6 @@ body {
   margin: 0;
   height: calc(100vh - 60px);
 }
-body::-webkit-scrollbar-track-piece {
-  background: transparent;
-}
 
 #wrapper {
   height: auto;
@@ -724,7 +721,7 @@ nav#float-menu .hamburger.update.is-active .hamburger-box {
 }
 
 @media screen and (max-width: 560px) {
-  html:has(.hamburger.is-active) {
+  html:has(.hamburger.is-active:not(.update)) {
     overflow: hidden;
   }
 }
