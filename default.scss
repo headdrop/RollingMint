@@ -35,7 +35,6 @@ body {
 #wrapper {
   height: auto;
   min-height: 100%;
-  //padding-bottom: $footerH;
 }
 .top {
   padding: 0px 20px;
@@ -55,7 +54,50 @@ body {
   
 }
 
-footer {
+footer{
+  .sponsor {
+    background:#fff;
+    padding-top:2rem;
+    padding-bottom:2rem;
+    font-size:1.4rem;
+    text-align: center;
+    div:last-child {
+      display:inline-block;
+      position: relative;
+      margin-top:0.6rem;
+      background:$gray0e;
+      font-size:1.6rem;
+      border-radius: 5px;
+      overflow:hidden;
+      box-shadow:$btnShadow;
+      span {
+        display:inline-block;
+      }
+      span:first-child {
+        background:var(--main-color);
+        color:#fff;
+        padding: 5px 1em;
+      }
+      a {
+        display:inline-block;
+        padding: 5px 10px;
+        cursor: pointer;
+        color:$gray04;
+        text-decoration: none!important;
+        transition: all 0.2s ease-in-out;
+        
+        &:visited {
+          color:$gray04;
+        }
+        &:hover, &:focus, &:active {
+          color:var(--main-dark);
+          background:rgba(255,255,255,0.5);
+        }
+      }
+    }
+  }
+  
+.footer {
   height: $footerH;
   position: relative;
 
@@ -102,16 +144,17 @@ footer {
     font-size: 1.5rem;
   }
 }
+}
 
 @media screen and (max-width: 350px) {
-  footer {
+  footer>.footer {
     flex-direction: column;
     align-items: center;
     padding: 4px  0 0 0;
     justify-content: center;
   }
 
-  footer div * {
+  footer>.footer div * {
     text-align: left;
   }
 }

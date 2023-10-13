@@ -49,7 +49,47 @@ body {
   text-shadow: 1px 1px 0 #adccc5, 3px 3px 0 #adccc5, 5px 5px 0 #adccc5, 7px 7px 0 #adccc5, 9px 9px 0 #adccc5;
 }
 
-footer {
+footer .sponsor {
+  background: #fff;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  font-size: 1.4rem;
+  text-align: center;
+}
+footer .sponsor div:last-child {
+  display: inline-block;
+  position: relative;
+  margin-top: 0.6rem;
+  background: #e9e9ef;
+  font-size: 1.6rem;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+footer .sponsor div:last-child span {
+  display: inline-block;
+}
+footer .sponsor div:last-child span:first-child {
+  background: var(--main-color);
+  color: #fff;
+  padding: 5px 1em;
+}
+footer .sponsor div:last-child a {
+  display: inline-block;
+  padding: 5px 10px;
+  cursor: pointer;
+  color: #4b4a4d;
+  text-decoration: none !important;
+  transition: all 0.2s ease-in-out;
+}
+footer .sponsor div:last-child a:visited {
+  color: #4b4a4d;
+}
+footer .sponsor div:last-child a:hover, footer .sponsor div:last-child a:focus, footer .sponsor div:last-child a:active {
+  color: var(--main-dark);
+  background: rgba(255, 255, 255, 0.5);
+}
+footer .footer {
   height: 60px;
   position: relative;
   display: flex;
@@ -61,44 +101,44 @@ footer {
   justify-content: space-around;
   color: rgba(255, 255, 255, 0.8);
 }
-footer p {
+footer .footer p {
   margin: 5px 0;
 }
-footer div:first-child {
+footer .footer div:first-child {
   height: 24px;
 }
-footer div:last-child {
+footer .footer div:last-child {
   text-align: right;
 }
-footer a {
+footer .footer a {
   margin-right: 4px;
   text-decoration: none;
   color: rgba(255, 255, 255, 0.7);
   transition: color 0.3s ease-in-out;
 }
-footer svg {
+footer .footer svg {
   fill: rgba(255, 255, 255, 0.8);
   transition: all 0.3s ease-in-out;
 }
-footer a:hover svg,
-footer a:active svg,
-footer a:focus svg {
+footer .footer a:hover svg,
+footer .footer a:active svg,
+footer .footer a:focus svg {
   fill: var(--main-color);
 }
-footer h4 {
+footer .footer h4 {
   margin: 0;
   font-weight: bolder;
   font-size: 1.5rem;
 }
 
 @media screen and (max-width: 350px) {
-  footer {
+  footer > .footer {
     flex-direction: column;
     align-items: center;
     padding: 4px 0 0 0;
     justify-content: center;
   }
-  footer div * {
+  footer > .footer div * {
     text-align: left;
   }
 }
