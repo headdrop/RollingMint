@@ -545,53 +545,176 @@ h3 {
 }
 
 
-
 .preview-box {
-  display:flex;
   position:relative;
-  gap:10px;
-  margin-bottom:2rem;
-  p {
+  display:grid;
+  // gap:1rem;
+  grid-template:auto  / 1fr 1fr;
+  grid-template-areas:
+    "h2 h2"
+    "a b"
+    "c tooltip"
+    "log log"
+    "p p";
+  h2 {
+    grid-area:h2;
+  }
+  .preview-setting {
     display:flex;
     align-items: center;
+    gap:0.3rem;
     margin-block:0;
-    font-size: 1.5rem;
-    color:$btnHovReset;
-    font-family:'NEXON Lv1 Gothic OTF';
-    line-height:1em;
+    padding:0.5rem 0;
+    font-size: 1.6rem;
+    color:$gray07;
     input.ckbx{
       flex-shrink: 0;
       margin-right: 0.5rem;
     }
-    &:hover, &:focus, &:active {
+    @mixin tooltip {
+      display:block;
+      
+      position: absolute;
+      width:100%;
+      max-width:600px;
+      word-break: keep-all;
+      line-height:1.4;
+      font-size:1.4rem;
+    }
+    &:hover, &:has(:focus), &:active {
       &+tooltip {
-        display:block;
-        position: absolute;
-        bottom:100%;
-        right:0;
-        width:80%;
-        max-width:600px;
+        @include tooltip;
+        grid-area:tooltip;
+        top:0;
+        left:0;
+      }
+    }
+    &:has(#autosave-slot){
+      position:sticky;
+      top:0px;
+      margin-right:-100%;
+      z-index:1;
+      background:#fff;
+      &:hover, &:has(:focus), &:active {
+        tooltip {
+          @include tooltip;
+          top:0;
+          left:50%;
+          width:50%;
+        }
+      }
+      &:after {
+        content:"";
       }
     }
   }
-  
+  .preview-setting:has(:disabled) {
+    cursor: not-allowed;
+    color: $gray07;
+    >span{
+      text-decoration: line-through;
+    }
+  }
+  button{
+    margin:0;
+    padding-right: 1em;
+    padding-left: 1em;
+    position: relative;
+    @include centerboth;
+    &::after {
+      position:absolute;
+      top:calc(100% + 1rem);
+      background:$footerBg;
+      border-radius: 4px;
+      padding: 0.6rem;
+      min-width:10rem;
+      width:max-content;
+      text-align:left;
+      font-size:1.3rem;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease-in-out;
+    }
+  }
+}
+@mixin buttonTooltip ($content) {
+  &::after {
+    content:$content;
+  }
+  &:focus, &:hover, &:active {
+    &::after {
+      opacity:1;
+    }
+  }
+}
+#autosave-save{
+  @include buttonTooltip("현재 편집 중인 로그를 수동으로 저장됩니다");
+}
+#autosave-load{
+  @include buttonTooltip("브라우저에 저장된 로그를 불러옵니다");
+}
+#autosave-delete {
+  @include buttonTooltip("브라우저에 저장된 로그를 삭제합니다");
+}
+#autosave-slot {
+  $siz:2.4rem;
+  width:$siz;height:$siz;
+  margin-left:2rem;
+  display:inline-block;
+  position: relative;
+  border-radius: 5px;
+  background:transparent;
+  border: 1px solid $gray09;
+  overflow:hidden;
+  transition:all 0.2s ease-in-out;
+  &:not(.slot-is-full) {
+    box-shadow: rgba(0,0,0,0.08) 0 0 18px inset;
+    ~ #autosave-load, ~ #autosave-remove {
+      background:$gray09;
+      pointer-events:none;
+    }
+  }
+  &.slot-is-full {
+    border:none;
+    background:$blue;
+    box-shadow:rgba($blueContrast,0.3) 0 1px 10px, $btnShadow;
+  }
 }
 @media screen and (max-width: 767px) {
   .preview-box {
-    flex-direction: column;
+    grid-template-columns: auto;
+    grid-template-areas:
+      "h2"
+      "a"
+      "b"
+      "c"
+      "tooltip"
+      "log"
+      "p";
+      .preview-setting:has(#autosave-slot){
+        margin:0;
+        &:hover, &:has(:focus), &:active {
+          tooltip {
+            width:100%;
+            top:100%;
+            left:0;
+      }}}
   }
 }
 
+
 #log-content {
-  //display: none;
-  overflow-y:clip;
-  position:relative;
   +p {
+    grid-area:p;
     font-size: 1.5rem;
     line-height: 2.5rem;
     color:$btnHovReset;
     font-family:'NEXON Lv1 Gothic OTF';
   }
+  grid-area:log;
+  //display: none;
+  overflow-y:clip;
+  position:relative;
   .delete-message-btn {
     @include centerboth;
     position:absolute;
@@ -650,6 +773,10 @@ hr {
 }
 .global-setting {
   flex-basis: 250px;
+  tooltip {
+    margin: 0 0 10px -10px;
+    width: calc(100% + 20px);
+  }
 }
 .glo-option {
   position:relative;
@@ -688,8 +815,6 @@ tooltip {
   font-size:1.3rem;
   line-height: 1.6rem;
   padding:4px 5px 4px 8px;
-  margin: 0 0 10px -10px;
-  width: calc(100% + 20px);
   z-index:10;
   box-shadow: 0 1px 2px rgba(0,0,0,0.07), 
   0 2px 4px rgba(0,0,0,0.07), 

@@ -32,6 +32,29 @@ $(function () {
   $(".modal-content .modal-close, #modal-submit, #modal-reset,.modal-layer, #preview-modal").on("click",()=>modaltog());
   document.getElementById("css-modal-openbtn").addEventListener("click",()=>modaltog("#css-modal"));
 
+  // 자동저장 관련
+  if(localStorage.log) { // 슬롯 체크
+    document.getElementById("autosave-slot").classList.add("slot-is-full");
+  }
+  document.getElementById("autosave").addEventListener("change",()=>{ // 자동저장 체크
+      const interval = 30000;
+      let timeid = setTimeout(function cbFn( ){
+        if(document.getElementById("autosave").checked) {
+          console.log("자동저장 중 ...")
+          autoSave();
+        setTimeout(cbFn, interval);
+        } else {
+          clearTimeout(timeid);
+          console.log("자동저장 종료");
+        }
+      }, interval);
+  });
+  // 자동저장 버튼들
+  document.getElementById("autosave-save").addEventListener("click",autoSave);
+  document.getElementById("autosave-load").addEventListener("click",slotLoad);
+  document.getElementById("autosave-remove").addEventListener("click",slotRemove);
+
+
 
   //에디터로 복사
   document.querySelector("#log-copy").addEventListener('click',()=>{
@@ -118,7 +141,6 @@ function logModify () {
   document.querySelectorAll("#log-content .hidden-message").forEach(function(item){
     if (item.querySelector(".avatar")) {
       let by = item.querySelectorAll(".spacer,.avatar,.tstamp,.by");
-      console.log(by);
       item.nextSibling.prepend(by[3]);
       item.nextSibling.prepend(by[2]);
       item.nextSibling.prepend(by[1]);
@@ -550,6 +572,7 @@ function checkOpt() { // 체크박스
 }
 
 function checkPreview() {
+  const disableis = !$("#preview-max-height").is(":checked");
   if ($("#preview-max-height").is(":checked")) { // max height 미지정 + 삭제 아이콘과 기능 추가
     document.getElementById("log-content").style.maxHeight="unset";
 
@@ -561,19 +584,24 @@ function checkPreview() {
     for (messageItem of logList) {
       const deleteButton = DIV.cloneNode(true);
       messageItem.appendChild(deleteButton);
-      deleteButton.addEventListener("click",function(e) {
-        const w = confirm('해당 줄을 삭제합니다. 이 작업은 취소할 수 없습니다.\n정말로 삭제하나요?');
-          if (w && e.target.nodeName=="I") {
-            e.target.parentElement.parentElement.remove();
-          } else if (w && e.target.nodeName=="DIV") {
-            e.target.parentElement.remove();
-          } else {
-      }});
+      deleteButton.addEventListener("click",messageRemove);
     }
-    
   } else {
+    document.getElementById("preview-editable").checked=false;
+    document.getElementById("autosave").checked=false;
     document.getElementById("log-content").style.maxHeight="200px";
     $(".delete-message-btn").remove();
+  }
+  $("#preview-editable").prop("disabled",disableis);
+  $("#autosave").prop("disabled",disableis);
+}
+function messageRemove(e) {
+  const w = confirm('해당 줄을 삭제합니다. 이 작업은 취소할 수 없습니다.\n정말로 삭제하나요?');
+  if (w && e.target.nodeName=="I") {
+    e.target.parentElement.parentElement.remove();
+  } else if (w && e.target.nodeName=="DIV") {
+    e.target.parentElement.remove();
+  } else {
   }
 }
 
@@ -757,4 +785,34 @@ function makeGlobalCP(type, target, option) {
       }
     });
   }
+}
+
+// - 자동저장 --------------------------------------
+// - 자동저장이 체크되어 있으면 1분마다 저장
+function autoSave () {
+  const content = document.getElementById("log-content").innerHTML;
+  var exLog;
+  if(localStorage.log) {
+    exLog = localStorage.getItem("log");
+  }
+  localStorage.setItem("log", content);
+  if(localStorage.log) {
+    document.getElementById("autosave-slot").classList.add("slot-is-full");
+    console.log("저장일시: "+new Date().toLocaleString());
+  } else {
+    alert("편집 중인 로그가 없습니다.");
+    localStorage.log = exLog;
+  }
+}
+function slotLoad () {
+  const content = localStorage.getItem("log");
+  document.getElementById("log-content").innerHTML = content;
+  document.getElementById("log-content").querySelectorAll(".delete-message-btn").forEach((item)=>item.addEventListener("click",messageRemove));
+}
+function slotRemove () {
+  if (localStorage.log) {
+    localStorage.removeItem("log");
+    document.getElementById("autosave-slot").classList.remove("slot-is-full");
+  } else {alert("저장된 내용이 없습니다.")}
+
 }

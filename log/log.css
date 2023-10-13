@@ -577,43 +577,160 @@ h3 {
 }
 
 .preview-box {
-  display: flex;
   position: relative;
-  gap: 10px;
-  margin-bottom: 2rem;
+  display: grid;
+  grid-template: auto/1fr 1fr;
+  grid-template-areas: "h2 h2" "a b" "c tooltip" "log log" "p p";
 }
-.preview-box p {
+.preview-box h2 {
+  grid-area: h2;
+}
+.preview-box .preview-setting {
   display: flex;
   align-items: center;
+  gap: 0.3rem;
   margin-block: 0;
-  font-size: 1.5rem;
-  color: #9c9c9c;
-  font-family: "NEXON Lv1 Gothic OTF";
-  line-height: 1em;
+  padding: 0.5rem 0;
+  font-size: 1.6rem;
+  color: #727075;
 }
-.preview-box p input.ckbx {
+.preview-box .preview-setting input.ckbx {
   flex-shrink: 0;
   margin-right: 0.5rem;
 }
-.preview-box p:hover + tooltip, .preview-box p:focus + tooltip, .preview-box p:active + tooltip {
+.preview-box .preview-setting:hover + tooltip, .preview-box .preview-setting:has(:focus) + tooltip, .preview-box .preview-setting:active + tooltip {
   display: block;
   position: absolute;
-  bottom: 100%;
-  right: 0;
-  width: 80%;
+  width: 100%;
   max-width: 600px;
+  word-break: keep-all;
+  line-height: 1.4;
+  font-size: 1.4rem;
+  grid-area: tooltip;
+  top: 0;
+  left: 0;
+}
+.preview-box .preview-setting:has(#autosave-slot) {
+  position: sticky;
+  top: 0px;
+  margin-right: -100%;
+  z-index: 1;
+  background: #fff;
+}
+.preview-box .preview-setting:has(#autosave-slot):hover tooltip, .preview-box .preview-setting:has(#autosave-slot):has(:focus) tooltip, .preview-box .preview-setting:has(#autosave-slot):active tooltip {
+  display: block;
+  position: absolute;
+  width: 100%;
+  max-width: 600px;
+  word-break: keep-all;
+  line-height: 1.4;
+  font-size: 1.4rem;
+  top: 0;
+  left: 50%;
+  width: 50%;
+}
+.preview-box .preview-setting:has(#autosave-slot):after {
+  content: "";
+}
+.preview-box .preview-setting:has(:disabled) {
+  cursor: not-allowed;
+  color: #727075;
+}
+.preview-box .preview-setting:has(:disabled) > span {
+  text-decoration: line-through;
+}
+.preview-box button {
+  margin: 0;
+  padding-right: 1em;
+  padding-left: 1em;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.preview-box button::after {
+  position: absolute;
+  top: calc(100% + 1rem);
+  background: #4b4b4b;
+  border-radius: 4px;
+  padding: 0.6rem;
+  min-width: 10rem;
+  width: -moz-max-content;
+  width: max-content;
+  text-align: left;
+  font-size: 1.3rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+#autosave-save::after {
+  content: "현재 편집 중인 로그를 수동으로 저장됩니다";
+}
+#autosave-save:focus::after, #autosave-save:hover::after, #autosave-save:active::after {
+  opacity: 1;
+}
+
+#autosave-load::after {
+  content: "브라우저에 저장된 로그를 불러옵니다";
+}
+#autosave-load:focus::after, #autosave-load:hover::after, #autosave-load:active::after {
+  opacity: 1;
+}
+
+#autosave-delete::after {
+  content: "브라우저에 저장된 로그를 삭제합니다";
+}
+#autosave-delete:focus::after, #autosave-delete:hover::after, #autosave-delete:active::after {
+  opacity: 1;
+}
+
+#autosave-slot {
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-left: 2rem;
+  display: inline-block;
+  position: relative;
+  border-radius: 5px;
+  background: transparent;
+  border: 1px solid #9b959d;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+}
+#autosave-slot:not(.slot-is-full) {
+  box-shadow: rgba(0, 0, 0, 0.08) 0 0 18px inset;
+}
+#autosave-slot:not(.slot-is-full) ~ #autosave-load, #autosave-slot:not(.slot-is-full) ~ #autosave-remove {
+  background: #9b959d;
+  pointer-events: none;
+}
+#autosave-slot.slot-is-full {
+  border: none;
+  background: #80a4be;
+  box-shadow: rgba(78, 121, 151, 0.3) 0 1px 10px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 }
 
 @media screen and (max-width: 767px) {
   .preview-box {
-    flex-direction: column;
+    grid-template-columns: auto;
+    grid-template-areas: "h2" "a" "b" "c" "tooltip" "log" "p";
+  }
+  .preview-box .preview-setting:has(#autosave-slot) {
+    margin: 0;
+  }
+  .preview-box .preview-setting:has(#autosave-slot):hover tooltip, .preview-box .preview-setting:has(#autosave-slot):has(:focus) tooltip, .preview-box .preview-setting:has(#autosave-slot):active tooltip {
+    width: 100%;
+    top: 100%;
+    left: 0;
   }
 }
 #log-content {
+  grid-area: log;
   overflow-y: clip;
   position: relative;
 }
 #log-content + p {
+  grid-area: p;
   font-size: 1.5rem;
   line-height: 2.5rem;
   color: #9c9c9c;
@@ -686,6 +803,10 @@ hr {
 .global-setting {
   flex-basis: 250px;
 }
+.global-setting tooltip {
+  margin: 0 0 10px -10px;
+  width: calc(100% + 20px);
+}
 
 .glo-option {
   position: relative;
@@ -720,8 +841,6 @@ tooltip {
   font-size: 1.3rem;
   line-height: 1.6rem;
   padding: 4px 5px 4px 8px;
-  margin: 0 0 10px -10px;
-  width: calc(100% + 20px);
   z-index: 10;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07), 0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07), 0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
   transform-origin: left top;
