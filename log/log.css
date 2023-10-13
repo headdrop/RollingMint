@@ -678,10 +678,10 @@ h3 {
   opacity: 1;
 }
 
-#autosave-delete::after {
+#autosave-remove::after {
   content: "브라우저에 저장된 로그를 삭제합니다";
 }
-#autosave-delete:focus::after, #autosave-delete:hover::after, #autosave-delete:active::after {
+#autosave-remove:focus::after, #autosave-remove:hover::after, #autosave-remove:active::after {
   opacity: 1;
 }
 

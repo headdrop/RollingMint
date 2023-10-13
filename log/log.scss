@@ -653,7 +653,7 @@ h3 {
 #autosave-load{
   @include buttonTooltip("브라우저에 저장된 로그를 불러옵니다");
 }
-#autosave-delete {
+#autosave-remove {
   @include buttonTooltip("브라우저에 저장된 로그를 삭제합니다");
 }
 #autosave-slot {
