@@ -20,7 +20,6 @@ html {
   margin: 0;
   font-size: 10px;
 }
-
 * {
   font-family: 'Pretendard';
   box-sizing: border-box;
@@ -36,7 +35,6 @@ body {
 #wrapper {
   height: auto;
   min-height: 100%;
-  //padding-bottom: $footerH;
 }
 .top {
   padding: 0px 20px;
@@ -56,10 +54,52 @@ body {
   
 }
 
-footer {
+footer{
+  .sponsor {
+    background:#fff;
+    padding-top:2rem;
+    padding-bottom:2rem;
+    font-size:1.4rem;
+    text-align: center;
+    div:last-child {
+      display:inline-block;
+      position: relative;
+      margin-top:0.6rem;
+      background:$gray0e;
+      font-size:1.6rem;
+      border-radius: 5px;
+      overflow:hidden;
+      box-shadow:$btnShadow;
+      span {
+        display:inline-block;
+      }
+      span:first-child {
+        background:var(--main-color);
+        color:#fff;
+        padding: 5px 1em;
+      }
+      a {
+        display:inline-block;
+        padding: 5px 10px;
+        cursor: pointer;
+        color:$gray04;
+        text-decoration: none!important;
+        transition: all 0.2s ease-in-out;
+        
+        &:visited {
+          color:$gray04;
+        }
+        &:hover, &:focus, &:active {
+          color:var(--main-dark);
+          background:rgba(255,255,255,0.5);
+        }
+      }
+    }
+  }
+  
+.footer {
   height: $footerH;
   position: relative;
-  //transform : translateY(-100%);
 
   display: flex;
   width: 100%;
@@ -84,7 +124,7 @@ footer {
     margin-right: 4px;
     text-decoration: none;
     color: rgba(255, 255, 255, 0.7);
-    transition: all 0.3s ease-in-out;
+    transition: color 0.3s ease-in-out;
   }
 
   svg {
@@ -95,7 +135,7 @@ footer {
   a:hover svg,
   a:active svg,
   a:focus svg {
-    fill: #C0DEC7;
+    fill: var(--main-color);
   }
 
   h4 {
@@ -104,16 +144,17 @@ footer {
     font-size: 1.5rem;
   }
 }
+}
 
 @media screen and (max-width: 350px) {
-  footer {
+  footer>.footer {
     flex-direction: column;
     align-items: center;
     padding: 4px  0 0 0;
     justify-content: center;
   }
 
-  footer div * {
+  footer>.footer div * {
     text-align: left;
   }
 }
@@ -396,9 +437,50 @@ input[type='text'] {
 }
 // ----------------- //
 
+// - UPDATE 공통부분 - //
+.update-desc {
+  $rad:4px;
+  background-color: #fff;
+  margin-bottom:2rem;
+  border-radius: $rad;
+  $pad-side:1.4rem;
+  .desc-title {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    color:#fff;
+    
+    font-size:1.4rem;
+    padding: 0.5rem $pad-side;
+    border-top-right-radius: $rad;
+    border-top-left-radius: $rad;
+    background:var(--menu-color);
+    .desc-version {
+      &:before {
+        content:"v ";
+      }
+    }
+      &::before {
+        content:attr(data-title);
+        position: absolute;
+        left:$rad;
+        bottom:calc(100% - 0.6rem);
+        font-size:2rem;
+        font-family: 'NEXON Lv1 Gothic OTF Bold';
+        font-weight:700;
+        color:var(--menu-color)
+      }
+    }
+    .desc-content {
+      font-family: 'NEXON Lv1 Gothic OTF';
+      color:$textgray;
+      padding: 1rem $pad-side;
+      font-size:1.4rem;
+      line-height: 1.4;
+    }
+}
 
-
-// - MENU ----------------- //
+// - FLOAT MENU ----------------- //
 @import url("source/hambuger.css");
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css');
 
@@ -418,8 +500,13 @@ nav#float-menu {
   left: 10px;
   width: var(--siz);
   z-index:2;
+  .color-1 {--menu-color: #{$red};}
+  .color-2 {--menu-color: #{darken($yellow,15%)};}
+  .color-3 {--menu-color: #{darken($green,7%)};}
+  .color-4 {--menu-color: #{$blue};}
 
   .hamburger {
+    --hamburger-color:#{$footerBg};
     z-index:999;
     --siz:50px;
     width:var(--siz);
@@ -433,9 +520,62 @@ nav#float-menu {
     &-box, &-inner, &-inner:after, &-inner:before {
       width:calc(var(--siz) - 16px);
     }
+    .hamburger-inner, .hamburger-inner::after, .hamburger-inner::before {
+      background-color:var(--hamburger-color);
+    }
+    &.update {
+      position:fixed;
+      right:10px;
+      overflow:hidden;
+      i {
+        color:var(--hamburger-color);
+        font-size:26px;
+        flex-shrink:0;
+        transition: all 0.1s ease-in-out 0.3s;
+      }
+      i.fa-bullhorn~span {
+        display:inline-block;
+        height:4px;
+        width:calc(var(--siz) - 16px);
+        position:absolute;
+        top:10px;
+        right:150px;
+        background-color:var(--hamburger-color);
+        transform: rotate(45deg);
+        &:first-of-type {
+          transform: rotate(-45deg);
+        }
+      }
+      .hamburger-box {
+        transition:transform 0.55s 0.075s cubic-bezier(0.075, 0.82, 0.165, 1);
+      }
+      &.is-active .hamburger-box {
+          transform:translateX(150px);
+      }
+
+    }
   }
 
 @media screen and (min-width: 561px) {
+  .update-desc {
+    opacity:0.6;
+    &:hover {
+      opacity:1;
+    }
+    width:36rem;
+    position: fixed;
+    top:15px;
+    right:70px;
+    box-shadow: $menu-shadow;
+    transform:translateX(calc(100% + 80px));
+    transition:transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease-in-out;
+  }
+  .update.hamburger.is-active {
+    +.update-desc {
+      transform: translateX(0);
+    }
+  }
+
   .menu-box {
     display:flex;
     align-items: center;
@@ -542,6 +682,22 @@ nav#float-menu {
 
 @media screen and (max-width: 560px) {
   --f-bg: #{$lightBg};
+  
+  .hamburger.update {display:none;}
+  .update-desc {
+    z-index:999;
+    width:calc(100vw - 4rem);
+    margin:1rem;
+    position: relative;
+    top:52rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    transform:translateX(calc(-100% - 4rem));
+    transition: transform 0.3s;
+  }
+  .hamburger.is-active:not(.update)~.update-desc {
+    transform:translateX(0);
+  }
+  //---
   .menu-box {
     display:flex;
     flex-direction: column;
@@ -564,7 +720,6 @@ nav#float-menu {
     pointer-events:auto;
   }
   .menu-box>a {
-    --menu-color: var(--f-bg);
     display: flex;
     align-items: center;
     position: relative;
@@ -578,7 +733,8 @@ nav#float-menu {
 
     text-decoration:none;
     outline:none;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition-property: background, color, transform;
 
     
     &:nth-child(5), &:nth-child(6), &:nth-child(7), &:nth-child(8) {
@@ -601,11 +757,6 @@ nav#float-menu {
         background-size:100% 100%;
       }
     }
-    &:nth-child(1) {--menu-color: #{$red};}
-    &:nth-child(2) {--menu-color:#{darken($yellow,15%)}}
-    &:nth-child(3) {--menu-color:#{darken($green,7%)}}
-    &:nth-child(4) {--menu-color:#{$blue}}
-
     i {
       width:var(--siz);
       @include centerboth;
@@ -657,7 +808,7 @@ nav#float-menu {
   cursor: pointer;
 }
 @media screen and (max-width: 560px) {
-  html:has(.hamburger.is-active) {
+  html:has(.hamburger.is-active:not(.update)) {
     overflow:hidden;
   }
   

@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KHL4JQ7Z');</script>
+  <!-- End Google Tag Manager -->
   <title>Rolling Mint : Roll20 로그 커스터마이징 도구</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -27,6 +34,10 @@
   <script src="highlight.pack.js"></script>
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KHL4JQ7Z"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
   <div id="wrapper">
   <nav id="float-menu"></nav>
   <div class="top">
@@ -48,11 +59,6 @@
         </div>
       <p><b>문의는 ↖메뉴 버튼을 누르세요! 문의 전, 가이드 페이지를 확인해 주세요!</b></p>
       <p style="text-align: center;"><a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fheaddrop.github.io%2FRollingMint&count_bg=%233A9488&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/></a></p>
-      <div class="notice">
-        <p>최근 업데이트: <span id="notice-version"></span></p>
-        <p id="notice-context"></p>
-      </div>
-      <p><span>@HDTRPG</span><span id="version-log">이곳에 버전이 표시되지 않으면 새로고침하세요</span></p>
     </div>
   </div>
   <div style="overflow: hidden;">
@@ -259,16 +265,32 @@
         </div>
       </div>
     </div>
+  <div class="preview-box">
     <h2>미리보기</h2>
-    <div class="preview-box">
-      <p><input type="checkbox" class="ckbx" name="preview-max-height" id="preview-max-height">체크하면 전체 로그가 아래에 나타납니다.</p>
-      <tooltip>메시지 왼쪽의 마이너스(-) 버튼을 누르면 해당 메시지를 삭제할 수 있습니다.</tooltip>
-      <p><input type="checkbox" class="ckbx" name="preview-editable" id="preview-editable">체크하면 내용을 수정할 수 있습니다.</p>
-      <tooltip>오탈자 수정 용도로만 사용하기를 권장합니다.<br>엔터를 추가하거나 삭제하면 레이아웃이 깨질 수 있습니다. 체크를 해제하면 원래대로 돌아갑니다.</tooltip>
-    </div>
-    <div id="log-content" style="height:unset; max-height:200px;">
-    </div>
+    <p class="preview-setting">
+      <input type="checkbox" class="ckbx" name="preview-max-height" id="preview-max-height">전체 로그 보기
+    </p>
+    <tooltip>체크하면 전체 로그가 아래에 나타납니다.<br>메시지 왼쪽의 마이너스(-) 버튼을 누르면 해당 메시지를 삭제할 수 있습니다.</tooltip>
+    <p class="preview-setting">
+      <input type="checkbox" class="ckbx" name="preview-editable" id="preview-editable" disabled><span>내용 수정</span>
+    </p>
+    <tooltip><b>'전체 로그 보기' 옵션이 활성화되어 있을 경우에만 작동합니다.</b><br>체크하면 내용을 수정할 수 있습니다. 오탈자 수정 용도로만 사용하기를 권장합니다.<br>엔터를 추가하거나 삭제하면 레이아웃이 깨질 수 있습니다. 체크를 해제하면 원래대로 돌아갑니다.</tooltip>
+    <p class="preview-setting">
+      <input type="checkbox" class="ckbx" name="autosave" id="autosave" disabled>
+      <span>자동저장</span>
+      <span id="autosave-slot" title="현재 슬롯"></span>
+      <button class="btn btn-sm" id="autosave-save">저장</button>
+      <button class="btn btn-sm" id="autosave-load">불러오기</button>
+      <button class="btn btn-sm" id="autosave-remove">삭제</button>
+      <tooltip><b>'전체 로그 보기' 옵션이 활성화되어 있을 경우에만 작동합니다.</b><br>자동저장이 활성화 중일 때, <b style="color:#e6c565">1분</b> 간격으로 미리보기 창의 편집 중인 로그를 브라우저에 자동으로 저장합니다. <b style="color:#e6c565">브라우저를 변경하거나 캐시를 삭제하면 자동저장된 데이터가 삭제됩니다.</b><br>슬롯이 파란색일 때, 브라우저에 저장되어 있는 로그를 불러오거나 삭제할 수 있습니다.<br>자동저장된 로그를 불러오면 현재 편집 중이던 로그를 덮어씁니다.</tooltip>
+    </p>
+    
+    <div id="log-content" style="height:unset; max-height:200px;"></div>
     <p>플레이어 아바타 이미지가 로딩되지 않을 경우, [ HTML입력-다음 ] 을 한번 더 누르고 잠시 기다려 주세요.</p>
+    
+    
+    
+  </div>
     <hr>
     <div class="setting">
       <div class="item">

@@ -1,6 +1,14 @@
 doctype html
 html(lang='ko')
   head
+    //- <!-- Google Tag Manager -->
+    script.
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-KHL4JQ7Z');
+    //- <!-- End Google Tag Manager -->
     meta(charset='utf-8')
     meta(property="og:type" content="website")
     meta(property="og:locale" content="ko_KR")
@@ -17,31 +25,45 @@ html(lang='ko')
     link(rel='stylesheet' href='default.css')
     link(rel='stylesheet' href='main.css')
   body
+    //- <!-- Google Tag Manager (noscript) -->
+    noscript
+      iframe(src='https://www.googletagmanager.com/ns.html?id=GTM-KHL4JQ7Z' height='0' width='0' style='display:none;visibility:hidden')
+    //- <!-- End Google Tag Manager (noscript) -->
     #wrapper
       .top
         h1.bounce-top R
         h1 olling Mint
-      section
-        nav 
-          a.card.card--1(href='log')
-            .overlay     
-            .circle
-              <i class="fas fa-dice-d20"></i>
-            h3 Roll20 로그변환
-          a.card.card--2(href='handout')
-            .overlay     
-            .circle
-              <i class="far fa-file-alt"></i>
-            h3 핸드아웃 생성기
-          a.card.card--3(href='labelmaker')
-            .overlay     
-            .circle
-              <i class="fas fa-film"></i>
-            h3 커스텀 장면표
-          a.card.card--4(href='sheet-coc')
-            .overlay 
-            .circle 
-              <i class="fa-solid fa-sheet-plastic"></i>
-            h3 Roll20 CoC 캐릭터 시트
+      nav 
+        a.card.card--1(href='log')
+          .overlay     
+          .circle
+            <i class="fas fa-dice-d20"></i>
+          h3 Roll20 로그변환
+        a.card.card--2(href='handout')
+          .overlay     
+          .circle
+            <i class="far fa-file-alt"></i>
+          h3 핸드아웃 생성기
+        a.card.card--3(href='labelmaker')
+          .overlay     
+          .circle
+            <i class="fas fa-film"></i>
+          h3 커스텀 장면표
+        a.card.card--4(href='sheet-coc')
+          .overlay 
+          .circle 
+            <i class="fa-solid fa-sheet-plastic"></i>
+          h3 Roll20 CoC 캐릭터 시트
+      section#update
+        div.update-box
+          .update-left 
+            div U P D A T E
+          .update-desc
+            .desc-title
+              span.desc-version v 5.0
+              span.desc-date 2021.10.20
+            .desc-content
+              | 왼쪽의 사각형에 마우스를 올리면 업데이트 내용을 확인할 수 있습니다.
     footer#footer
     script(src="module.js")
+    script(src="update.js")

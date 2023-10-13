@@ -203,7 +203,7 @@ div.sheet-rolltemplate-default table {
 }
 @media (min-width:500px) {
   div.sheet-rolltemplate-default table {
-    width: 400px;
+    max-width: 400px;
   }
 } 
 
