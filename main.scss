@@ -251,6 +251,7 @@ section#update {
     width: 560px;
     max-width: calc(100% - 2rem);
     gap:2rem;
+    margin-bottom:1rem;
   }
   .update-left {
     width: calc($sqsiz * 4 + 2px * 3 + 1rem);

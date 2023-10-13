@@ -1,5 +1,5 @@
-// fetch("https://headdrop.github.io/RollingMint/menu.html")
-fetch("../menu.html") // 테스트용
+fetch("https://headdrop.github.io/RollingMint/menu.html")
+// fetch("../menu.html") // 테스트용
   .then(response => {
     return response.text()
   })
@@ -23,9 +23,9 @@ if (document.URL.indexOf("log")!==-1 || document.URL.indexOf("handout")!==-1 || 
 }
 function pageNotice (page) {
   console.log(page);
-  fetch("/update.json").then(responce=>{ // 테스트용
-  // fetch("https://headdrop.github.io/RollingMint/update.json").then(responce=>{ 
-    return responce.json()
+  // fetch("/update.json").then(responce=>{ // 테스트용
+  fetch("https://headdrop.github.io/RollingMint/update.json").then(responce=>{ 
+    return responce.json() 
   })
   .then(data=>{
     for (i=0; i<data.length; i++) {
@@ -56,7 +56,7 @@ function mainNotice () {
   <div class="handout card--2"></div>
   <div class="labelmaker card--3"></div>
   <div class="sheet-coc card--4"></div>`;
-fetch("update.json")// 테스트용
+fetch("update.json")
   .then(responce=>{
     return responce.json()
   })

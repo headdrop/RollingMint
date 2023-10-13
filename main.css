@@ -225,6 +225,7 @@ section#update .update-box {
   width: 560px;
   max-width: calc(100% - 2rem);
   gap: 2rem;
+  margin-bottom: 1rem;
 }
 section#update .update-left {
   width: calc(62px + 1rem);
