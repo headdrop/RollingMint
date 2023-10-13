@@ -6,8 +6,8 @@ fetch("https://headdrop.github.io/RollingMint/menu.html")
   .then(data => {
     document.querySelector("#float-menu").innerHTML = data;
   });
-// fetch("https://headdrop.github.io/RollingMint/footer.html")
-fetch("/footer.html") // 테스트용
+fetch("https://headdrop.github.io/RollingMint/footer.html")
+// fetch("/footer.html") // 테스트용
   .then(response => {
     console.log(response);
     return response.text();
