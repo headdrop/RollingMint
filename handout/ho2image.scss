@@ -82,13 +82,14 @@ input:checked+.tabCon {
     display:inline-block;
   }
 }
-#insane+.tabCon .content {
+#insane+.tabCon .content { // 의식시트
   table {
     border-collapse: collapse;
     border:2px solid #222;
     text-indent:none;
     font-size:16px;
     width:600px;
+    max-width:600px;
     background-color:white;
 
     td {
@@ -97,10 +98,11 @@ input:checked+.tabCon {
       vertical-align: middle;
       line-height:2.2rem;
       &:nth-of-type(1) {
-        width:36px;
+        table-layout: fixed;
+        width:40px;
       }
       &:nth-of-type(2) {
-        min-width:9.6rem;
+        min-width:10rem;
       }
       &:nth-of-type(3),&:nth-of-type(4) {
         min-width:8rem;
@@ -116,8 +118,8 @@ input:checked+.tabCon {
     height: 4rem;
       
       td:first-of-type {
-        background-image: url("https://headdrop.github.io/RollingMint/handout/siksin.svg");
-        background-size: 25px;
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAgCAYAAAD9oDOIAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAATDQAAEw0BqwPgTQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAJpSURBVEiJ5Za/btNQFMa/c+zyr0WhsR3bCaWp40q0VAUh2oUVVWWFoYKFjZWdBQZegpWNB+AZWEAV0A5UphSoSpxEKiCVqmm4hwFSEfvGcdSRM57znZ8/3+tzfQkZETjONDGWwdIGoAAwFJ0wwC824ngzq1cbYbm0VHOdFQCUKFHg2nfCcmlpOKBXnA380q0sTeCXbk/71kxuaOA6D46jY03OIJafeaDEsq9jpBKh5xVB3MwDBbgZep41EIqxsR9QUsiDFJFzJ63694HQKIoOAJzNAyVgdH0d7cFOAQiwOVUqzWcBpyvOFRAi7cMC172hb/t1Tww8+bjTep+sVMvWRUPRQxHjma7TZKgFBj9Pl4xH7UOl/woO+ZvB/FhXUlArprC0Nr4ON3JbzWa9X63m2y3tmh43/nOoKYpnar59v5sgYRMKq1Gj8XJQc61cnIDwTRLa7eZExEsJpzxrMSzbV/M4mnfd0cC17ybzqdc3hOYLO613eaBv43iPOD3SKagiHnkNHOaB9ov0RhFkGIAIZ5+nwfh4gZTsJkWZroR2qo7Tszk9UBkZWSShV8NAO0RvTJMu94WyoYKo0dCeA2GleF6X36rXPwnUZH+nYAK0a0ro8HIfs4LEbzzXRIWeZwv4Wh5tD3TK9ych8lknUtSZzDQgdFCtVk+loIZ0FkhYu0kEngCpL0jfVv4wodbN9t7RxeIIqojsD3Hc0FtRjghWw0qxoqu2zdNrEJpLQSF6F12zisw1KPOSrri9vb0vUGeSUINFZY7m30/nQpamGyYABK47K6zm/j0CEzYtAEJCtX4aCK4DeAoAvwGACr75G8wvagAAAABJRU5ErkJggg==");
+        // background-size: 25px;
         background-position: 6px;
         background-repeat: no-repeat;
         padding-left:40px;

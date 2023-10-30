@@ -1,14 +1,14 @@
 doctype html
 html(lang='ko')
   head
-    //- <!-- Google Tag Manager -->
+    // Google tag (gtag.js)
+    script(async='' src='https://www.googletagmanager.com/gtag/js?id=G-5XZLTZKM5N')
     script.
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-KHL4JQ7Z');
-    //- <!-- End Google Tag Manager -->
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-5XZLTZKM5N');
+      
     title Rolling Mint : 핸드아웃 변환기
     meta(charset='utf-8')
     meta(name='viewport' content='width=device-width,initial-scale=1')
@@ -25,15 +25,12 @@ html(lang='ko')
     link(rel='icon' type='image/png' href='../source/favicon.png')
 
     script(src='https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js')
+    script(src='https://html2canvas.hertzen.com/dist/html2canvas.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js')
     script(src="ho2image.js")
 
 
   body
-    //- <!-- Google Tag Manager (noscript) -->
-    noscript
-      iframe(src='https://www.googletagmanager.com/ns.html?id=GTM-KHL4JQ7Z' height='0' width='0' style='display:none;visibility:hidden')
-    //- <!-- End Google Tag Manager (noscript) -->
     #wrapper
       nav#float-menu
       .menu

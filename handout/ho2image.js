@@ -24,14 +24,20 @@ window.onload = function () {
   }
   });
   }
+
   // 다운로드 (의식시트)
   document.getElementById("down").onclick = function(){
   var target = document.querySelector('input[name="tabmenu"]:checked+.tabCon .content');
   var fileName = document.querySelector('input[name="tabmenu"]:checked').value+"_"+document.querySelector('input[name="tabmenu"]:checked+.tabCon .inputbox').innerHTML;
-  domtoimage.toBlob(target)
-  .then(function (blob) {
-  window.saveAs(blob, fileName+'.png');
-  });
+  // domtoimage.toBlob(target)
+  // .then(function (blob) {
+  // window.saveAs(blob, fileName+'.png');
+  // });
+  html2canvas(target).then(function(canvas) {
+  var imgData = canvas.toDataURL();
+  downloadURL(imgData,fileName+".png");
+});
+
   }
   // 다운로드 (핸드아웃)
   document.getElementById("downHO").onclick = function(){
@@ -137,4 +143,12 @@ window.onload = function () {
     sync(newNode);
   });
   sync();
+}
+
+function downloadURL (uri,name) {
+  var link = document.createElement("a");
+  link.download = name;
+  link.href = uri;
+  document.body.appendChild(link);
+  link.click();
 }
