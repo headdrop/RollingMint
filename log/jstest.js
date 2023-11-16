@@ -620,18 +620,15 @@ function checkEdit() {
 function addID() {
   // id달기
   let list = document.querySelectorAll("#log-content .by");
+  const reg = /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gim; 
   for (var x of list) {
-    var byRaw = x.innerText.slice(0, -1).replace(/\?|\#/gi,"");
+    var byRaw = x.innerText.slice(0, -1).replace(reg,"");
     var byId;
-    let byCut = /\S+?(?=\s)/.exec(byRaw);
-    if (/PC\d+?\s/gi.test(byRaw)) { // PC
-      byId = byRaw.replace(/PC\d+?\s+?/gi,'').match(/\S+?(?=\s|$)/gi,'')[0];
-    } else if (byRaw=='') {
+    let byCut = byRaw.replace(/\s/gi,'_');
+    if (byRaw=='') {
       byId = '공백';
-    }else if (byCut==null) {
-      byId = byRaw;
     } else {
-      byId = byCut.shift();
+      byId = byCut;
     }
     if (x.parentNode.classList.value.indexOf("general")!=-1|x.parentNode.classList.value.indexOf("rollresult")!=-1) {x.parentNode.id = byId;} // only .general
   }
