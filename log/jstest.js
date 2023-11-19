@@ -289,16 +289,37 @@ function radioOpt() {
   // 캐릭터별 색상 설정 name 누르면 example 부분 나타나게
   function nameExColor() {
     $("#Name").change(function () {
-      var byRaw = $(this).find(":selected").text();
+      const reg = /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gim; 
 
-      let byCut = /\S+?(?=\s)/.exec(byRaw);
-      if (/PC\d+?\s/gi.test(byRaw)) { // PC
-        byId = byRaw.replace(/PC\d+?\s+?/gi,'').match(/\S+?(?=\s|$)/gi,'')[0];
-      } else if (byCut==null) {
-        byId = byRaw;
+      // for (var x of list) {
+      //   var byRaw = x.innerText.slice(0, -1).replace(reg,"");
+      //   var byId;
+        
+      //   if (byRaw=='') {
+      //     byId = '공백';
+      //   } else {
+      //     byId = byCut;
+      //   }
+      //   if (x.parentNode.classList.value.indexOf("general")!=-1|x.parentNode.classList.value.indexOf("rollresult")!=-1) {x.parentNode.id = byId;} // only .general
+      // }
+
+
+      var byRaw = $(this).find(":selected").text().replace(reg,"");
+      let byCut = byRaw.replace(/\s/gi,'_');
+      var byId;
+      if (byRaw=='') {
+        byId = '공백';
       } else {
-        byId = byCut.shift();
+        byId = byCut;
       }
+
+      // if (/PC\d+?\s/gi.test(byRaw)) { // PC
+      //   byId = byRaw.replace(/PC\d+?\s+?/gi,'').match(/\S+?(?=\s|$)/gi,'')[0];
+      // } else if (byCut==null) {
+      //   byId = byRaw;
+      // } else {
+      //   byId = byCut.shift();
+      // }
       let colorByArr = [];
       $(".example .content>div").each(function () {
         colorByArr.push($(this).attr('id'));
