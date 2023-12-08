@@ -98,7 +98,7 @@ fetch("update.json")
     const title = e.target.classList[0];
     const txt = e.target.getAttribute("data-content");
 
-    var title_ = (title=="log" ? "Roll20 로그변환" : title=="handout" ? "핸드아웃 생성기" : title=="labelmaker" ? "커스텀 장면표" : title=="sheet-coc" ? "Roll20 CoC 캐릭터 시트" : "");
+    var title_ = (title=="log" ? "Roll20 로그변환" : title=="handout" ? "인세인 GM 도우미" : title=="labelmaker" ? "커스텀 장면표" : title=="sheet-coc" ? "Roll20 CoC 캐릭터 시트" : "");
     
     document.querySelector("#update .update-desc .desc-version").innerText = ver;
     document.querySelector("#update .update-desc .desc-date").innerText = date;

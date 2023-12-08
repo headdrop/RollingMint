@@ -18,23 +18,30 @@
   --main-dark: #3f7d6c;
   --main-darken: #254a40;
   --main-light: #adccc5;
-  --main-light-06:rgba(215, 207, 227, 0.6);
+  --main-light-06:rgba(233, 217, 168, 0.6);
   --main-lighter: #d6e6e2;
   --sub-color:#2e5b4f;
-  --sub-accent-light:#f3dcda;
-  --accent-light:#ebe7f1;
+  --sub-accent-light:#d3d9c2;
+  --accent-light:#e9d9a8;
   --border-color:#d9d7dc;
 }
 
-input {
+#wrapper > input {
   display: none;
+}
+
+button.remove {
+  font-family: "Font Awesome 6 Free";
+  font-size: 1.6rem;
+  font-weight: 900;
+  width: 30px;
 }
 
 .menu {
   display: flex;
   justify-content: center;
   align-content: center;
-  align-items: str;
+  align-items: stretch;
   gap: 10px;
   background-color: #e9e9ef;
   padding-top: 10px;
@@ -73,20 +80,51 @@ input {
   padding-top: 20px;
   font-size: 1.4rem;
 }
+.tabCon a {
+  color: inherit;
+  text-decoration: none;
+  background-image: linear-gradient(45deg, var(--accent-light) 0%, var(--sub-accent-light) 100%);
+  background-size: 100% 100%;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  font-style: italic;
+  padding: 0 6px 0 3px;
+  border-radius: 4px;
+  transition: 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  transition-property: background-size, border-radius;
+}
+.tabCon a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+.tabCon a:focus, .tabCon a:hover, .tabCon a:active {
+  background-size: 100% 40%;
+  border-radius: 0;
+}
 
 input:checked + .tabCon {
   display: flex;
+}
+
+.content {
+  max-width: 720px;
+}
+.content h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 1rem 0;
+  padding: 0;
+  background-image: linear-gradient(to left, var(--main-light-06) 50%, transparent 100%);
+  background-size: 100% 10px;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .content + * {
   margin-top: 20px;
 }
 
-.setting input {
-  display: inline-block;
-}
-
-#insane + .tabCon .content table {
+#insaneRitual + .tabCon .content table {
   border-collapse: collapse;
   border: 2px solid #222;
   text-indent: none;
@@ -95,30 +133,30 @@ input:checked + .tabCon {
   max-width: 600px;
   background-color: white;
 }
-#insane + .tabCon .content table td {
+#insaneRitual + .tabCon .content table td {
   border: 1px solid #444;
   padding: 2px 5px;
   vertical-align: middle;
   line-height: 2.2rem;
 }
-#insane + .tabCon .content table td:nth-of-type(1) {
+#insaneRitual + .tabCon .content table td:nth-of-type(1) {
   table-layout: fixed;
   width: 40px;
 }
-#insane + .tabCon .content table td:nth-of-type(2) {
+#insaneRitual + .tabCon .content table td:nth-of-type(2) {
   min-width: 10rem;
 }
-#insane + .tabCon .content table td:nth-of-type(3), #insane + .tabCon .content table td:nth-of-type(4) {
+#insaneRitual + .tabCon .content table td:nth-of-type(3), #insaneRitual + .tabCon .content table td:nth-of-type(4) {
   min-width: 8rem;
 }
-#insane + .tabCon .content table td:nth-of-type(5) {
+#insaneRitual + .tabCon .content table td:nth-of-type(5) {
   min-width: 6.4rem;
 }
-#insane + .tabCon .content table .title tr:first-child {
+#insaneRitual + .tabCon .content table .title tr:first-child {
   font-size: 25px;
   height: 4rem;
 }
-#insane + .tabCon .content table .title tr:first-child td:first-of-type {
+#insaneRitual + .tabCon .content table .title tr:first-child td:first-of-type {
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAgCAYAAAD9oDOIAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAATDQAAEw0BqwPgTQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAJpSURBVEiJ5Za/btNQFMa/c+zyr0WhsR3bCaWp40q0VAUh2oUVVWWFoYKFjZWdBQZegpWNB+AZWEAV0A5UphSoSpxEKiCVqmm4hwFSEfvGcdSRM57znZ8/3+tzfQkZETjONDGWwdIGoAAwFJ0wwC824ngzq1cbYbm0VHOdFQCUKFHg2nfCcmlpOKBXnA380q0sTeCXbk/71kxuaOA6D46jY03OIJafeaDEsq9jpBKh5xVB3MwDBbgZep41EIqxsR9QUsiDFJFzJ63694HQKIoOAJzNAyVgdH0d7cFOAQiwOVUqzWcBpyvOFRAi7cMC172hb/t1Tww8+bjTep+sVMvWRUPRQxHjma7TZKgFBj9Pl4xH7UOl/woO+ZvB/FhXUlArprC0Nr4ON3JbzWa9X63m2y3tmh43/nOoKYpnar59v5sgYRMKq1Gj8XJQc61cnIDwTRLa7eZExEsJpzxrMSzbV/M4mnfd0cC17ybzqdc3hOYLO613eaBv43iPOD3SKagiHnkNHOaB9ov0RhFkGIAIZ5+nwfh4gZTsJkWZroR2qo7Tszk9UBkZWSShV8NAO0RvTJMu94WyoYKo0dCeA2GleF6X36rXPwnUZH+nYAK0a0ro8HIfs4LEbzzXRIWeZwv4Wh5tD3TK9ych8lknUtSZzDQgdFCtVk+loIZ0FkhYu0kEngCpL0jfVv4wodbN9t7RxeIIqojsD3Hc0FtRjghWw0qxoqu2zdNrEJpLQSF6F12zisw1KPOSrri9vb0vUGeSUINFZY7m30/nQpamGyYABK47K6zm/j0CEzYtAEJCtX4aCK4DeAoAvwGACr75G8wvagAAAABJRU5ErkJggg==");
   background-position: 6px;
   background-repeat: no-repeat;
@@ -126,24 +164,24 @@ input:checked + .tabCon {
   border-right: 0px;
   font-weight: 600;
 }
-#insane + .tabCon .content table .title tr:first-child td:nth-of-type(2) {
+#insaneRitual + .tabCon .content table .title tr:first-child td:nth-of-type(2) {
   padding-left: 10px;
   border-left: 0px;
   font-weight: 800;
 }
-#insane + .tabCon .content table .title tr:nth-child(2) {
+#insaneRitual + .tabCon .content table .title tr:nth-child(2) {
   background-color: #CCC;
   text-align: center;
   font-weight: 600;
   font-size: 18px;
 }
-#insane + .tabCon .content table .title tr:nth-child(2) td:first-of-type {
+#insaneRitual + .tabCon .content table .title tr:nth-child(2) td:first-of-type {
   font-size: 14px;
 }
-#insane + .tabCon .content tbody.cont tr {
+#insaneRitual + .tabCon .content tbody.cont tr {
   position: relative;
 }
-#insane + .tabCon .content tbody.cont tr span {
+#insaneRitual + .tabCon .content tbody.cont tr span {
   position: absolute;
   right: calc(100% + 10px);
   cursor: pointer;
@@ -151,21 +189,23 @@ input:checked + .tabCon {
   width: 25px;
   height: 25px;
 }
-#insane + .tabCon .content tbody.cont td:first-of-type, #insane + .tabCon .content tbody.cont td:nth-of-type(3), #insane + .tabCon .content tbody.cont td:nth-of-type(4) {
+#insaneRitual + .tabCon .content tbody.cont td:first-of-type, #insaneRitual + .tabCon .content tbody.cont td:nth-of-type(3), #insaneRitual + .tabCon .content tbody.cont td:nth-of-type(4) {
   text-align: center;
 }
-#insane + .tabCon .content tbody.cont td:nth-of-type(2) {
+#insaneRitual + .tabCon .content tbody.cont td:nth-of-type(2) {
   font-size: 18px;
   font-weight: 800;
 }
 
-#insaneHO:checked ~ .bottom > #down {
+#downRitual {
   display: none;
 }
 
-#insane:checked ~ .bottom > #downHO,
-#insane:checked ~ .bottom > #downHO ~ p {
+#insaneRitual:checked ~ .bottom > #downHO, #insaneRitual:checked ~ .bottom > #downHO ~ p {
   display: none;
+}
+#insaneRitual:checked ~ .bottom #downRitual {
+  display: block;
 }
 
 #downHO ~ p {
@@ -187,29 +227,55 @@ input:checked + .tabCon {
   gap: 20px;
   margin-bottom: 3rem;
 }
+#insaneHO + .tabCon .setting {
+  margin-bottom: 2rem;
+}
 #insaneHO + .tabCon .item {
   position: relative;
   display: grid;
-  grid-template: 30px 90px/250px 250px 100px;
+  grid-template: "name shock controls" 3rem "front back controls" 9rem/1fr 1fr 8rem;
   grid-auto-flow: column;
   gap: 5px;
+}
+@media screen and (max-width: 560px) {
+  #insaneHO + .tabCon .item {
+    grid-template: "controls" auto "name" 3rem "front" 6rem "shock" 3rem "back" 6rem/100%;
+    width: 100%;
+  }
+  #insaneHO + .tabCon .item > * {
+    width: calc(100vw - 4rem);
+  }
+  #insaneHO + .tabCon .item button.remove {
+    align-self: stretch;
+  }
+}
+#insaneHO + .tabCon .item .front-1 {
+  grid-area: name;
+}
+#insaneHO + .tabCon .item .front-2 {
+  grid-area: front;
+}
+#insaneHO + .tabCon .item .back-1 {
+  grid-area: shock;
+}
+#insaneHO + .tabCon .item .back-2 {
+  grid-area: back;
+}
+#insaneHO + .tabCon .item .controls {
+  grid-area: controls;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 0.8rem;
 }
 #insaneHO + .tabCon .item > textarea, #insaneHO + .tabCon .item > input {
   font-size: 1.6rem;
   overflow-y: auto;
 }
-#insaneHO + .tabCon .item button.copy {
+#insaneHO + .tabCon .item button {
   padding: 5px;
-  margin: 0 0 1rem 0;
-}
-#insaneHO + .tabCon .item button.remove {
-  position: absolute;
-  display: inline-block;
-  top: 0;
-  right: 100%;
-  width: 30px;
-  padding: 5px;
-  margin: 0 10px 0 0;
+  margin: 0;
 }
 #insaneHO + .tabCon input[type=text] {
   display: inline-block;
@@ -372,6 +438,282 @@ input:checked + .tabCon {
   margin-right: -10px;
 }
 #insaneHO + .tabCon .ho-box-content {
+  text-align: justify;
+}
+
+#insaneCard + .tabCon {
+  font-size: 1.6rem;
+  padding-right: 2rem;
+  padding-left: 2rem;
+}
+#insaneCard + .tabCon .content-top {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+#insaneCard + .tabCon .preview > div:first-of-type {
+  position: relative;
+  padding: 0.4rem;
+  margin-left: -1rem;
+  height: 36px;
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+}
+#insaneCard + .tabCon .preview > div:first-of-type span {
+  padding: 0 4px;
+  font-weight: 700;
+}
+#insaneCard + .tabCon .preview > div:first-of-type::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-top: 10px solid black;
+  border-left: 10px solid transparent;
+}
+#insaneCard + .tabCon .preview > div:first-of-type select {
+  font-size: 1.6rem;
+  border: 0;
+  padding: 0;
+  margin-left: 1rem;
+  background: transparent;
+  width: 100%;
+}
+#insaneCard + .tabCon .preview > div:first-of-type select option {
+  font-size: 2rem;
+}
+#insaneCard + .tabCon .setting > div:first-of-type {
+  position: relative;
+  border: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+  background: black;
+}
+#insaneCard + .tabCon .setting > div:first-of-type > div {
+  display: flex;
+  flex-basis: 300px;
+  height: 36px;
+  gap: 1rem;
+}
+#insaneCard + .tabCon .setting > div:first-of-type input[type=file] {
+  display: none;
+  width: 0;
+}
+#insaneCard + .tabCon .setting > div:first-of-type input[type=text] {
+  background: transparent;
+  box-shadow: none;
+  color: var(--border-color);
+  display: block;
+  width: 20px;
+  flex-basis: 180px;
+  flex-shrink: 2;
+  flex-grow: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
+}
+#insaneCard + .tabCon .setting > div:first-of-type label {
+  color: white;
+  cursor: pointer;
+  font-size: 1.6rem;
+  font-weight: 600;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  transition: 0.3s cubic-bezier(0.23, 1, 0.32, 1) color;
+}
+#insaneCard + .tabCon .setting > div:first-of-type label:focus, #insaneCard + .tabCon .setting > div:first-of-type label:hover, #insaneCard + .tabCon .setting > div:first-of-type label:active {
+  color: #e6c565;
+}
+#insaneCard + .tabCon .setting > div:first-of-type label.prefilled::after {
+  content: "\f00c";
+  font-family: "Font Awesome 6 Free";
+  font-size: 1.2rem;
+  padding-left: 0.4rem;
+}
+#insaneCard + .tabCon .setting > div:first-of-type button {
+  background: white;
+  font-size: 1.6rem;
+  font-weight: 600;
+  cursor: pointer;
+  outline: 0;
+  border: 0;
+  flex-shrink: 0;
+  transition: 0.3s cubic-bezier(0.23, 1, 0.32, 1) background-color;
+}
+#insaneCard + .tabCon .setting > div:first-of-type button:focus, #insaneCard + .tabCon .setting > div:first-of-type button:hover, #insaneCard + .tabCon .setting > div:first-of-type button:active {
+  background-color: #e6c565;
+}
+#insaneCard + .tabCon .setting > div:first-of-type::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 100%;
+  right: 0%;
+  width: 0;
+  height: 0;
+  border-top: 10px solid black;
+  border-right: 10px solid transparent;
+}
+#insaneCard + .tabCon .setting > div:last-of-type {
+  border: 1px solid black;
+  border-top: 5px solid var(--border-color);
+  margin-right: 10px;
+  padding: 0.6rem;
+}
+#insaneCard + .tabCon .content-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+  justify-content: space-between;
+  margin: 0;
+  margin-top: 4rem;
+  padding: 0;
+}
+#insaneCard + .tabCon .item {
+  position: relative;
+  flex-basis: calc(50% - 0.8rem);
+  flex-grow: 0;
+  display: grid;
+  grid-template: "remove name" auto "remove trigger" auto "remove effect" auto/30px auto;
+  row-gap: 2px;
+  column-gap: 5px;
+}
+#insaneCard + .tabCon .item .card-1 {
+  grid-area: name;
+}
+#insaneCard + .tabCon .item .card-2 {
+  grid-area: trigger;
+}
+#insaneCard + .tabCon .item .card-3 {
+  grid-area: effect;
+}
+#insaneCard + .tabCon .item textarea, #insaneCard + .tabCon .item input {
+  font-size: 1.6rem;
+  overflow-y: auto;
+  resize: vertical;
+  border: 1px solid var(--border-color);
+}
+#insaneCard + .tabCon .item .controls {
+  grid-area: remove;
+}
+#insaneCard + .tabCon .item .controls button.remove {
+  width: 30px;
+  padding: 5px;
+  margin: 0;
+}
+@media screen and (min-width: 561px) {
+  #insaneCard + .tabCon .item:nth-child(even) {
+    grid-template: "name remove" auto "trigger remove" auto "effect remove" auto/auto 30px;
+  }
+}
+@media screen and (max-width: 560px) {
+  #insaneCard + .tabCon .content-top {
+    flex-direction: column;
+  }
+  #insaneCard + .tabCon .item {
+    flex-basis: 100%;
+  }
+}
+#insaneCard + .tabCon input {
+  display: inline;
+}
+#insaneCard + .tabCon .ho-output {
+  position: absolute;
+  top: -4000000px;
+}
+#insaneCard + .tabCon .ho-card {
+  display: inline-block;
+  width: 300px;
+  background-color: black;
+  border: 1px solid black;
+  padding: 4px;
+}
+#insaneCard + .tabCon .ho-card * {
+  line-height: normal;
+}
+#insaneCard + .tabCon .ho-card > div:first-of-type {
+  text-align: center;
+  color: white;
+  font-family: "IM Fell DW Pica", "Times New Roman";
+  font-size: 24px;
+  font-weight: 900;
+}
+#insaneCard + .tabCon .ho-card .ho-border {
+  border: solid 3px white;
+  padding: 2px;
+  text-align: initial;
+}
+#insaneCard + .tabCon .ho-card .ho-box {
+  color: black;
+  padding-bottom: 1px;
+  background-color: white;
+}
+#insaneCard + .tabCon .ho-card .ho-box .ho-box-title {
+  display: grid;
+  grid-template: 1fr/60px auto;
+  border-bottom: 1px solid black;
+}
+#insaneCard + .tabCon .ho-card .ho-box .ho-box-title div {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+#insaneCard + .tabCon .ho-card .ho-box .ho-box-title div:first-child {
+  text-align: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 0;
+}
+#insaneCard + .tabCon .ho-card .ho-box .ho-box-title div:last-child {
+  min-height: 34px;
+  border-left: 1px solid black;
+  padding: 0 5px;
+  line-height: 1.05;
+  overflow: hidden;
+}
+#insaneCard + .tabCon .ho-card .ho-box .ho-box-title:first-child div:last-child {
+  font-size: 18px;
+  font-weight: 700;
+}
+#insaneCard + .tabCon .ho-card .ho-box-content {
+  grid-area: 3/2;
+  padding: 0px 4px;
+  margin-bottom: -1px;
+  margin-top: 1px;
+  border-top: 1px solid black;
+  background-image: linear-gradient(to right, transparent 0, transparent 8px, white 8px, white 12px), linear-gradient(to bottom, white 0, white 44px, #888 44px, #888 44px);
+  background-size: 12px 45px;
+  background-repeat: repeat;
+  font-size: 15px;
+  line-height: 22.5px;
+  min-height: 225px;
+}
+#insaneCard + .tabCon .ho-card .ho-box-2 {
+  color: #DDDDDD;
+  font-family: "Gowun Batang", Batang, serif;
+  font-weight: 700;
+  font-size: 16px;
+  height: 54px;
+  padding: 4px 0 1px 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#insaneCard + .tabCon .ho-card .ho-box-2 img {
+  width: 42px !important;
+  transform: rotate(-30deg);
+  margin-right: -10px;
+}
+#insaneCard + .tabCon .ho-box-content {
   text-align: justify;
 }
 
