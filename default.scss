@@ -26,15 +26,16 @@ html {
 }
 
 $footerH : 60px;
+$sponsorH : 100px;
 
 body {
   margin: 0;
-  height: calc(100vh - 60px);
+  height: calc(100vh);
 }
 
 #wrapper {
   height: auto;
-  min-height: 100%;
+  min-height: calc(100vh - $footerH - $sponsorH);
 }
 .top {
   padding: 0px 20px;
@@ -56,9 +57,10 @@ body {
 
 footer{
   .sponsor {
+    height:$sponsorH;
     background:#fff;
-    padding-top:2rem;
-    padding-bottom:2rem;
+    padding-top:3rem;
+    // padding-bottom:2rem;
     font-size:1.4rem;
     text-align: center;
     div:last-child {
