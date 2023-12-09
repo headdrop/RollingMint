@@ -221,9 +221,9 @@ function cardSyncEventAdd (item) {
 }
 
 // 전체 다운로드 함수
-function downAllImg () {
+function downAllImg (fontname = 'Pretendard') {
+  fontname = document.querySelector("#fontName :checked").value;
   const type = document.querySelector('input[name="tabmenu"]:checked').id;
-
   const targetArr = Array.from(document.querySelectorAll(`#${type}+.tabCon .item .ho-output>div`));
 
   targetArr.map((target,i)=>{
@@ -247,6 +247,25 @@ function downAllImg () {
     .then(function (blob) {
       saveAs(blob, fileName+'.png')
     });
+    // const fontcss = `@font-face {
+    //     font-family: 'Gowun Batang';
+    //   }`;
+    // const filter = (node) => { // node = HTML element
+    //   const exclusionClasses = ['remove-me', 'secret-div'];
+    //   return !exclusionClasses.some((classname) => node.classList?.contains(classname));
+    // }
+    
+    // htmlToImage.toBlob(target,{
+    //   fontEmbedCss : fontcss,
+    //   filter:filter
+    // })
+    // .then(function (blob) {
+    //   if (window.saveAs) {
+    //     window.saveAs(blob, 'my-node.png');
+    //   } else {
+    //   FileSaver.saveAs(blob, 'my-node.png');
+    // }
+    // });
   });
 }
 

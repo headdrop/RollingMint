@@ -23,13 +23,20 @@ html(lang='ko')
     meta(property='og:locale' content='ko_KR')
     link(rel='icon' type='image/svg+xml' href='../source/favicon.svg')
     link(rel='icon' type='image/png' href='../source/favicon.png')
-    link(rel='stylesheet' href='font.css')
+    
 
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js')
-    script(src='https://html2canvas.hertzen.com/dist/html2canvas.min.js')
+    //- script(src='https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/dom-to-image-more/3.2.0/dom-to-image-more.min.js' crossorigin)
+    script(src='https://html2canvas.hertzen.com/dist/html2canvas.min.js' crossorigin)
     script(src='https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js')
     script(src="https://cdn.rawgit.com/Keyang/node-csvtojson/d41f44aa/browser/csvtojson.min.js")
     script(src="ho2image.js")
+    //- font
+    link(rel='stylesheet' href='font.css' crossorigin="anonymous")
+    //- <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    //- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    //- <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Serif:wght@300;700&display=swap" rel="stylesheet" crossorigin>
+
     
 
   body
