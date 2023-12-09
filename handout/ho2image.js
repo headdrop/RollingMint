@@ -247,25 +247,6 @@ function downAllImg (fontname = 'Pretendard') {
     .then(function (blob) {
       saveAs(blob, fileName+'.png')
     });
-    // const fontcss = `@font-face {
-    //     font-family: 'Gowun Batang';
-    //   }`;
-    // const filter = (node) => { // node = HTML element
-    //   const exclusionClasses = ['remove-me', 'secret-div'];
-    //   return !exclusionClasses.some((classname) => node.classList?.contains(classname));
-    // }
-    
-    // htmlToImage.toBlob(target,{
-    //   fontEmbedCss : fontcss,
-    //   filter:filter
-    // })
-    // .then(function (blob) {
-    //   if (window.saveAs) {
-    //     window.saveAs(blob, 'my-node.png');
-    //   } else {
-    //   FileSaver.saveAs(blob, 'my-node.png');
-    // }
-    // });
   });
 }
 
