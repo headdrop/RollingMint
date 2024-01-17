@@ -89,6 +89,8 @@ html(lang='ko')
             | 250px  
             input(type="radio" name="hoWidth")
             | 100%
+            div
+              button.btn#addHO 핸드아웃 추가
           .item
             input.front-1(type='text' placeholder='이름')
             textarea.front-2 앞면내용
@@ -124,7 +126,7 @@ html(lang='ko')
                       | 뒷면내용
                   .ho-box-2 이 비밀을 스스로 밝힐 수는 없다
                     img(src="https://imgur.com/4MJ4Ar0.png")
-        button.btn#addHo 핸드아웃 추가
+
       input#insaneCard(type='radio' name='tabmenu' value='광기카드')
       .tabCon
         .content
@@ -139,7 +141,6 @@ html(lang='ko')
                   option(value="SUITE" style="font-family:'SUITE'") SUITE
                   option(value="Noto Serif KR" style="font-family:'Noto Serif KR'") 본명조
                   option(value="Gowun Batang" style="font-family:'Gowun Batang'") 고운바탕
-              
               .ho-card
                 div Handout 
                 .ho-border
@@ -199,5 +200,9 @@ html(lang='ko')
         button.btn#downRitual 의식시트 다운로드
         button.btn#downHO(title="만든 핸드아웃을 png 파일으로 일괄 저장합니다") 일괄 다운로드
         p 만든 핸드아웃을 png 파일으로 일괄 저장합니다.
+        button.btn#downVTTHO Roll20 VTT용 핸드아웃 다운로드
+        p 만든 핸드아웃을 
+          a(href='https://justas-d.github.io/roll20-enhancement-suite/') Roll20 확장프로그램 VTT
+          | 를 이용해 Roll20에 업로드할 수 있는 JSON 파일로 다운로드합니다.
     footer#footer
     script(src="../module.js")

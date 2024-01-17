@@ -26,6 +26,26 @@
   --border-color:#d9d7dc;
 }
 
+span.bold {
+  font-weight: 600;
+}
+
+.bottom {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0 50px 0;
+  flex-direction: column;
+}
+.bottom > button, .bottom > p {
+  display: none;
+}
+.bottom > p {
+  margin-top: 0.4rem;
+  margin-bottom: 2rem;
+}
+
 #wrapper > input {
   display: none;
 }
@@ -201,15 +221,11 @@ input:checked + .tabCon {
   display: none;
 }
 
-#insaneRitual:checked ~ .bottom > #downHO, #insaneRitual:checked ~ .bottom > #downHO ~ p {
-  display: none;
-}
 #insaneRitual:checked ~ .bottom #downRitual {
   display: block;
 }
 
 #downHO ~ p {
-  position: absolute;
   color: #09201F;
   font-size: small;
   font-family: "NEXON Lv1 Gothic OTF";
@@ -229,6 +245,13 @@ input:checked + .tabCon {
 }
 #insaneHO + .tabCon .setting {
   margin-bottom: 2rem;
+}
+#insaneHO + .tabCon .setting > div {
+  text-align: center;
+}
+#insaneHO + .tabCon .setting #addHO {
+  margin-top: 1rem;
+  text-align: center;
 }
 #insaneHO + .tabCon .item {
   position: relative;
@@ -439,6 +462,10 @@ input:checked + .tabCon {
 }
 #insaneHO + .tabCon .ho-box-content {
   text-align: justify;
+}
+
+#insaneHO:checked ~ .bottom #downHO, #insaneHO:checked ~ .bottom #downHO + p, #insaneHO:checked ~ .bottom #downVTTHO, #insaneHO:checked ~ .bottom #downVTTHO + p {
+  display: block;
 }
 
 #insaneCard + .tabCon {
@@ -715,15 +742,4 @@ input:checked + .tabCon {
 }
 #insaneCard + .tabCon .ho-box-content {
   text-align: justify;
-}
-
-span.bold {
-  font-weight: 600;
-}
-
-.bottom {
-  display: flex;
-  position: relative;
-  justify-content: center;
-  margin: 20px 0 50px 0;
 }

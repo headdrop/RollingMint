@@ -25,7 +25,25 @@
   --accent-light:#{$yellowLight};
   --border-color:#{$gray0d};
 }
-
+span.bold {
+  font-weight:600;
+}
+.bottom {
+  display:flex;
+  position:relative;
+  justify-content: center;
+  align-items: center;
+  margin:20px 0 50px 0;
+  // flex-wrap:wrap;
+  flex-direction: column;
+  &>button, &>p {
+    display:none;
+  }
+  &>p {
+    margin-top:0.4rem;
+    margin-bottom:2rem;
+  }
+}
 #wrapper>input {
   display:none;
 }
@@ -206,15 +224,12 @@ input:checked+.tabCon {
 }
 #downRitual {display:none;}
 #insaneRitual:checked ~.bottom{
-  &>#downHO, &>#downHO~p {
-    display:none;
-  }
   #downRitual {
     display:block;
   }
 }
 #downHO~p{
-  position: absolute;
+  // position: absolute;
   color: #09201F;
   font-size: small;
   font-family: 'NEXON Lv1 Gothic OTF';
@@ -232,6 +247,11 @@ input:checked+.tabCon {
   }
   .setting {
     margin-bottom:2rem;
+    >div {text-align: center;}
+    #addHO {
+      margin-top:1rem;
+      text-align:center;
+    }
   }
   .item {
     position: relative;
@@ -440,6 +460,11 @@ input:checked+.tabCon {
   }
   .ho-box-content {
     text-align:justify;
+  }
+}
+#insaneHO:checked ~.bottom{
+  #downHO,#downHO+p,#downVTTHO,#downVTTHO+p {
+    display:block;
   }
 }
 // 위 - 핸드아웃
@@ -731,12 +756,3 @@ input:checked+.tabCon {
 }
 
 
-span.bold {
-  font-weight:600;
-}
-.bottom {
-  display:flex;
-  position:relative;
-  justify-content: center;
-  margin:20px 0 50px 0;
-}
