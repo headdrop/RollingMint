@@ -102,16 +102,6 @@ window.onload = function () {
     })
   })
   
-  function selectRange(obj) {
-  if (window.getSelection) {
-  var selected = window.getSelection();
-  selected.selectAllChildren(obj);
-  } else if (document.body.createTextRange) {
-  var range = document.body.createTextRange();
-  range.moveToElementText(obj);
-  range.select();
-  }
-  };
   // ------- } onload 끝
 
   document.getElementById("addHO").addEventListener("click",function(){
@@ -169,8 +159,6 @@ function changeCardInput (e) {
     filename.value = e.target.files[0].name;
     filename.previousElementSibling.classList.add("prefilled");
   }
-
-
 }
 function uploadCardData () {
   console.log("uploadCardData");
@@ -199,6 +187,17 @@ function uploadCardData () {
   
 }
 
+function selectRange(obj) {
+  if (window.getSelection) {
+  var selected = window.getSelection();
+  selected.selectAllChildren(obj);
+  } else if (document.body.createTextRange) {
+  var range = document.body.createTextRange();
+  range.moveToElementText(obj);
+  range.select();
+  return range.select();
+  }
+};
 
 // 광기카드 샘플
 var sampleCard;
@@ -257,6 +256,7 @@ function downAllImg (fontname = 'Pretendard') {
 // 핸드아웃 다운로드 이벤트
 function downVTT () {
   document.querySelectorAll("#insaneHO+.tabCon .item").forEach((item)=>{
+    
     handoutToVTT(item);
   });
 
@@ -269,10 +269,16 @@ function handoutToVTT (item) {
     alert("핸드아웃 이름을 입력하세요.");
   }
   else {
+    var wid='';
+    if (document.querySelector("[name='hoWidth']:checked").value=="100") wid = "min-width:100% ";
     const honame = item.querySelector("input.front-1").value;
     var hoFnotes, hoBshock, hoBnotes;
-    hoFnotes = item.querySelector(".ho-output.front").innerHTML;
-    hoBnotes = item.querySelector(".ho-output.back");
+    hoFnotes = item.querySelector(".ho-output.front .ho-box-content").innerHTML;
+    hoBshock = item.querySelector("input.back-1").value;
+    hoBnotes = item.querySelector(".ho-output.back .ho-box-content").innerHTML;
+    const noteF = `<div style="display: inline-block ; border: 1px solid black ; color: rgb( 0 , 0 , 0 ) ; background-color : white ; padding: 4px ; width: 250px ; ${wid}; font-size: 16px"><div style="font-family: &#34;im fell dw pica&#34; , &#34;times new roman&#34; ; line-height: normal ; text-align: center ; font-size: 24px ; font-weight: ">Handout</div><div style="font-family: &#34;unset&#34; ; line-height: normal ; border: 3px solid black ; padding: 2px ; text-align: "><div style="font-family: &#34;unset&#34; ; line-height: normal ; padding-bottom: 1px ; border: 1px solid black"><table style="font-family: &#34;helvetica neue&#34; , &#34;helvetica&#34; , &#34;arial&#34; , sans-serif ; padding: 0px ; border-width:  ; border-style: none ; border-color:  ; margin-bottom: 0px ; line-height: normal"><tbody style="padding: 0px ; border: none ; line-height: normal"><tr style="padding: 0px ; border: none ; display:  ; line-height: normal"><td style="padding: 3px ; border-top: none ; border-right-color: black ; border-bottom: none ; border-left: none ; vertical-align: middle ; line-height: normal ; text-align: center ; width: 45px">이름</td><td style="padding: 3px ; border-width:  ; border-style: none ; border-color:  ; vertical-align: middle ; line-height: normal">${honame}</td></tr></tbody></table><div style="font-family: &#34;helvetica neue&#34; , &#34;helvetica&#34; , &#34;arial&#34; , sans-serif ; line-height: normal ; border-top: 1px solid black ; border-bottom: 1px solid black ; text-align: center">사명</div><div style="font-family: &#34;helvetica neue&#34; , &#34;helvetica&#34; , &#34;arial&#34; , sans-serif ; line-height: 22.5px ; text-align: justify ; padding: 1px 3px 0px ; margin-bottom: -1px ; background-image: linear-gradient( to right , transparent 0px , transparent 8px , white 8px , white 12px ) , linear-gradient( white 0px , white 44px , rgb( 136 , 136 , 136 ) , rgb( 136 , 136 , 136 ) ) ; background-size: 12px 45px ; background-repeat: repeat">${hoFnotes}</div></div></div></div>`;
+    const noteB = `<div style="display: inline-block ; background-color: black ; border: 1px solid black ; padding: 4px ; width: 250px ; color: rgb( 0 , 0 , 0 ) ; font-size: 16px"><div style="font-family: &#34;im fell dw pica&#34; , &#34;times new roman&#34; ; line-height: normal ; text-align: center ; color: white ; font-size: 24px ; font-weight: ">Handout</div><div style="font-family: &#34;unset&#34; ; line-height: normal ; border: 3px solid white ; padding: 2px ; text-align: "><div style="font-family: &#34;helvetica neue&#34; , &#34;helvetica&#34; , &#34;arial&#34; , sans-serif ; line-height: normal ; text-align: center ; color: white ; border-bottom: 3px solid black">비밀</div><div style="font-family: &#34;helvetica neue&#34; , &#34;helvetica&#34; , &#34;arial&#34; , sans-serif ; line-height: normal ; padding-bottom: 1px ; background-color: white"><table style="padding: 0px ; border-width:  ; border-style: none ; border-color:  ; margin-bottom: 0px ; line-height: normal"><tbody style="padding: 0px ; border: none ; line-height: normal"><tr style="padding: 0px ; border: none ; display:  ; line-height: normal"><td style="padding: 3px ; border-top: none ; border-right-color: black ; border-bottom: none ; border-left: none ; vertical-align: middle ; line-height: normal ; text-align: center ; width: 45px">쇼크</td><td style="padding: 3px ; border-width:  ; border-style: none ; border-color:  ; vertical-align: middle ; line-height: normal">${hoBshock}</td></tr></tbody></table><div style="line-height: 22.5px ; text-align: justify ; padding: 1px 3px 0px ; margin-bottom: -1px ; background-image: linear-gradient( to right , transparent 0px , transparent 8px , white 8px , white 12px ) , linear-gradient( white 0px , white 44px , rgb( 136 , 136 , 136 ) , rgb( 136 , 136 , 136 ) ) ; background-size: 12px 45px ; background-repeat: repeat ; border-top: 1px solid black">${hoBnotes}</div></div><div style="font-family: &#34;kopubworldbatang&#34; , &#34;kopubbatang&#34; , &#34;batang&#34; ; line-height: normal ; color: rgb( 221 , 221 , 221 ) ; font-size: 12px ; padding: 4px 0px 1px ; text-align: center ; display: ">이 비밀을 스스로 밝힐 수는 없다<img src="https://imgsrv.roll20.net/?src=https%3A//imgur.com/4MJ4Ar0.png" style="font-family: &#34;helvetica neue&#34; , &#34;helvetica&#34; , &#34;arial&#34; , sans-serif ; line-height: normal ; margin-right: -10px ; width: 32px"></div></div></div>`;
+
     var output_front = {
       "schema_version": 3,
       "type": "handout",
@@ -284,10 +290,10 @@ function handoutToVTT (item) {
         "name": honame,
         "tags": "[]",
         "gmnotes": "",
-        "notes": encodeURI(hoFnotes)
-
+        "notes": escape(noteF)
       }
     }
+    hoBnotes = item.querySelector(".ho-output.back");
     var output_back = {
       "schema_version": 3,
       "type": "handout",
@@ -299,13 +305,13 @@ function handoutToVTT (item) {
         "name": honame+"🔒︎",
         "tags": "[]",
         "gmnotes": "",
-        "notes": ""
+        "notes": escape(noteB)
       }
     }
     const content_front = JSON.stringify(output_front);
     const content_back = JSON.stringify(output_back);
-    // saveToFile_Chrome(honame+".json",content_front);
-    // saveToFile_Chrome(honame+"🔒︎",content_back);
+    saveToFile_Chrome(honame+".json",content_front);
+    saveToFile_Chrome(honame+"🔒︎.json",content_back);
     // // 다운로드
     function saveToFile_Chrome(fileName, content) {
       var blob = new Blob([content], { type: 'text/JSON' });

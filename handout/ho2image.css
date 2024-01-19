@@ -50,6 +50,10 @@ span.bold {
   display: none;
 }
 
+#copydiv {
+  width: 100%;
+}
+
 button.remove {
   font-family: "Font Awesome 6 Free";
   font-size: 1.6rem;

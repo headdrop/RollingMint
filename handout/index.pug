@@ -30,6 +30,7 @@ html(lang='ko')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js')
     script(src="https://cdn.rawgit.com/Keyang/node-csvtojson/d41f44aa/browser/csvtojson.min.js")
     script(src="ho2image.js")
+    script(src="https://cdn.jsdelivr.net/npm/inliner@1.13.1/lib/index.min.js")
     //- font
     link(rel='stylesheet' href='font.css' crossorigin="anonymous")
 
@@ -82,12 +83,13 @@ html(lang='ko')
       .tabCon
         .content
           style#width #insaneHO + .tabCon .ho-output > div {width:250px;}
+          div#copydiv(contenteditable='true') ss
           .setting
             h2 설정
             span 핸드아웃 가로를 
-            input(type="radio" name="hoWidth" checked)
+            input(type="radio" name="hoWidth" value="250" checked)
             | 250px  
-            input(type="radio" name="hoWidth")
+            input(type="radio" name="hoWidth" value="100")
             | 100%
             div
               button.btn#addHO 핸드아웃 추가
