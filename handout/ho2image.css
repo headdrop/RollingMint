@@ -26,6 +26,33 @@
   --border-color:#d9d7dc;
 }
 
+span.bold {
+  font-weight: 600;
+}
+
+.bottom {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0 50px 0;
+  flex-direction: column;
+}
+.bottom > button, .bottom > p, .bottom > label, .bottom > ol {
+  display: none;
+}
+.bottom > p {
+  margin-top: 0.4rem;
+  margin-bottom: 2rem;
+}
+.bottom p, .bottom li {
+  color: #09201F;
+  text-align: center;
+  width: 100%;
+  top: 100%;
+  line-height: 1.5;
+}
+
 #wrapper > input {
   display: none;
 }
@@ -80,7 +107,8 @@ button.remove {
   padding-top: 20px;
   font-size: 1.4rem;
 }
-.tabCon a {
+
+.tabCon a, .bottom a {
   color: inherit;
   text-decoration: none;
   background-image: linear-gradient(45deg, var(--accent-light) 0%, var(--sub-accent-light) 100%);
@@ -93,11 +121,11 @@ button.remove {
   transition: 0.3s cubic-bezier(0.23, 1, 0.32, 1);
   transition-property: background-size, border-radius;
 }
-.tabCon a:visited {
+.tabCon a:visited, .bottom a:visited {
   color: inherit;
   text-decoration: none;
 }
-.tabCon a:focus, .tabCon a:hover, .tabCon a:active {
+.tabCon a:focus, .tabCon a:hover, .tabCon a:active, .bottom a:focus, .bottom a:hover, .bottom a:active {
   background-size: 100% 40%;
   border-radius: 0;
 }
@@ -201,21 +229,8 @@ input:checked + .tabCon {
   display: none;
 }
 
-#insaneRitual:checked ~ .bottom > #downHO, #insaneRitual:checked ~ .bottom > #downHO ~ p {
-  display: none;
-}
 #insaneRitual:checked ~ .bottom #downRitual {
   display: block;
-}
-
-#downHO ~ p {
-  position: absolute;
-  color: #09201F;
-  font-size: small;
-  font-family: "NEXON Lv1 Gothic OTF";
-  text-align: center;
-  width: 100%;
-  top: 100%;
 }
 
 #insaneHO + .tabCon {
@@ -229,6 +244,13 @@ input:checked + .tabCon {
 }
 #insaneHO + .tabCon .setting {
   margin-bottom: 2rem;
+}
+#insaneHO + .tabCon .setting > div {
+  text-align: center;
+}
+#insaneHO + .tabCon .setting #addHO {
+  margin-top: 1rem;
+  text-align: center;
 }
 #insaneHO + .tabCon .item {
   position: relative;
@@ -439,6 +461,53 @@ input:checked + .tabCon {
 }
 #insaneHO + .tabCon .ho-box-content {
   text-align: justify;
+}
+
+#insaneHO:checked ~ .bottom p, #insaneHO:checked ~ .bottom li {
+  font-size: 1.6rem;
+}
+#insaneHO:checked ~ .bottom #downHO, #insaneHO:checked ~ .bottom #downHO + p, #insaneHO:checked ~ .bottom #downVTTHO, #insaneHO:checked ~ .bottom #downVTTHO ~ * {
+  display: block;
+}
+
+.how-to-use {
+  margin: 1rem 0;
+  padding: 1.2rem 0.6rem 0.6rem 0.6rem;
+  background-color: #efeff1;
+  position: relative;
+}
+.how-to-use::before {
+  content: url("data:image/svg+xml,%3Csvg width='16' height='6' fill='%23efeff1' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 6s1.796-.013 4.67-3.615C5.851.9 6.93.006 8 0c1.07-.006 2.148.887 3.343 2.385C14.233 6.005 16 6 16 6H0z'/%3E%3C/svg%3E");
+  bottom: calc(100% - 4px);
+  position: absolute;
+  left: calc(50% - 8px);
+}
+.how-to-use li {
+  counter-increment: item;
+  margin-bottom: 0.2em;
+  list-style: none;
+}
+.how-to-use li:before {
+  content: counters(item, ".") ". ";
+  margin-right: 0.5rem;
+  font-weight: 800;
+}
+
+label.fa-book {
+  font-size: 2.4rem;
+  color: #e6c565;
+  cursor: pointer;
+}
+label.fa-book span {
+  font-family: "NEXON Lv1 Gothic OTF";
+  font-size: 2rem;
+  vertical-align: middle;
+  padding-left: 4px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+label.fa-book:not(:has(:checked)) ~ .how-to-use {
+  display: none !important;
 }
 
 #insaneCard + .tabCon {
@@ -715,15 +784,4 @@ input:checked + .tabCon {
 }
 #insaneCard + .tabCon .ho-box-content {
   text-align: justify;
-}
-
-span.bold {
-  font-weight: 600;
-}
-
-.bottom {
-  display: flex;
-  position: relative;
-  justify-content: center;
-  margin: 20px 0 50px 0;
 }

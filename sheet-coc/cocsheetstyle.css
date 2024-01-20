@@ -391,8 +391,7 @@ textarea:active, textarea:focus, input:active, input:focus, select:active, selec
   grid-auto-flow: column;
   grid-auto-columns: minmax(5rem, 25rem);
   gap: 1px;
-  -moz-column-gap: 3rem;
-       column-gap: 3rem;
+  column-gap: 3rem;
   justify-items: stretch;
   justify-content: center;
 }
@@ -460,16 +459,8 @@ input.sp, input.sp-add {
   background: rgba(255, 255, 255, 0.2) !important;
   transition: background-color 0.2s ease;
 }
-input.sp:not(:-moz-placeholder-shown), input.sp-add:not(:-moz-placeholder-shown) {
-  background: rgba(255, 255, 255, 0.5) !important;
-}
 input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown), input.sp-add:hover, input.sp-add:focus, input.sp-add:active, input.sp-add:not(:placeholder-shown) {
   background: rgba(255, 255, 255, 0.5) !important;
-}
-
-.skills .content > div[id]:has(input[class^=sp]:not(:-moz-placeholder-shown)) {
-  background: #c4beb6;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset, #c4beb6 0 2px 0 0;
 }
 
 .skills .content > div[id]:has(input[class^=sp]:not(:placeholder-shown)) {
@@ -481,9 +472,7 @@ input.sp:hover, input.sp:focus, input.sp:active, input.sp:not(:placeholder-shown
   height: 1.6rem;
   width: 1.6rem;
   border: 0;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
+  appearance: none;
   position: relative;
   background: transparent;
   border-radius: 0.4rem;

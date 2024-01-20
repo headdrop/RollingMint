@@ -1,4 +1,4 @@
-window.onload = function () { 
+window.onload = function () {
   document.getElementById("addRow").addEventListener("click",function(){
   var cloneNode = document.querySelector("#insaneRitual+.tabCon tbody.cont tr").cloneNode(true);
   document.querySelector("#insaneRitual+.tabCon tbody.cont").append(cloneNode);
@@ -36,11 +36,14 @@ window.onload = function () {
   html2canvas(target).then(function(canvas) {
   var imgData = canvas.toDataURL();
   downloadURL(imgData,fileName+".png");
-});
+  });
 
   }
   // 다운로드 (핸드아웃)
   document.getElementById("downHO").addEventListener("click",downAllImg);
+  // 다운로드 (핸드아웃 VTT)
+  document.getElementById("downVTTHO").addEventListener("click",downVTT);
+
 
 
 
@@ -48,7 +51,7 @@ window.onload = function () {
   document.querySelector("#copy").addEventListener('click',()=>{
   document.querySelectorAll("td>span").forEach(function(val){
   val.display="none";
-  })
+  });
   var target = document.querySelector('input[name="tabmenu"]:checked+.tabCon .content');
   selectRange(target);
   document.execCommand("copy");
@@ -99,18 +102,9 @@ window.onload = function () {
     })
   })
   
-  function selectRange(obj) {
-  if (window.getSelection) {
-  var selected = window.getSelection();
-  selected.selectAllChildren(obj);
-  } else if (document.body.createTextRange) {
-  var range = document.body.createTextRange();
-  range.moveToElementText(obj);
-  range.select();
-  }
-  };
+  // ------- } onload 끝
 
-  document.getElementById("addHo").addEventListener("click",function(){
+  document.getElementById("addHO").addEventListener("click",function(){
     var cloneNode = document.querySelector("#insaneHO+.tabCon .item").cloneNode(true);
     document.querySelector("#insaneHO+.tabCon .content").append(cloneNode);
     var newNode = document.querySelector("#insaneHO+.tabCon .item:last-child");
@@ -165,8 +159,6 @@ function changeCardInput (e) {
     filename.value = e.target.files[0].name;
     filename.previousElementSibling.classList.add("prefilled");
   }
-
-
 }
 function uploadCardData () {
   console.log("uploadCardData");
@@ -195,6 +187,17 @@ function uploadCardData () {
   
 }
 
+function selectRange(obj) {
+  if (window.getSelection) {
+  var selected = window.getSelection();
+  selected.selectAllChildren(obj);
+  } else if (document.body.createTextRange) {
+  var range = document.body.createTextRange();
+  range.moveToElementText(obj);
+  range.select();
+  return range.select();
+  }
+};
 
 // 광기카드 샘플
 var sampleCard;
@@ -250,4 +253,83 @@ function downAllImg (fontname = 'Pretendard') {
   });
 }
 
+// 핸드아웃 다운로드 이벤트
+function downVTT () {
+  document.querySelectorAll("#insaneHO+.tabCon .item").forEach((item)=>{
+    
+    handoutToVTT(item);
+  });
+
+  
+}
+
+// 핸드아웃 VTT JSON 으로 다운로드
+function handoutToVTT (item) {
+  if (item.querySelector("input.front-1").value=="") {
+    alert("핸드아웃 이름을 입력하세요.");
+  }
+  else {
+    var wid='';
+    if (document.querySelector("[name='hoWidth']:checked").value=="100") wid = "min-width:100% ";
+    const honame = item.querySelector("input.front-1").value;
+    var hoFnotes, hoBshock, hoBnotes;
+    hoFnotes = item.querySelector(".ho-output.front .ho-box-content").innerHTML;
+    hoBshock = item.querySelector("input.back-1").value;
+    hoBnotes = item.querySelector(".ho-output.back .ho-box-content").innerHTML;
+    const noteF = `<div style="display: inline-block ; border: 1px solid black ; color: rgb( 0 , 0 , 0 ) ; background-color : white ; padding: 4px ; width: 250px ; ${wid}; font-size: 16px"><div style="font-family: &#34;im fell dw pica&#34; , &#34;times new roman&#34; ; line-height: normal ; text-align: center ; font-size: 24px ; font-weight: ">Handout</div><div style="font-family: &#34;unset&#34; ; line-height: normal ; border: 3px solid black ; padding: 2px ; text-align: "><div style="font-family: &#34;unset&#34; ; line-height: normal ; padding-bottom: 1px ; border: 1px solid black"><table style="font-family: &#34;helvetica neue&#34; , &#34;helvetica&#34; , &#34;arial&#34; , sans-serif ; padding: 0px ; border-width:  ; border-style: none ; border-color:  ; margin-bottom: 0px ; line-height: normal"><tbody style="padding: 0px ; border: none ; line-height: normal"><tr style="padding: 0px ; border: none ; display:  ; line-height: normal"><td style="padding: 3px ; border-top: none ; border-right-color: black ; border-bottom: none ; border-left: none ; vertical-align: middle ; line-height: normal ; text-align: center ; width: 45px">이름</td><td style="padding: 3px ; border-width:  ; border-style: none ; border-color:  ; vertical-align: middle ; line-height: normal">${honame}</td></tr></tbody></table><div style="font-family: &#34;helvetica neue&#34; , &#34;helvetica&#34; , &#34;arial&#34; , sans-serif ; line-height: normal ; border-top: 1px solid black ; border-bottom: 1px solid black ; text-align: center">사명</div><div style="font-family: &#34;helvetica neue&#34; , &#34;helvetica&#34; , &#34;arial&#34; , sans-serif ; line-height: 22.5px ; text-align: justify ; padding: 1px 3px 0px ; margin-bottom: -1px ; background-image: linear-gradient( to right , transparent 0px , transparent 8px , white 8px , white 12px ) , linear-gradient( white 0px , white 44px , rgb( 136 , 136 , 136 ) , rgb( 136 , 136 , 136 ) ) ; background-size: 12px 45px ; background-repeat: repeat">${hoFnotes}</div></div></div></div>`;
+    const noteB = `<div style="display: inline-block ; background-color: black ; border: 1px solid black ; padding: 4px ; width: 250px ; ${wid}; color: rgb( 0 , 0 , 0 ) ; font-size: 16px"><div style="font-family: &#34;im fell dw pica&#34; , &#34;times new roman&#34; ; line-height: normal ; text-align: center ; color: white ; font-size: 24px ; font-weight: ">Handout</div><div style="font-family: &#34;unset&#34; ; line-height: normal ; border: 3px solid white ; padding: 2px ; text-align: "><div style="font-family: &#34;helvetica neue&#34; , &#34;helvetica&#34; , &#34;arial&#34; , sans-serif ; line-height: normal ; text-align: center ; color: white ; border-bottom: 3px solid black">비밀</div><div style="font-family: &#34;helvetica neue&#34; , &#34;helvetica&#34; , &#34;arial&#34; , sans-serif ; line-height: normal ; padding-bottom: 1px ; background-color: white"><table style="padding: 0px ; border-width:  ; border-style: none ; border-color:  ; margin-bottom: 0px ; line-height: normal"><tbody style="padding: 0px ; border: none ; line-height: normal"><tr style="padding: 0px ; border: none ; display:  ; line-height: normal"><td style="padding: 3px ; border-top: none ; border-right-color: black ; border-bottom: none ; border-left: none ; vertical-align: middle ; line-height: normal ; text-align: center ; width: 45px">쇼크</td><td style="padding: 3px ; border-width:  ; border-style: none ; border-color:  ; vertical-align: middle ; line-height: normal">${hoBshock}</td></tr></tbody></table><div style="line-height: 22.5px ; text-align: justify ; padding: 1px 3px 0px ; margin-bottom: -1px ; background-image: linear-gradient( to right , transparent 0px , transparent 8px , white 8px , white 12px ) , linear-gradient( white 0px , white 44px , rgb( 136 , 136 , 136 ) , rgb( 136 , 136 , 136 ) ) ; background-size: 12px 45px ; background-repeat: repeat ; border-top: 1px solid black">${hoBnotes}</div></div><div style="font-family: &#34;kopubworldbatang&#34; , &#34;kopubbatang&#34; , &#34;batang&#34; ; line-height: normal ; color: rgb( 221 , 221 , 221 ) ; font-size: 12px ; padding: 4px 0px 1px ; text-align: center ; display: ">이 비밀을 스스로 밝힐 수는 없다<img src="https://imgsrv.roll20.net/?src=https%3A//imgur.com/4MJ4Ar0.png" style="font-family: &#34;helvetica neue&#34; , &#34;helvetica&#34; , &#34;arial&#34; , sans-serif ; line-height: normal ; margin-right: -10px ; width: 32px"></div></div></div>`;
+
+    var output_front = {
+      "schema_version": 3,
+      "type": "handout",
+      "handout": {
+        "archived": false,
+        "avatar": "",
+        "controlledby": "",
+        "inplayerjournals": "",
+        "name": honame,
+        "tags": "[]",
+        "gmnotes": "",
+        "notes": escape(noteF)
+      }
+    }
+    hoBnotes = item.querySelector(".ho-output.back");
+    var output_back = {
+      "schema_version": 3,
+      "type": "handout",
+      "handout": {
+        "archived": false,
+        "avatar": "",
+        "controlledby": "",
+        "inplayerjournals": "",
+        "name": honame+"🔒︎",
+        "tags": "[]",
+        "gmnotes": "",
+        "notes": escape(noteB)
+      }
+    }
+    const content_front = JSON.stringify(output_front);
+    const content_back = JSON.stringify(output_back);
+    saveToFile_Chrome(honame+".json",content_front);
+    saveToFile_Chrome(honame+"🔒︎.json",content_back);
+    // // 다운로드
+    function saveToFile_Chrome(fileName, content) {
+      var blob = new Blob([content], { type: 'text/JSON' });
+      objURL = window.URL.createObjectURL(blob);
+      // 이전에 생성된 메모리 해제
+      if (window.__Xr_objURL_forCreatingFile__) {
+          window.URL.revokeObjectURL(window.__Xr_objURL_forCreatingFile__);
+      }
+      window.__Xr_objURL_forCreatingFile__ = objURL;
+      var a = document.createElement('a');
+      a.download = fileName;
+      a.href = objURL;
+      a.click();
+    }
+    console.log(JSON.stringify(output_front));
+  }
+}
+
+
 const handprint = "data:image/png;base64,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";
+

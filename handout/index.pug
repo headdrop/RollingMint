@@ -30,6 +30,7 @@ html(lang='ko')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js')
     script(src="https://cdn.rawgit.com/Keyang/node-csvtojson/d41f44aa/browser/csvtojson.min.js")
     script(src="ho2image.js")
+    script(src="https://cdn.jsdelivr.net/npm/inliner@1.13.1/lib/index.min.js")
     //- font
     link(rel='stylesheet' href='font.css' crossorigin="anonymous")
 
@@ -85,10 +86,12 @@ html(lang='ko')
           .setting
             h2 설정
             span 핸드아웃 가로를 
-            input(type="radio" name="hoWidth" checked)
+            input(type="radio" name="hoWidth" value="250" checked)
             | 250px  
-            input(type="radio" name="hoWidth")
+            input(type="radio" name="hoWidth" value="100")
             | 100%
+            div
+              button.btn#addHO 핸드아웃 추가
           .item
             input.front-1(type='text' placeholder='이름')
             textarea.front-2 앞면내용
@@ -124,7 +127,7 @@ html(lang='ko')
                       | 뒷면내용
                   .ho-box-2 이 비밀을 스스로 밝힐 수는 없다
                     img(src="https://imgur.com/4MJ4Ar0.png")
-        button.btn#addHo 핸드아웃 추가
+
       input#insaneCard(type='radio' name='tabmenu' value='광기카드')
       .tabCon
         .content
@@ -139,7 +142,6 @@ html(lang='ko')
                   option(value="SUITE" style="font-family:'SUITE'") SUITE
                   option(value="Noto Serif KR" style="font-family:'Noto Serif KR'") 본명조
                   option(value="Gowun Batang" style="font-family:'Gowun Batang'") 고운바탕
-              
               .ho-card
                 div Handout 
                 .ho-border
@@ -199,5 +201,20 @@ html(lang='ko')
         button.btn#downRitual 의식시트 다운로드
         button.btn#downHO(title="만든 핸드아웃을 png 파일으로 일괄 저장합니다") 일괄 다운로드
         p 만든 핸드아웃을 png 파일으로 일괄 저장합니다.
+        button.btn#downVTTHO Roll20 VTT용 핸드아웃 다운로드
+        p 만든 핸드아웃을 Roll20 확장프로그램 
+          a(href='https://justas-d.github.io/roll20-enhancement-suite/') VTT Enhancement Suite
+          | 를 이용해<br> Roll20에 업로드할 수 있는 JSON 파일로 일괄 다운로드합니다.
+        label.fa-solid.fa-book
+          span 설명
+          input(type="checkbox" style="display:none")
+        ol.how-to-use
+          li 
+            a(href='https://justas-d.github.io/roll20-enhancement-suite/') VTT Enhancement Suite
+            | 확장을 설치합니다.
+          li 이 페이지에서 핸드아웃의 내용을 모두 작성합니다.
+          li 'Roll20 VTT용 핸드아웃 다운로드' 버튼을 눌러 JSON 파일을 저장합니다.
+          li VTT가 활성화된 Roll20 페이지에서 '핸드아웃' 탭을 엽니다.
+          li VTTES Importer - Import Characters & Handouts 버튼을 눌러 2번에서 저장한 JSON 파일들을 업로드합니다.
     footer#footer
     script(src="../module.js")
