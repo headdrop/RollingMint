@@ -51,6 +51,7 @@ span.bold {
   width: 100%;
   top: 100%;
   line-height: 1.5;
+  font-size: 1.6rem;
 }
 
 #wrapper > input {
@@ -463,9 +464,6 @@ input:checked + .tabCon {
   text-align: justify;
 }
 
-#insaneHO:checked ~ .bottom p, #insaneHO:checked ~ .bottom li {
-  font-size: 1.6rem;
-}
 #insaneHO:checked ~ .bottom #downHO, #insaneHO:checked ~ .bottom #downHO + p, #insaneHO:checked ~ .bottom #downVTTHO, #insaneHO:checked ~ .bottom #downVTTHO ~ * {
   display: block;
 }
@@ -784,4 +782,8 @@ label.fa-book:not(:has(:checked)) ~ .how-to-use {
 }
 #insaneCard + .tabCon .ho-box-content {
   text-align: justify;
+}
+
+#insaneCard:checked ~ .bottom #downHO, #insaneCard:checked ~ .bottom #downHO + p {
+  display: block;
 }

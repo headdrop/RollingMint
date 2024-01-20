@@ -49,6 +49,7 @@ span.bold {
     width: 100%;
     top: 100%;
     line-height:1.5;
+    font-size:1.6rem;
   }
 }
 #wrapper>input {
@@ -464,11 +465,11 @@ input:checked+.tabCon {
   }
 }
 #insaneHO:checked ~.bottom{
-  p, li {font-size: 1.6rem}
   #downHO,#downHO+p,#downVTTHO,#downVTTHO~* {
     display:block;
   }
 }
+
 .how-to-use {
   margin: 1rem 0;
   padding: 1.2rem 0.6rem 0.6rem 0.6rem;
@@ -795,6 +796,11 @@ label.fa-book {
   }
   .ho-box-content {
     text-align:justify;
+  }
+}
+#insaneCard:checked ~.bottom {
+  #downHO, #downHO+p {
+    display:block;
   }
 }
 
