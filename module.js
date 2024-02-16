@@ -9,7 +9,6 @@ fetch("https://headdrop.github.io/RollingMint/menu.html")
 fetch("https://headdrop.github.io/RollingMint/footer.html")
 // fetch("/footer.html") // 테스트용
   .then(response => {
-    console.log(response);
     return response.text();
   })
   .then(data => {
@@ -24,7 +23,6 @@ if (document.URL.indexOf("log")!==-1 || document.URL.indexOf("handout")!==-1 || 
   mainNotice();
 }
 function pageNotice (page) {
-  console.log(page);
   // fetch("/update.json").then(responce=>{ // 테스트용
   fetch("https://headdrop.github.io/RollingMint/update.json").then(responce=>{ 
     return responce.json() 

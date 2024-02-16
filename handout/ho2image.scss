@@ -85,7 +85,7 @@ button.remove {
   cursor: pointer;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  transition: .3s ease-in;
+  transition: .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   transition-property: background-color;
   &:hover,&:focus,&:active {
     background-color: rgba(255,255,255,0.8);
@@ -290,7 +290,51 @@ input:checked+.tabCon {
       flex-wrap:wrap;
       align-items: flex-start;
       align-content: flex-start;
-      gap:0.8rem;
+      gap:0.5rem;
+      .fa-solid {
+        font-family: "Font Awesome 6 Free"!important;
+        width:30px;
+        flex-shrink:1;
+        flex-grow:1;
+      }
+      .copy {
+        flex-shrink:1;
+        flex-grow:2;
+      }
+      .downEachImg, .downEachVTTES {
+        display: inline-flex;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        &::after {
+          position:absolute;
+          bottom:calc(0.6rem + 100%);
+          padding:4px 8px;
+          border-radius:2px;
+          width:max-content;
+          background:var(--accent-light);
+          color:black;
+          text-align:center;
+          font-family: 'Pretendard';
+          font-weight:400;
+          font-size:1.4rem;
+          opacity:0;
+          transition: 0.3s cubic-bezier(0.23, 1, 0.320, 1) all;
+          pointer-events: none;
+          box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+        }
+        &:hover, &:focus, &:active {
+          &::after {
+            opacity:1;
+          }
+        }
+      }
+      .downEachImg::after {
+        content:"이미지로 다운로드";
+      }
+      .downEachVTTES::after {
+        content:"VTTES용 JSON 다운로드";
+      }
     }
     >textarea, >input {
       font-size:1.6rem;
@@ -804,4 +848,53 @@ label.fa-book {
   }
 }
 
+// DISABLED
+button:disabled {
+  background-color: #CCC;
+  color: #666;
+  cursor: not-allowed;
+  transition:none;
+  &+p {
+    position:absolute;
+    top:4rem;
+    z-index:1;
+    background:var(--sub-accent-light);
+    width:fit-content;
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+    pointer-events: none;
+    opacity: 0;
+    transition: 0.3s cubic-bezier(0.23, 1, 0.320, 1) opacity;
+  }
+}
+button:disabled:hover, button:disabled:active, button:disabled:focus {
+  background-color: #CCC;
+  color: #666;
+  cursor: not-allowed;
+  transform:none;
+  box-shadow:none;
+  &+p {
+    opacity: 1;
+  }
+}
+// 광기카드 공사중
+label[disabled] {
+  position:relative;
+  cursor: not-allowed;
+  color: #CCC;
+  &:hover {
+    color: #CCC;
+    &::after {
+      content:"공사중";
+      position:absolute;
+      width:max-content;
+      top:90%;
+      left:0.65rem;
+      color:white;
+      background:$red;
+      border-radius: 4px;
+      padding:1rem;
+    }
+  }
+}
 
