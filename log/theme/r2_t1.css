@@ -1,7 +1,7 @@
 [class^="sheet-rolltemplate-coc"] {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  width: 400px;
+  max-width:100%;
 }
 
 [class^="sheet-rolltemplate-coc"] .inlinerollresult {
@@ -11,6 +11,8 @@
 
 [class^="sheet-rolltemplate-coc"] table {
   border-collapse: collapse !important;
+  width: 400px;
+  max-width:100%;
 }
 
 @media (max-width: 464px) {
@@ -26,7 +28,7 @@
 }
 
 .sheet-rolltemplate-coc-defence table {
-  width: 100%;
+  /* width: 100%; */
   border: 1px solid black;
   color: black;
   background: #ffffff;
@@ -56,7 +58,7 @@
 }
 
 .sheet-rolltemplate-coc-defence-1 table {
-  width: 100%;
+  /* width: 100%; */
   border: 1px solid black;
   color: black;
   background: #ffffff;
@@ -86,7 +88,7 @@
 }
 
 .sheet-rolltemplate-coc-vehicleattack table {
-  width: 100%;
+  /* width: 100%; */
   border: 1px solid black;
   color: black;
   background: #ffffff;
@@ -116,7 +118,7 @@
 }
 
 .sheet-rolltemplate-coc table {
-  width: 100%;
+  /* width: 100%; */
   border: 1px solid black;
   color: black;
   background: #ffffff;
@@ -146,7 +148,7 @@
 }
 
 .sheet-rolltemplate-coc-attack table {
-  width: 100%;
+  /* width: 100%; */
   border: 1px solid black;
   color: black;
   background: #ffffff;
@@ -176,7 +178,7 @@
 }
 
 .sheet-rolltemplate-coc-1 table {
-  width: 100%;
+  /* width: 100%; */
   border: 1px solid black;
   color: black;
   background: #ffffff;
@@ -206,7 +208,7 @@
 }
 
 .sheet-rolltemplate-coc-attack-1 table {
-  width: 100%;
+  /* width: 100%; */
   border: 1px solid black;
   color: black;
   background: #ffffff;
@@ -236,7 +238,7 @@
 }
 
 .sheet-rolltemplate-coc-dice-roll table {
-  width: 100%;
+  /* width: 100%; */
   border: 1px solid black;
   color: black;
   background: #ffffff;
@@ -266,7 +268,7 @@
 }
 
 .sheet-rolltemplate-coc-bomadness-da-rt table, .sheet-rolltemplate-coc-bomadness-rt table, .sheet-rolltemplate-coc-pulp-bomadness-rt table, .sheet-rolltemplate-coc-bomadness-da-summ table, .sheet-rolltemplate-coc-bomadness-summ table, .sheet-rolltemplate-coc-pulp-bomadness-summ table {
-  width: 100%;
+  /* width: 100%; */
   border: 1px solid black;
   color: black;
   background: #ffffff;
@@ -297,7 +299,7 @@
 }
 
 .sheet-rolltemplate-coc-defence-2 table {
-  width: 100%;
+  /* width: 100%; */
   border: 1px solid black;
   color: black;
   background: #e3dedb;
@@ -330,7 +332,7 @@
 }
 
 .sheet-rolltemplate-coc-minionattack table {
-  width: 100%;
+  /* width: 100%; */
   border: 1px solid black;
   color: black;
   background: #ffffff;
@@ -360,7 +362,7 @@
 }
 
 .sheet-rolltemplate-coc-miniondef table {
-  width: 100%;
+  /* width: 100%; */
   border: 1px solid black;
   color: black;
   background: #e3dedb;
@@ -393,7 +395,7 @@
 }
 
 .sheet-rolltemplate-coc-body-hit-loc table {
-  width: 100%;
+  /* width: 100%; */
   border: 1px solid black;
   color: black;
   background: #ffffff;

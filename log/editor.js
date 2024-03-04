@@ -7,16 +7,12 @@ document.getElementById("font-size-tog").addEventListener('change',(tog)=>{
   } else {
     tg.nextSibling.removeAttribute("disabled");
   }
-})
-// document.getElementById("font-size").addEventListener('change',()=>{
-//   var fontSize = document.getElementById("font-size").value;
-//   document.styleSheets[2].rules[0].style.fontSize = fontSize;
-// })
+});
 document.querySelector("#log-paste").addEventListener('click',()=>{
   
   afterModify();
   var htmlContent = document.getElementById("editable").innerHTML;
-  htmlContent = htmlContent.replace(/class=".+?"/gi,'');
+  // htmlContent = htmlContent.replace(/class=".+?"/gi,'');
   htmlContent = htmlContent.replace(/(<div)((><br>)|(style="">))(<\/div>)/gi,'');
   
   document.getElementById("logdata").value=htmlContent;

@@ -4,6 +4,7 @@
   margin-left: 60px;
   padding: 5px 5px 5px 10px;
   position: relative;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   overflow: visible;
 }
@@ -37,7 +38,6 @@
   top: 0;
   left: -60px;
   width: 50px;
-  height: -moz-fit-content;
   height: fit-content;
 }
 .avatar > img {
@@ -63,4 +63,8 @@
 }
 #공백 .by {
   display: none;
+}
+
+div[class^=sheet-rolltemplate] {
+  max-width: 100%;
 }

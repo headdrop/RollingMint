@@ -86,10 +86,11 @@ function inputHTML () {
   console.log("실행");
   reset();
   var log = document.getElementById("log-input").value.replace(/(src="\/)/g, `src="https://app.roll20.net//`);
+  log = log.replace(/\s\s+\s/gi,' '); // 공백 정리
   log = log.replace(/(\r|\n)\s*/gi,''); // 개행 제거
-  log = log.replace(/(<span class="by">)\s+?/gi,'<span class="by">');
+  log = log.replace(/(<span class="by">)\s+?(\S)/gi,'<span class="by">$2');
   log = log.replace(/<span class=&quot;basicdiceroll&quot;>(.+?)<\/span>/gi,'$1');
-  log = log.replace(/(<img class="sheet-brdright").+?\>/gi,''); // 인세인 엑박 삭제
+  // log = log.replace(/(<img class="sheet-brdright").+?\>/gi,''); // 인세인 엑박 삭제 (인세인 공식시트 엑박 삭제함)
   log = log.replace(/(\(#.+?)</gi,'$1)<'); // 롤꾸 안깨지게 정리 (괄호 없이 남은 거 정리)
   log = log.replace(/\[(.+?)\]\(#" (style.+?\))/gi,'<a $2">$1</a>'); // 잘린 a 붙이기
   for (key of Object.keys(diceinput)) {
@@ -97,11 +98,13 @@ function inputHTML () {
   }
   //dice
   document.getElementById("log-content").innerHTML = log;
+  console.log(log);
   logModify();
   
   nameExColor();
   let lines=0;
   try {
+
     lines = document.querySelector("#log-content .content").childElementCount;
   } catch {
     alert("내용을 입력해 주세요.");
@@ -109,6 +112,7 @@ function inputHTML () {
   setTimeout(function() {
     // url 달기
     let list1 = document.querySelectorAll("#log-content .avatar>img");
+    // console.log(list1);
     for (var x of list1) {
       x.parentNode.parentNode.setAttribute("data-avatarurl",x.src);
     }
@@ -139,12 +143,12 @@ function logModify () {
   });
   // message is hidden 삭제
   document.querySelectorAll("#log-content .hidden-message").forEach(function(item){
-    if (item.querySelector(".avatar")) {
+    if (item.querySelector(".by")) {
       let by = item.querySelectorAll(".spacer,.avatar,.tstamp,.by");
-      item.nextSibling.prepend(by[3]);
-      item.nextSibling.prepend(by[2]);
-      item.nextSibling.prepend(by[1]);
-      item.nextSibling.prepend(by[0]);
+      item.nextElementSibling.prepend(by[3]);
+      item.nextElementSibling.prepend(by[2]);
+      item.nextElementSibling.prepend(by[1]);
+      item.nextElementSibling.prepend(by[0]);
     }
     item.remove();
   });
@@ -302,8 +306,7 @@ function radioOpt() {
       //   }
       //   if (x.parentNode.classList.value.indexOf("general")!=-1|x.parentNode.classList.value.indexOf("rollresult")!=-1) {x.parentNode.id = byId;} // only .general
       // }
-
-
+      
       var byRaw = $(this).find(":selected").text().replace(reg,"");
       let byCut = byRaw.replace(/\s/gi,'_');
       var byId;
