@@ -62,3 +62,7 @@
     display: none;
   }
 }
+// 공통 표
+div[class^="sheet-rolltemplate"] {
+  max-width:100%;
+}
