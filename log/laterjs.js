@@ -147,7 +147,7 @@ function theme () {
 }
 
 // 3. file uploader & custom sheet
-const inputElement = document.querySelector('input[type="file"]');
+const inputElement = document.querySelector('#inputfile');
 const pond = FilePond.create( inputElement );
 
 function customCss () {

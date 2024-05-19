@@ -77,20 +77,60 @@ $(function () {
   });
   //global color picker 만들기
   makeFullGlobalCp();
+
+  // file
+  const inputElement = document.querySelector('#inputhtml');
+  var pondHtml = FilePond.create( inputElement, {
+    labelIdle : '위의 방법으로 복사한 로그를 <b>HTML</b> 혹은 <b>TXT</b>파일로 저장해 업로드할 수 있습니다.<br>너무 큰 파일을 변환할 경우 페이지가 멈춥니다.'
+  });
 });
 
 // 1. html 입력  > 다음 버튼
 function inputHTML () {
+  var log;
+
+  // 파일 업로드
+  var phtml = FilePond.find(document.querySelector('#inputhtml'));
+  if(phtml.getFile(0)!==null) {
+    if(phtml.getFile(0).file.type == "text/html" || phtml.getFile(0).file.type == "text/plain") {
+    } else {
+      alert("txt, html 파일만 업로드할 수 있습니다.");
+      return false;
+    }
+
+    const pending = new Promise((resolve, reject) => {
+      var preader = new FileReader();
+      preader.onload = function() {
+        resolve(preader.result);
+      };
+      preader.readAsText(phtml.getFile(0).file);
+    }).then((data)=>{
+      log = data;
+      htmlMod (log)
+    });
+
+  } else {
+  // textarea 이용
+    if (document.getElementById("log-input").value=="") {
+      alert("내용을 입력해 주세요.");
+      return false;
+    }
+    log = document.getElementById("log-input").value;
+    htmlMod (log)
+  }
+}
+
+function htmlMod (log) {
   modaltog("#loader-modal");
-  var events = $._data($("#log-input"), inputHTML);
+  // var events = $._data($("#log-input"), inputHTML);
   console.log("실행");
   reset();
-  var log = document.getElementById("log-input").value.replace(/(src="\/)/g, `src="https://app.roll20.net//`);
+
+  log = log.replace(/(src="\/)/g, `src="https://app.roll20.net/`); // 이미지 경로 수정
   log = log.replace(/\s\s+\s/gi,' '); // 공백 정리
   log = log.replace(/(\r|\n)\s*/gi,''); // 개행 제거
   log = log.replace(/(<span class="by">)\s+?(\S)/gi,'<span class="by">$2');
   log = log.replace(/<span class=&quot;basicdiceroll&quot;>(.+?)<\/span>/gi,'$1');
-  // log = log.replace(/(<img class="sheet-brdright").+?\>/gi,''); // 인세인 엑박 삭제 (인세인 공식시트 엑박 삭제함)
   log = log.replace(/(\(#.+?)</gi,'$1)<'); // 롤꾸 안깨지게 정리 (괄호 없이 남은 거 정리)
   log = log.replace(/\[(.+?)\]\(#" (style.+?\))/gi,'<a $2">$1</a>'); // 잘린 a 붙이기
   for (key of Object.keys(diceinput)) {
@@ -100,9 +140,9 @@ function inputHTML () {
   document.getElementById("log-content").innerHTML = log;
   console.log(log);
   logModify();
-  
   nameExColor();
   let lines=0;
+
   try {
 
     lines = document.querySelector("#log-content .content").childElementCount;
@@ -119,9 +159,12 @@ function inputHTML () {
     modifying();
     imgInput(); //로 연결
     modaltog();
-  }, 500+lines*3);
-  
+  }, 500+lines*2.8);
 }
+
+
+
+
 function logModify () {
   var log = document.getElementById("log-content");
   if (document.getElementById("ck-colourised").checked===true) { // roll20-colourised 삭제
@@ -152,9 +195,10 @@ function logModify () {
     }
     item.remove();
   });
-
   addID();
 }
+
+
 function modifying() {
   let imgMod = document.querySelectorAll("#log-content a>img");
   for (var m of imgMod) {
