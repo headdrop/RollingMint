@@ -138,11 +138,13 @@ function htmlMod (log) {
   }
   //dice
   document.getElementById("log-content").innerHTML = log;
+  console.log(log);
   logModify();
   nameExColor();
   let lines=0;
 
   try {
+
     lines = document.querySelector("#log-content .content").childElementCount;
   } catch {
     alert("내용을 입력해 주세요.");
