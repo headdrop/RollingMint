@@ -25,7 +25,6 @@ html(lang='ko')
     link(rel='icon' type='image/png' href='../source/favicon.png')
     
 
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/dom-to-image-more/3.2.0/dom-to-image-more.min.js' crossorigin)
     script(src='https://html2canvas.hertzen.com/dist/html2canvas.min.js' crossorigin)
     script(src='https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js')
     script(src="https://cdn.rawgit.com/Keyang/node-csvtojson/d41f44aa/browser/csvtojson.min.js")
@@ -44,7 +43,7 @@ html(lang='ko')
         label(for='insaneHO')
           p 인세인
           | 핸드아웃
-        label(for='insaneCard' disabled)
+        label(for='insaneCard')
           p 인세인
           | 광기카드
         label(for='insaneRitual')
@@ -101,7 +100,7 @@ html(lang='ko')
             .controls
               button.btn.copy.c-front 앞면 복사
               button.btn.copy.c-back 뒷면 복사
-              button.btn.downEachImg.fa-solid.fa-image(onclick="alert('아직 준비중인 기능입니다.')" disabled)
+              button.btn.downEachImg.fa-solid.fa-image(onclick="downImgEach(this.parentNode.parentNode)")
               button.btn.downEachVTTES.fa-solid.fa-download(onclick="handoutToVTT(this.parentNode.parentNode)")
               button.btn.btn-red.remove 
             .ho-output.front &nbsp;
@@ -131,7 +130,7 @@ html(lang='ko')
                   .ho-box-2 이 비밀을 스스로 밝힐 수는 없다
                     img(src="https://imgur.com/4MJ4Ar0.png")
 
-      input#insaneCard(disabled type='radio' name='tabmenu' value='광기카드')
+      input#insaneCard(type='radio' name='tabmenu' value='광기카드')
       .tabCon
         .content
           style#font .ho-card * {}
@@ -202,8 +201,8 @@ html(lang='ko')
                       img(src="https://imgur.com/4MJ4Ar0.png")
       .bottom
         button.btn#downRitual 의식시트 다운로드
-        button.btn#downHO(title="만든 핸드아웃 혹은 광기카드를 png 파일으로 일괄 저장합니다" disabled) 이미지 일괄 다운로드
-        p 만든 핸드아웃 혹은 광기카드를 png 파일으로 일괄 저장합니다.<br>시간이 다소 걸리니 클릭 후 기다려주세요.<br><b>현재 이미지 다운로드는 정상 동작하지 않습니다(일부 파일 누락)<br>수정될 때까지는 VTTES 핸드아웃 다운로드 혹은 복사-붙여넣기를 이용해주세요.</b>
+        button.btn#downHO(title="만든 핸드아웃 혹은 광기카드를 png 파일으로 일괄 저장합니다") 이미지 일괄 다운로드
+        p 만든 핸드아웃 혹은 광기카드를 png 파일으로 일괄 저장합니다.<br>시간이 다소 걸리니 클릭 후 기다려주세요.
         button.btn#downVTTHO Roll20 VTTES 핸드아웃 다운로드
         p 만든 핸드아웃을 Roll20 확장프로그램 
           a(href='https://justas-d.github.io/roll20-enhancement-suite/') VTT Enhancement Suite

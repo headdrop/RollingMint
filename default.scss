@@ -63,6 +63,7 @@ footer{
     // padding-bottom:2rem;
     font-size:1.4rem;
     text-align: center;
+    
     div:last-child {
       display:inline-block;
       position: relative;
@@ -70,24 +71,27 @@ footer{
       background:$gray0e;
       font-size:1.6rem;
       border-radius: 5px;
-      overflow:hidden;
-      box-shadow:$btnShadow;
       span {
+        box-shadow:$btnShadow;
         display:inline-block;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
       }
       span:first-child {
         background:var(--main-color);
         color:#fff;
         padding: 5px 1em;
       }
-      a {
-        display:inline-block;
+      a,label {
+        display:inline-flex;
+        justify-content: center;
         padding: 5px 10px;
         cursor: pointer;
         color:$gray04;
         text-decoration: none!important;
         transition: all 0.2s ease-in-out;
         
+        position:relative;
         &:visited {
           color:$gray04;
         }
@@ -95,6 +99,27 @@ footer{
           color:var(--main-dark);
           background:rgba(255,255,255,0.5);
         }
+      }
+      .qrimgbox {
+        // display:none;
+        visibility: hidden;
+        width:200px;
+        position: absolute;
+        bottom:40px;
+        overflow: hidden;
+        border-radius: 5px;
+        box-shadow:$btnShadow;
+        opacity: 0;
+        transition: all 0.3s ease-in-out;
+        pointer-events: none;
+        
+        img {max-width:100%;}
+      }
+      label input:checked + .qrimgbox {
+        // display:block;
+        visibility: visible;
+        opacity: 1;
+
       }
     }
   }

@@ -138,17 +138,17 @@ function htmlMod (log) {
   }
   //dice
   document.getElementById("log-content").innerHTML = log;
-  console.log(log);
+
   logModify();
   nameExColor();
   let lines=0;
 
   try {
-
     lines = document.querySelector("#log-content .content").childElementCount;
   } catch {
     alert("내용을 입력해 주세요.");
   }
+
   setTimeout(function() {
     // url 달기
     let list1 = document.querySelectorAll("#log-content .avatar>img");
@@ -184,18 +184,32 @@ function logModify () {
   document.querySelectorAll("#log-content .flyout").forEach(function(item){
     item.remove();
   });
+
+  addID();
+
   // message is hidden 삭제
   document.querySelectorAll("#log-content .hidden-message").forEach(function(item){
-    if (item.querySelector(".by")) {
-      let by = item.querySelectorAll(".spacer,.avatar,.tstamp,.by");
-      item.nextElementSibling.prepend(by[3]);
-      item.nextElementSibling.prepend(by[2]);
-      item.nextElementSibling.prepend(by[1]);
-      item.nextElementSibling.prepend(by[0]);
+    console.log(item.previousElementSibling,item,item.nextElementSibling);
+    if (item.querySelector('.by')) {
+      if(item.id === item.nextElementSibling.id && item.id === item.previousElementSibling.id) { // 세개 다 같으면 그냥 삭제
+      } else if (item.nextElementSibling.id === item.previousElementSibling.id) {
+        // 이전 메시지 캐릭터 = 다음 메시지 캐릭터 : 다음 메시지 캐릭터정보 삭제
+        let by = item.nextElementSibling.querySelectorAll(".spacer,.avatar,.tstamp,.by");
+        by.forEach((bby)=>{bby.remove()})
+      } else if (item.id === item.nextElementSibling.id) {
+        // 이전 =/= 지우는 = 다음 : 지우는 메시지의 캐릭터 정보를 다음 메시지로
+        let by = item.querySelectorAll(".spacer,.avatar,.tstamp,.by");
+        item.nextElementSibling.prepend(by[3]);
+        item.nextElementSibling.prepend(by[2]);
+        item.nextElementSibling.prepend(by[1]);
+        item.nextElementSibling.prepend(by[0]);
+      }
     }
+    // if (item.querySelector(".by")) {
+    // }
     item.remove();
   });
-  addID();
+  
 }
 
 
@@ -698,10 +712,11 @@ function addID() {
     } else {
       byId = byCut;
     }
-    if (x.parentNode.classList.value.indexOf("general")!=-1|x.parentNode.classList.value.indexOf("rollresult")!=-1) {x.parentNode.id = byId;} // only .general
+    if (x.parentNode.classList.value.indexOf("message")!=-1|x.parentNode.classList.value.indexOf("rollresult")!=-1) {x.parentNode.id = byId;} // only .general
   }
   // by 없는 message 에 ID 달기
-  let noID = document.querySelectorAll("#log-content .message.general:not([ID]), #log-content .message.rollresult:not([ID]), #log-content .message.hidden-message:not([ID])");
+  // let noID = document.querySelectorAll("#log-content .message.general:not([ID]), #log-content .message.rollresult:not([ID]), #log-content .message.hidden-message:not([ID])");
+  let noID = document.querySelectorAll("#log-content .message:not([ID],.desc)");
   try {
     for (var y of noID) {
       var z = y.previousElementSibling;
