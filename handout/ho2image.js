@@ -29,10 +29,7 @@ window.onload = function () {
   document.getElementById("downRitual").onclick = function(){
   var target = document.querySelector('input[name="tabmenu"]:checked+.tabCon .content');
   var fileName = document.querySelector('input[name="tabmenu"]:checked').value+"_"+document.querySelector('input[name="tabmenu"]:checked+.tabCon .inputbox').innerHTML;
-  // domtoimage.toBlob(target)
-  // .then(function (blob) {
-  // window.saveAs(blob, fileName+'.png');
-  // });
+
   html2canvas(target).then(function(canvas) {
   var imgData = canvas.toDataURL();
   downloadURL(imgData,fileName+".png");
@@ -118,10 +115,13 @@ window.onload = function () {
     document.getElementById("downRitual").onclick = function(){
       var target = document.querySelector('input[name="tabmenu"]:checked+.tabCon .content');
       var fileName = document.querySelector('input[name="tabmenu"]:checked').value+"_"+document.querySelector('input[name="tabmenu"]:checked+.tabCon .inputbox').innerHTML;
-      domtoimage.toBlob(target)
-      .then(function (blob) {
-      window.saveAs(blob, fileName+'.png');
+
+      // htoml2canvas 사용
+      html2canvas(target).then(function(canvas) {
+        var imgData = canvas.toDataURL();
+        downloadURL(imgData,fileName+".png");
       });
+
       }
     sync(newNode);
   });
@@ -143,13 +143,26 @@ window.onload = function () {
 }
 // start ----
 
-function downloadURL (uri,name) {
+function downloadURL (uri,name,isConvertToBlob=false) {
   var link = document.createElement("a");
   link.download = name;
   link.href = uri;
   document.body.appendChild(link);
-  link.click();
+  if(!isConvertToBlob) {
+    link.click();
+  } else {
+    return convertURLtoFile(uri);
+  }
 }
+async function convertURLtoFile (url) {
+  const response = await fetch(url);
+  const data = await response.blob();
+  const ext = url.split(".").pop();
+  const filename = url.split("/").pop();
+  const metadata = { type: `image/${ext}` };
+  return new File([data], filename, metadata);
+};
+
 function changeCardInput (e) {
   var filename = document.getElementById("input_import_csv_filename");
   if (e.target.files[0]===undefined) {
@@ -223,12 +236,50 @@ function cardSyncEventAdd (item) {
 
 }
 
+async function downImgEach (targetClassItem) { 
+  const type = document.querySelector('input[name="tabmenu"]:checked').id;
+  if (type!=="insaneHO") return false; // 인세인 HO만 작동
+
+  if (targetClassItem.querySelector("img")) {
+    await new Promise((resolve,reject)=>{
+      const image = targetClassItem.querySelector("img");
+      image.src = handprint;
+      image.onload = resolve;
+      image.onerror = reject;
+    });
+  }
+  let fileName;
+
+  fileName = targetClassItem.querySelector("input.front-1").value;
+  if (fileName.value=="") {
+    alert("핸드아웃 이름을 입력하세요.");
+    return false;
+  }
+  fileName = "핸드아웃_"+fileName;
+  let outputFront = targetClassItem.querySelector(".ho-output .ho-front");
+  let outputBack = targetClassItem.querySelector(".ho-output .ho-back");
+
+  // htoml2canvas 사용
+  html2canvas(outputFront).then(function(canvas) {
+    var imgData = canvas.toDataURL();
+    downloadURL(imgData,fileName+".png");
+  });
+  html2canvas(outputBack).then(function(canvas) {
+    var imgData = canvas.toDataURL();
+    downloadURL(imgData,fileName+"_뒷면.png");
+  });
+
+}
+
 // 이미지 ALL 다운로드 함수
 function downImgAll (fontname = 'Pretendard') {
   fontname = document.querySelector("#fontName :checked").value;
   const type = document.querySelector('input[name="tabmenu"]:checked').id;
   const targetArr = Array.from(document.querySelectorAll(`#${type}+.tabCon .item .ho-output>div`));
   var zip = new JSZip();
+  let typeName="RollingMint";
+  if (type==="insaneHO") typeName += "HO-";
+  else if (type==="insaneCard") typeName += "Card-";
 
   targetArr.forEach((target,i,arr)=>{
     if (target.querySelector("img")) {
@@ -246,21 +297,23 @@ function downImgAll (fontname = 'Pretendard') {
       fileName = target.querySelector(".ho-box-title:first-child>div:last-of-type").textContent;
       fileName = "광기카드_"+fileName;
     }
-    
-    domtoimage.toBlob(target,{cacheBuster: false})
-    .then(function (blob) {
-      zip.file(fileName+'.png', blob);
-      console.log("file");
-      // saveAs(blob, fileName+'.png');
+  
+    // htoml2canvas 사용
+    html2canvas(target).then(function(canvas) {
+      var imgData = canvas.toDataURL();
+      zip.file(fileName+".png",downloadURL(imgData,fileName+".png",true));
       if(i+1 === arr.length) { // last one
         zip.generateAsync({type:"blob"})
         .then(function(content){
-          console.log("save");
-          saveAs(content,"handoutIMG-"+datestring()+".zip");
+          saveAs(content,typeName+datestring()+".zip");
         });
       }
     });
+
+
   });
+
+  
 }
 
 // 핸드아웃 VTTES ALL 다운로드 이벤트용 함수

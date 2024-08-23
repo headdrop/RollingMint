@@ -63,31 +63,53 @@ footer .sponsor div:last-child {
   background: #e9e9ef;
   font-size: 1.6rem;
   border-radius: 5px;
-  overflow: hidden;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 }
 footer .sponsor div:last-child span {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
   display: inline-block;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 footer .sponsor div:last-child span:first-child {
   background: var(--main-color);
   color: #fff;
   padding: 5px 1em;
 }
-footer .sponsor div:last-child a {
-  display: inline-block;
+footer .sponsor div:last-child a, footer .sponsor div:last-child label {
+  display: inline-flex;
+  justify-content: center;
   padding: 5px 10px;
   cursor: pointer;
   color: #4b4a4d;
   text-decoration: none !important;
   transition: all 0.2s ease-in-out;
+  position: relative;
 }
-footer .sponsor div:last-child a:visited {
+footer .sponsor div:last-child a:visited, footer .sponsor div:last-child label:visited {
   color: #4b4a4d;
 }
-footer .sponsor div:last-child a:hover, footer .sponsor div:last-child a:focus, footer .sponsor div:last-child a:active {
+footer .sponsor div:last-child a:hover, footer .sponsor div:last-child a:focus, footer .sponsor div:last-child a:active, footer .sponsor div:last-child label:hover, footer .sponsor div:last-child label:focus, footer .sponsor div:last-child label:active {
   color: var(--main-dark);
   background: rgba(255, 255, 255, 0.5);
+}
+footer .sponsor div:last-child .qrimgbox {
+  visibility: hidden;
+  width: 200px;
+  position: absolute;
+  bottom: 40px;
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+  pointer-events: none;
+}
+footer .sponsor div:last-child .qrimgbox img {
+  max-width: 100%;
+}
+footer .sponsor div:last-child label input:checked + .qrimgbox {
+  visibility: visible;
+  opacity: 1;
 }
 footer .footer {
   height: 60px;
