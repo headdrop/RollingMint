@@ -190,7 +190,7 @@ function logModify () {
   // message is hidden 삭제
   document.querySelectorAll("#log-content .hidden-message").forEach(function(item){
     console.log(item.previousElementSibling,item,item.nextElementSibling);
-    if (item.querySelector('.by')) {
+    if (item.querySelector('.by') && item.previousElementSibling) {
       if(item.id === item.nextElementSibling.id && item.id === item.previousElementSibling.id) { // 세개 다 같으면 그냥 삭제
       } else if (item.nextElementSibling.id === item.previousElementSibling.id) {
         // 이전 메시지 캐릭터 = 다음 메시지 캐릭터 : 다음 메시지 캐릭터정보 삭제
@@ -716,14 +716,16 @@ function addID() {
   }
   // by 없는 message 에 ID 달기
   // let noID = document.querySelectorAll("#log-content .message.general:not([ID]), #log-content .message.rollresult:not([ID]), #log-content .message.hidden-message:not([ID])");
-  let noID = document.querySelectorAll("#log-content .message:not([ID],.desc)");
-  try {
-    for (var y of noID) {
-      var z = y.previousElementSibling;
-      while (z.id==null)  { z = z.previousElementSibling;}
-      y.id=z.id; 
-    }
-  } catch(err) {console.log(err)};
+  let noID = document.querySelectorAll("#log-content .message:not([ID],.desc,.emote)");
+  for (var item_noID of noID) {
+    try {
+      var prev_noID = item_noID.previousElementSibling;
+      while (prev_noID.id==null)  {
+        prev_noID = prev_noID.previousElementSibling;
+      }
+      item_noID.id=prev_noID.id; 
+    } catch(err) {console.log(err)};
+  }
 }
 
 
